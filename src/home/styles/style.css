@@ -1,16 +1,16 @@
 @font-face {
     font-family: "Comfortaa";
-    src: url("../assets/fonts/Comfortaa/Comfortaa-VariableFont_wght.ttf")
+    src: url("../assets/fonts/Comfortaa-VariableFont_wght.ttf")
 }
 
 @font-face {
     font-family: "Roboto Mono";
-    src: url("../assets/fonts/Roboto_Mono/RobotoMono-VariableFont_wght.ttf");
+    src: url("../assets/fonts/RobotoMono-VariableFont_wght.ttf");
 }
 
 @font-face {
     font-family: "Martian Mono";
-    src: url("../assets/fonts/Martian_Mono/MartianMono-VariableFont_wdth,wght.ttf");
+    src: url("../assets/fonts/MartianMono-VariableFont_wdth,wght.ttf");
 }
 
 * {

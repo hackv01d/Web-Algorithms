@@ -173,3 +173,5 @@ package-lock.json
 .eslintcache
 *v8.log
 lib/
+/src/build/
+/src/build/
