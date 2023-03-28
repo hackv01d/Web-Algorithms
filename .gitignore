@@ -130,10 +130,10 @@ tests/baselines/reference/testresults.tap
 tests/services/baselines/prototyping/local/*
 tests/services/browser/typescriptServices.js
 src/harness/*.js
-app/compiler/diagnosticInformationMap.generated.ts
-app/compiler/diagnosticMessages.generated.json
-app/parser/diagnosticInformationMap.generated.ts
-app/parser/diagnosticMessages.generated.json
+src/compiler/diagnosticInformationMap.generated.ts
+src/compiler/diagnosticMessages.generated.json
+src/parser/diagnosticInformationMap.generated.ts
+src/parser/diagnosticMessages.generated.json
 rwc-report.html
 *.swp
 build.json
