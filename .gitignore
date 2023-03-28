@@ -108,7 +108,6 @@ fabric.properties
 .idea/**/azureSettings.xml
 
 ### TS ###
-tsconfig.json
 node_modules/
 .node_modules/
 built/*
