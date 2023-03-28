@@ -1,0 +1,147 @@
+@font-face {
+    font-family: "Comfortaa";
+    src: url("../assets/fonts/Comfortaa/Comfortaa-VariableFont_wght.ttf")
+}
+
+@font-face {
+    font-family: "Roboto Mono";
+    src: url("../assets/fonts/Roboto_Mono/RobotoMono-VariableFont_wght.ttf");
+}
+
+@font-face {
+    font-family: "Martian Mono";
+    src: url("../assets/fonts/Martian_Mono/MartianMono-VariableFont_wdth,wght.ttf");
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Comfortaa", sans-serif;
+}
+
+.main-screen {
+    display: flex;
+    transition: transform .5s ease;
+}
+
+.main-screen > div {
+    height: 100vh;
+    min-width: 100vw;
+}
+
+.container {
+    height: 100vh;
+    background: #111111;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+header, .content-nav {
+    margin-left: 40px;
+}
+
+.title, .subtitle {
+    text-align: left;
+    color: #fff;
+}
+
+.title {
+    font-size: 6vw;
+    line-height: 7vw;
+    font-family: "Roboto Mono", sans-serif;
+}
+
+.subtitle {
+    line-height: 1.5;
+    font-size: 2.3vw;
+    margin-top: 24px;
+    font-weight: normal;
+}
+
+.anim-letter {
+    border-width: 7px;
+    border-right: 5px solid white;
+    padding-right: 18px;
+}
+
+.visible-letter {
+    border-color: transparent;
+}
+
+.nav-start {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    bottom: 15vh;
+    left: 40px;
+}
+
+.button-start {
+    margin-bottom: 0.7vh;
+    font-size: 1.5vw;
+    text-decoration: none;
+    border: none;
+    color: white;
+    font-weight: bold;
+    letter-spacing: 2px;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+.button-start:hover {
+    color: #5e3ca2
+}
+
+.algorithms-screen {
+    background-color: #111111;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.nav-content {
+    margin-left: 2vw;
+}
+
+.nav-btn {
+    display: flex;
+    align-items: center;
+    margin: 3vh 1vw;
+}
+
+.nav-btn > div {
+    width: 1.8vw;
+    height: 1.8vw;
+    margin-right: 1vw;
+    background-color: transparent;
+    border: 2px solid white;
+    border-radius: 50%;
+    transition: background-color .3s;
+}
+
+.nav-btn div:hover {
+    background-color: white;
+}
+
+.nav-btn > span {
+    display: none;
+    color: white;
+}
+
+.a-star-screen {
+    align-self: center;
+    position: relative;
+    top: -60vh;
+}
+
+.a-star-screen header {
+    color: white;
+}
+
+
+
+
