@@ -38,17 +38,17 @@ const subtitleInfo: ITitle = {
 }
 
 function makeSpanWith(letter: string, className: string): HTMLSpanElement {
-    let span = document.createElement('span')
+    const span = document.createElement('span')
     span.textContent = letter
     span.classList.add(className)
     return span
 }
 
-function animateText(title: ITitle): void {
+function animateHeader(title: ITitle): void {
     let curIndex = 0
 
     let currentSpan: HTMLSpanElement
-    let animationInterval = setInterval(() => {
+    const animationInterval = setInterval(() => {
         if (currentSpan != undefined) currentSpan.classList.remove(title.showModeName)
 
         currentSpan = makeSpanWith(title.letterArray[curIndex], title.showModeName)
@@ -57,7 +57,7 @@ function animateText(title: ITitle): void {
         if (curIndex == title.lineBreakIndex) title.wrapper.appendChild(document.createElement('br'))
         if (curIndex == title.letterArray.length - 1)  {
             stopAnimationInterval()
-            if (!title.isLast) animateText(subtitleInfo)
+            if (!title.isLast) animateHeader(subtitleInfo)
             else {
                 currentSpan.classList.remove(title.showModeName)
                 buttonStart.style.opacity = "1"
@@ -72,15 +72,15 @@ function animateText(title: ITitle): void {
     }
 }
 
-animateText(titleInfo)
+animateHeader(titleInfo)
 
 buttonStart.addEventListener('click', () => {
     mainScreen.style.transform = 'translateX(-100vw)'
 })
 
 function toggleDisplayName(event: MouseEvent): void {
-    let target = event.target as HTMLDivElement
-    let elContentName = target.nextElementSibling as HTMLDivElement
+    const target = event.target as HTMLDivElement
+    const elContentName = target.nextElementSibling as HTMLDivElement
 
     if (event.type == 'mouseover') {
         elContentName.style.opacity = "1"
@@ -95,8 +95,8 @@ navigationButtons.forEach(element => { element.addEventListener('mouseleave', to
 let currentScreenIndex = 0
 navigationButtons.forEach(element => {
     element.addEventListener('click', (event: MouseEvent) => {
-        let target = event.target as HTMLDivElement
-        let newScreenIndex = navigationButtons.indexOf(target)
+        const target = event.target as HTMLDivElement
+        const newScreenIndex = navigationButtons.indexOf(target)
 
         algorithmScreen.style.transform = `translateY(-${newScreenIndex * 100}vh)`
         currentScreenIndex = newScreenIndex

@@ -175,4 +175,3 @@ package-lock.json
 lib/
 /src/build/
 /src/build/
-**.css.map
