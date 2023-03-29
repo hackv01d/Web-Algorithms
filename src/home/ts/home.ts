@@ -101,6 +101,5 @@ navigationButtons.forEach(element => {
 
         algorithmScreen.style.transform = `translateY(-${newScreenIndex * 100}vh)`
         currentScreenIndex = newScreenIndex
-
     })
 })

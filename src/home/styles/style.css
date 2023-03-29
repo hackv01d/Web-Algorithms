@@ -8,11 +8,6 @@
     src: url("../assets/fonts/RobotoMono-VariableFont_wght.ttf");
 }
 
-@font-face {
-    font-family: "Martian Mono";
-    src: url("../assets/fonts/MartianMono-VariableFont_wdth,wght.ttf");
-}
-
 * {
     box-sizing: border-box;
     margin: 0;
@@ -27,6 +22,7 @@
 .main-screen > div {
     height: 100vh;
     min-width: 100vw;
+    overflow: hidden;
 }
 
 .container {
@@ -100,11 +96,11 @@ header, .content-nav {
 }
 
 .content {
-    font-family: "Comfortaa", sans-serif;
-    background-color: #111111;
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    background-color: #111111;
+    font-family: "Comfortaa", sans-serif;
 }
 
 .nav-content {
@@ -145,15 +141,13 @@ header, .content-nav {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    min-width: 100vw;
-    min-height: 100vh;
     transition: transform .5s ease;
 }
 
 .algorithms-screen > div {
     text-align: center;
     min-width: 100vw;
-    min-height: 100vh;
+    height: 100vh;
 }
 
 .content-screen header {
