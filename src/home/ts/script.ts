@@ -81,7 +81,6 @@ buttonStart.addEventListener('click', () => {
 function toggleDisplayName(event: MouseEvent): void {
     let target = event.target as HTMLDivElement
     let elContentName = target.nextElementSibling as HTMLDivElement
-    let curMode = elContentName.style.display
 
     if (event.type == 'mouseover') {
         elContentName.style.opacity = "1"
