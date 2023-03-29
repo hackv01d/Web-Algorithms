@@ -1,6 +1,8 @@
 const mainScreen = document.querySelector('.main-screen') as HTMLDivElement
-const buttonStartHandle = document.querySelector('.button-start') as HTMLButtonElement
+const buttonStart = document.querySelector('.button-start') as HTMLButtonElement
+
 const navigationButtons = Array.from<HTMLDivElement>(document.querySelectorAll('.nav-btn div'))
+const algorithmScreen = document.querySelector('.algorithms-screen') as HTMLDivElement
 
 const elTitle = document.querySelector('.title') as HTMLDivElement
 const elSubtitle = document.querySelector('.subtitle') as HTMLDivElement
@@ -56,7 +58,10 @@ function animateText(title: ITitle): void {
         if (curIndex == title.letterArray.length - 1)  {
             stopAnimationInterval()
             if (!title.isLast) animateText(subtitleInfo)
-            else currentSpan.classList.remove(title.showModeName)
+            else {
+                currentSpan.classList.remove(title.showModeName)
+                buttonStart.style.opacity = "1"
+            }
         }
 
         curIndex += 1
@@ -69,7 +74,7 @@ function animateText(title: ITitle): void {
 
 animateText(titleInfo)
 
-buttonStartHandle.addEventListener('click', () => {
+buttonStart.addEventListener('click', () => {
     mainScreen.style.transform = 'translateX(-100vw)'
 })
 
@@ -79,11 +84,23 @@ function toggleDisplayName(event: MouseEvent): void {
     let curMode = elContentName.style.display
 
     if (event.type == 'mouseover') {
-        elContentName.style.display = 'block'
+        elContentName.style.opacity = "1"
     } else {
-        elContentName.style.display = 'none'
+        elContentName.style.opacity = '0'
     }
 }
 
 navigationButtons.forEach(element => { element.addEventListener('mouseover', toggleDisplayName) })
 navigationButtons.forEach(element => { element.addEventListener('mouseleave', toggleDisplayName) })
+
+let currentScreenIndex = 0
+navigationButtons.forEach(element => {
+    element.addEventListener('click', (event: MouseEvent) => {
+        let target = event.target as HTMLDivElement
+        let newScreenIndex = navigationButtons.indexOf(target)
+
+        algorithmScreen.style.transform = `translateY(-${newScreenIndex * 100}vh)`
+        currentScreenIndex = newScreenIndex
+
+    })
+})
