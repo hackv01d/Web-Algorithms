@@ -1,7 +1,7 @@
 
-import { Point} from "./cluster";
+import { Point} from "./cluster.js";
 
-
+import {kmeans} from "./Kmeans.js";
 
 export let points: Point[] = [
 
@@ -40,3 +40,5 @@ slider.addEventListener("input", (event) => {
     const target = event.target as HTMLInputElement;
     currentValueSpan.textContent = target.value;
 });
+let arr:Point[] =[]
+let km  = new kmeans(3, arr);

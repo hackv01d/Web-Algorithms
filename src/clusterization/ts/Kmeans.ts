@@ -1,7 +1,7 @@
-import { Point } from "./cluster";
+import { Point } from "./cluster.js";
 
 
-class kmeans{
+export class kmeans{
     private k: number;
     private points : Point[];
     private centroids : Point[];
