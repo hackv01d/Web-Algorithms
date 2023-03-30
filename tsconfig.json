@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "es2016",
+    "outDir": "script",
+    //  "outDir": "./src/build/js",
+    "watch": true,
+    "lib": [
+      "es5",
+      "es6",
+      "dom",
+      "dom.iterable"
+    ]
+  },
+  "files": [
+    "ts/Kmeans.ts",
+    "ts/cluster.ts",
+    "ts/drawing.ts"
+  ]
+}
