@@ -1,0 +1,152 @@
+@font-face {
+  font-family: "Comfortaa";
+  src: url("/src/home/assets/fonts/Comfortaa-VariableFont_wght.ttf");
+}
+@font-face {
+  font-family: "Roboto Mono";
+  src: url("/src/home/assets/fonts/RobotoMono-VariableFont_wght.ttf");
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #111111;
+  overflow: hidden;
+}
+
+.main-screen {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+.main-screen > div {
+  height: 100vh;
+  min-width: 100vw;
+}
+
+.container {
+  height: 100vh;
+  background: #111111;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+.container > header {
+  margin-left: 40px;
+}
+
+.title {
+  text-align: left;
+  color: white;
+  font-size: 6vw;
+  line-height: 7vw;
+  font-family: "Roboto Mono", sans-serif;
+}
+
+.subtitle {
+  text-align: left;
+  color: white;
+  line-height: 1.5;
+  font-size: 2.3vw;
+  margin-top: 24px;
+  font-weight: normal;
+  font-family: "Comfortaa", sans-serif;
+}
+
+.anim-letter {
+  border-width: 7px;
+  border-right: 5px solid white;
+  padding-right: 18px;
+}
+
+.visible-letter {
+  border-color: transparent;
+}
+
+.nav-start {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  bottom: 15vh;
+  left: 40px;
+}
+
+.button-start {
+  margin-bottom: 0.7vh;
+  font-size: 1.5vw;
+  text-decoration: none;
+  border: none;
+  color: white;
+  font-weight: bold;
+  letter-spacing: 2px;
+  cursor: pointer;
+  background-color: transparent;
+  opacity: 0;
+  transition: opacity 2s;
+  font-family: "Comfortaa", sans-serif;
+}
+.button-start:hover {
+  color: #5f13da;
+}
+
+.content {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: #111111;
+  font-family: "Comfortaa", sans-serif;
+}
+
+.nav-content {
+  margin-left: 86vw;
+  position: fixed;
+  z-index: 1;
+}
+
+.nav-btn {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  min-height: 6vh;
+}
+.nav-btn > div {
+  min-width: 1.5vw;
+  min-height: 1.5vw;
+  margin-left: 1vw;
+  background-color: transparent;
+  border: 2px solid white;
+  border-radius: 50%;
+  transition: background-color 0.3s;
+}
+.nav-btn > div:hover {
+  background-color: white;
+}
+.nav-btn > span {
+  text-align: left;
+  opacity: 0;
+  color: white;
+  font-size: 1.1vw;
+}
+
+.algorithms-screen {
+  display: flex;
+  align-self: flex-start;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  transition: transform 0.5s ease;
+}
+.algorithms-screen > div {
+  text-align: center;
+  min-width: 100vw;
+  height: 100vh;
+}
+
+.content-screen header {
+  margin-top: 3vh;
+  color: white;
+}

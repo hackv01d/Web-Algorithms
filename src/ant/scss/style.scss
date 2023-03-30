@@ -1,0 +1,124 @@
+@import url("https://fonts.googleapis.com/css?family=Literata&display=swap");
+
+body {
+  font-family: "Literata", serif;
+  background: black no-repeat center;
+  background-size: cover;
+  font-size: 20px;
+  margin: 0;
+  color: white;
+  height: 100%;
+  line-height: 1.6;
+}
+
+.container {
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.buttons {
+  text-decoration: none;
+  display: inline-block;
+  position: relative;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: none;
+  font-weight: 300;
+  font-family: "Montserrat", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.buttons:before, .border-button:after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  box-sizing: border-box;
+}
+
+.buttons:before {
+  bottom: 0;
+  left: 0;
+  border-left: 1px solid white;
+  border-top: 1px solid white;
+  transition: 0s ease opacity 0.8s, 0.2s ease width 0.4s, 0.2s ease height 0.6s;
+}
+
+.buttons:after {
+  top: 0;
+  right: 0;
+  border-right: 1px solid white;
+  border-bottom: 1px solid white;
+  transition: 0s ease opacity 0.4s, 0.2s ease width, 0.2s ease height 0.2s;
+}
+
+.buttons:hover:before,
+.buttons:hover:after {
+  height: 100%;
+  width: 100%;
+  opacity: 1;
+}
+
+.buttons:hover:before {
+  transition: 0s ease opacity 0s, 0.2s ease height, 0.2s ease width 0.2s;
+}
+
+.buttons:hover:after {
+  transition: 0s ease opacity 0.4s, 0.2s ease height 0.4s, 0.2s ease width 0.6s;
+}
+
+.buttons:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.main {
+  font-size: 30px;
+  border-radius: 6px;
+  margin: 0;
+  width: 100%;
+  height: 100vh;
+}
+
+.variants {
+  margin: 0 40px 10px;
+  position: relative;
+  left: -40px;
+}
+
+.container-canvas {
+  display: block;
+  justify-content: center;
+  width: 100%;
+  height: 75vh;
+}
+
+#canvasAnt {
+  width: 100%;
+  height: 100%;
+  background: no-repeat white;
+}
+
+.preferences {
+  display: block;
+  font-size: 20px;
+}
+
+.userInputs {
+  display: flex;
+  align-items: baseline;
+}
+
+#countSendDiapason {
+  align-items: center;
+  position: relative;
+  left: 10%;
+}
+
+#remainFeromonDiapason {
+  align-items: center;
+  position: relative;
+  left: 20%;
+}
