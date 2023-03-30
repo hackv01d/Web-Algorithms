@@ -2,7 +2,8 @@ import { INavOptions } from "./interfaces/INavOptions";
 
 export function toggleDisplayName(event: MouseEvent): void {
     const target = event.target as HTMLDivElement
-    const elContentName = target.nextElementSibling as HTMLSpanElement
+    const parent = target.closest('.nav-btn') as HTMLSpanElement
+    let elContentName = parent.querySelector('span')
 
     if (event.type == 'mouseover') {
         elContentName.style.opacity = "1"
