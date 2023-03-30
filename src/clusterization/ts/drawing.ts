@@ -13,8 +13,8 @@ const baseColorCircle = 'white';
 let canvas = document.getElementById('canv') as HTMLCanvasElement;
 let ctx = canvas.getContext('2d');
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+canvas.width = 600;
+canvas.height = 600;
 
 
 canvas.addEventListener('click', function (event) {
@@ -31,5 +31,12 @@ canvas.addEventListener('click', function (event) {
     points.push({ x, y } as Point);
     
 })
+// Изменение k
 
+const slider = document.getElementById("slider") as HTMLInputElement;
+const currentValueSpan = document.getElementById("currentValue") as HTMLSpanElement;
 
+slider.addEventListener("input", (event) => {
+    const target = event.target as HTMLInputElement;
+    currentValueSpan.textContent = target.value;
+});
