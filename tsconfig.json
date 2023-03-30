@@ -1,11 +1,16 @@
 {
   "compilerOptions": {
     "sourceMap": true,
-    "target": "es2016",
+    "target": "es2019",
     "outDir": "./src/build/js",
-    //    "watch": true
+    "rootDir": "./src",
   },
+
+  "include": [
+    "src/**/*"
+  ],
+
   "exclude": [
     "node_modules"
-  ]
+  ],
 }
