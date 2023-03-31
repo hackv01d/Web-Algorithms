@@ -1,6 +1,6 @@
 // import { Point } from "./cluster.js";
 
-type Point = {
+interface Point {
     x: number;
     y: number;
 };
@@ -13,16 +13,30 @@ export class kmeans {
     constructor(k: number, points: Point[]) {
         this.k = k;
         this.points = points;
-        this.centroids = this.points.slice(0, k); // исправить
+        this.centroids = this.initializeCentroids(); 
     }
 
+    // private initializeCentroids(): Point[] {
+    //     const centroids: Point[] = [];
+    //     for (let i = 0; i < this.k; i++) {
+    //         const index = Math.floor(Math.random() * this.points.length);
+    //         centroids.push(this.points[index]);
+    //     }
+    //     return centroids;
+    // }
     private initializeCentroids(): Point[] {
-        const centroids: Point[] = [];
-        for (let i = 0; i < this.k; i++) {
-            const index = Math.floor(Math.random() * this.points.length);
-            centroids.push(this.points[index]);
+        const result: Point[] = [];
+        const length = this.points.length;
+        if (length === 0 || this.k > length) {
+          throw new Error('Invalid arguments');
         }
-        return centroids;
+        while (result.length < this.k) {
+          const randomIndex = Math.floor(Math.random() * length);
+          if (!result.includes(this.points[randomIndex])) {
+            result.push(this.points[randomIndex]);
+          }
+        }
+        return result;
     }
 
     private minDistance(first_p: Point, second_p: Point) {
@@ -30,8 +44,8 @@ export class kmeans {
     }
 
     private getClosestCentroidIndex(point: Point): number {
-        let closestDistance = 99999999;
-        let closestCentroidIndex = 0;
+        let closestDistance = Infinity;
+        let closestCentroidIndex = -1;
 
         for (let i = 0; i < this.centroids.length; i++) {
             let distance = this.minDistance(this.centroids[i], point);
@@ -62,7 +76,6 @@ export class kmeans {
         if (a.length !== b.length) {
             return false;
         }
-
         for (let i = 0; i < a.length; i++) {
             if (a[i].x !== b[i].x || a[i].y !== b[i].y) {
                 return false;
@@ -75,27 +88,36 @@ export class kmeans {
     public cluster(): Point[][] {
         let oldCentroids: Point[] = [{x: 0, y: 0}];
 
-        let clusters: Point[][] = Array.from({ length: this.k }, () => []);
-        
+        let clusters: Point[][] = Array(this.k).fill([]);
+        for (let i = 0; i < this.k; i++) {
+            clusters[i] = [];
+        }
 
-        const MAX_ITERATIONS = 100;
-        let counter = 0;
-        
-        while (!this.areCentroidsEqual(this.centroids, oldCentroids) && counter++ <= MAX_ITERATIONS) {
-            oldCentroids = JSON.parse(JSON.stringify(this.centroids));
+        for(let i = 0 ; i < 100; ++i) {
             for (const point of this.points) {
                 const closestCentroidIndex = this.getClosestCentroidIndex(point);
-                if (closestCentroidIndex !== 0) {
-                     clusters[closestCentroidIndex].push({x: point.x, y: point.y});
+                if (closestCentroidIndex !== -1) {
+                    clusters[closestCentroidIndex].push(point); 
+                    console.log("DONE " + point.x + " " + point.y + " " + closestCentroidIndex);
+                    
                 }
             }
+            
+            oldCentroids = JSON.parse(JSON.stringify(this.centroids));
             for (let i = 0; i < clusters.length; i++) {
                 this.centroids[i] = this.calculateCentroid(clusters[i]);
             }
             if (!this.areCentroidsEqual(this.centroids, oldCentroids)) {
-                clusters = Array.from({ length: this.k }, () => []);
+                clusters = Array(this.k).fill([]).map(() => []);
+                console.log(this.centroids);
+                console.log(oldCentroids);
+                
+                
+                
+            } else{
+                break;
             }
-           
+            console.log("-----------------");
         }
 
         return clusters;

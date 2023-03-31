@@ -16,8 +16,8 @@ const baseColorCircle = 'white';
 let canvas = document.getElementById('canv') as HTMLCanvasElement;
 let ctx = canvas.getContext('2d');
 
-canvas.width = 600;
-canvas.height = 600;
+canvas.width = 1000;
+canvas.height = 1000;
 
 
 canvas.addEventListener('click', function (event) {
@@ -35,7 +35,7 @@ canvas.addEventListener('click', function (event) {
 
 })
 
-let k: number;
+let k: number = 2;
 
 const slider = document.getElementById("slider") as HTMLInputElement;
 const currentValueSpan = document.getElementById("currentValue") as HTMLSpanElement;
@@ -63,7 +63,9 @@ button.addEventListener('click', (event) => {
     }
 
     const clust = new kmeans(k, points);
-    const coloring = clust.cluster();
+    const coloring : Point[][] = clust.cluster();
+    console.log(coloring);
+    
 
     for (let i = 0; i < coloring.length; ++i) {
         for (let color of coloring[i]) {
