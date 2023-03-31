@@ -1,9 +1,4 @@
-// import { Point } from "./cluster.js";
-
-interface Point {
-    x: number;
-    y: number;
-};
+import { Point } from "./cluster.js";
 
 export class kmeans {
     private k: number = 2;
@@ -16,14 +11,6 @@ export class kmeans {
         this.centroids = this.initializeCentroids(); 
     }
 
-    // private initializeCentroids(): Point[] {
-    //     const centroids: Point[] = [];
-    //     for (let i = 0; i < this.k; i++) {
-    //         const index = Math.floor(Math.random() * this.points.length);
-    //         centroids.push(this.points[index]);
-    //     }
-    //     return centroids;
-    // }
     private initializeCentroids(): Point[] {
         const result: Point[] = [];
         const length = this.points.length;
@@ -92,14 +79,11 @@ export class kmeans {
         for (let i = 0; i < this.k; i++) {
             clusters[i] = [];
         }
-
         for(let i = 0 ; i < 100; ++i) {
             for (const point of this.points) {
                 const closestCentroidIndex = this.getClosestCentroidIndex(point);
                 if (closestCentroidIndex !== -1) {
-                    clusters[closestCentroidIndex].push(point); 
-                    console.log("DONE " + point.x + " " + point.y + " " + closestCentroidIndex);
-                    
+                    clusters[closestCentroidIndex].push(point);  
                 }
             }
             
@@ -109,15 +93,9 @@ export class kmeans {
             }
             if (!this.areCentroidsEqual(this.centroids, oldCentroids)) {
                 clusters = Array(this.k).fill([]).map(() => []);
-                console.log(this.centroids);
-                console.log(oldCentroids);
-                
-                
-                
             } else{
                 break;
             }
-            console.log("-----------------");
         }
 
         return clusters;
