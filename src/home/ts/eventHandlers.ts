@@ -1,4 +1,4 @@
-import { INavOptions } from "./interfaces/INavOptions";
+import { INavOptions } from "./interfaces/INavOptions.js";
 
 export function toggleDisplayName(event: MouseEvent): void {
     const target = event.target as HTMLDivElement
