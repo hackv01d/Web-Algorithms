@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>A-Star</title>
+    <link rel="stylesheet" href="../build/css/a-star-style.css">
+</head>
+
+<body>
+
+  <div class="container">
+
+      <header>
+          <h1>A-Star</h1>
+      </header>
+
+      <div class="content">
+
+          <div class="options-menu">
+              <button class="setup-btn reset-map-btn">Очистить карту</button>
+              <button class="setup-btn generate-map-btn">Сгенерировать карту</button>
+              <button class="setup-btn select-start-btn">Изменить начало пути</button>
+              <button class="setup-btn select-goal-btn">Изменить конец пути</button>
+              <button class="setup-btn add-wall-btn">Добавить/Убрать стену</button>
+              <button class="setup-btn run-btn">Запустить алгоритм</button>
+          </div>
+
+          <table class="matrix"></table>
+
+      </div>
+
+  </div>
+
+<script defer type="module" src="../build/js/a-star/ts/main.js"></script>
+
+</body>
+</html>

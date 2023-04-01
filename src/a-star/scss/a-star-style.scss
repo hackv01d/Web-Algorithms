@@ -1,0 +1,88 @@
+@import "_variables";
+
+@font-face {
+  font-family: "Roboto Mono";
+  src: url("/src/assets/fonts/RobotoMono-VariableFont_wght.ttf");
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  overflow: hidden;
+  background-color: $background-app;
+}
+
+header {
+  position: absolute;
+  top: 3vh;
+  color: white;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+.content {
+  display: flex;
+  justify-self: center;
+  align-items: center;
+}
+
+.options-menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-right: 7vw;
+  .setup-btn {
+    color: white;
+    border: 1px none;
+    cursor: pointer;
+    padding: 1vw;
+    margin-top: 2.5vh;
+    border-radius: 1vw;
+    font-size: 1vw;
+    font-family: $scene-font;
+    transition: opacity .3s;
+    box-shadow: .3px .3px 6px #f5f5f5;
+    background-color: $setup-button-background;
+    &:hover {
+      opacity: .7;
+    }
+  }
+}
+
+.matrix {
+  box-shadow: 0px 0px 20px #853aff, 5px 5px 20px #2ecc71;
+  min-width: 30vw;
+  min-height: 30vw;
+  border: 5px solid black;
+  background-color: #b4afaf;
+  tr {
+    .map-cell {
+      width: 3vw;
+      height: 3vw;
+      border: 1px solid black;
+    }
+    .wall-cell {
+      background-color: #212020;
+    }
+    .start-cell {
+      background-color: #f1f163;
+    }
+    .goal-cell {
+      background-color: palegreen;
+    }
+  }
+  .path {
+    background-color: rebeccapurple;
+  }
+}

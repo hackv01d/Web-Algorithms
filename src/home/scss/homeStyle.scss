@@ -1,13 +1,13 @@
-@import "_variables";
+@import "_variables.scss";
 
 @font-face {
   font-family: "Comfortaa";
-  src: url("/src/home/assets/fonts/Comfortaa-VariableFont_wght.ttf");
+  src: url("/src/assets/fonts/Comfortaa-VariableFont_wght.ttf");
 }
 
 @font-face {
   font-family: "Roboto Mono";
-  src: url("/src/home/assets/fonts/RobotoMono-VariableFont_wght.ttf");
+  src: url("/src/assets/fonts/RobotoMono-VariableFont_wght.ttf");
 }
 
 * {
@@ -18,6 +18,14 @@
 
 body {
   background-color: $background-app;
+  overflow: hidden;
+}
+
+iframe {
+  background-color: transparent;
+  width: 100vw;
+  height: 100vh;
+  border: none;
   overflow: hidden;
 }
 

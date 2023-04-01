@@ -1,10 +1,10 @@
-import { ITitle } from "./interfaces/ITitle";
-import { INavOptions } from "./interfaces/INavOptions";
-import { animateHeader } from "./animation";
+import { ITitle } from "./interfaces/ITitle.js";
+import { INavOptions } from "./interfaces/INavOptions.js";
+import { animateHeader } from "./animation.js";
 import {
     toggleDisplayName,
     navigationButtonHandle,
-    buttonStartHandle } from "./event-handlers";
+    buttonStartHandle } from "./eventHandlers.js";
 
 const mainScreen = document.querySelector('.main-screen') as HTMLDivElement
 const buttonStart = document.querySelector('.button-start') as HTMLButtonElement
@@ -48,8 +48,8 @@ buttonStart.addEventListener('click', () => {
     buttonStartHandle(mainScreen)
 })
 
-navigationButtons.forEach(element => { element.addEventListener('mouseover', toggleDisplayName) })
-navigationButtons.forEach(element => { element.addEventListener('mouseleave', toggleDisplayName) })
+navigationButtons.forEach(element => element.addEventListener('mouseover', toggleDisplayName) )
+navigationButtons.forEach(element => element.addEventListener('mouseleave', toggleDisplayName) )
 
 navigationButtons.forEach(el => {
     el.addEventListener('click', (event: MouseEvent) => {
