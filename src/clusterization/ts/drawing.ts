@@ -4,14 +4,6 @@ import { kmeans } from "./Kmeans.js";
 
 
 
-function contains(arr: any, item: any): boolean {
-    for(const elem of arr){
-        if (elem === item){
-            return true;
-        }
-    }
-    return false;
-}
 
 
 class Drawing{
@@ -40,6 +32,14 @@ class Drawing{
         }
         return colors;
     }
+}
+function contains(arr: any, item: any): boolean {
+    for(const elem of arr){
+        if (elem === item){
+            return true;
+        }
+    }
+    return false;
 }
 
 
@@ -77,13 +77,17 @@ slider.addEventListener("input", (event) => {
 
 
 button.addEventListener('click', () => {
-    const colorsArray: string[] = drawVar.getArrayRandomColor(k);
+    let colorsArray: string[] = [];
+    for(let i = 0; i < k; ++i){
+        colorsArray.push(drawVar.getRandomColor());
+    }
+    
     const clust = new kmeans(k, points);
     const coloredPoints : Point[][] = clust.cluster();
     
     for (let i = 0; i < coloredPoints.length; ++i) {
         for (let point of coloredPoints[i]) {
-            drawVar.drawCirce(point, radiusCircle - 5, colorsArray[i]);
+            drawVar.drawCirce(point, radiusCircle - 5,colorsArray[i]);
         }
     } 
 })
