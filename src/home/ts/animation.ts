@@ -1,7 +1,7 @@
-import { makeSpanWith } from "./utils/dom";
-import { ITitle } from "./interfaces/ITitle";
+import { makeSpanWith } from "./utils/dom.js";
+import { ITitle } from "./interfaces/ITitle.js";
 import { titleInfo,
-        subtitleInfo } from "./script";
+        subtitleInfo } from "./main.js";
 
 export function animateHeader(button: HTMLButtonElement, title: ITitle = titleInfo): void {
     let curIndex = 0
