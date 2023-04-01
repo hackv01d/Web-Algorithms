@@ -7,10 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Алгосы</title>
     <link rel="stylesheet" href="../build/css/home-style.css">
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
     />
-    <script src="../build/js/ant.js" defer></script>
 </head>
 
 <body>
@@ -36,41 +36,6 @@
         </div>
 
         <div class="content">
-
-            <div class="nav-content">
-
-                <div class="a-star-btn nav-btn">
-                    <div></div>
-                    <span>A-Star</span>
-                </div>
-
-                <div class="claster-btn nav-btn">
-                    <div></div>
-                    <span>Кластеризация</span>
-                </div>
-
-                <div class="gen-btn nav-btn">
-                    <div></div>
-                    <span>Генетический алгоритм</span>
-                </div>
-                
-                <div class="ant-btn nav-btn">
-                    <div> </div>
-                    <span>Муравьиный алгоритм</span>
-                </div>
-
-                <div class="tree-btn nav-btn">
-                    <div></div>
-                    <span>Дерево решений</span>
-                </div>
-
-                <div class="neural-btn nav-btn">
-                    <div></div>
-                    <span>Нейронная сеть</span>
-                </div>
-
-            </div>
-
             <div class="algorithms-screen">
                 <div class="a-star-screen content-screen">
                     <header>
@@ -94,45 +59,6 @@
                     <header>
                         <h1>Муравьиный алгоритм</h1>
                     </header>
-                    
-                    <div class="containFirst">
-                        <div class="container-canvas" id="container-canvas">
-                            <canvas id="canvasAnt">Ваш браузер не поддерживает canvas</canvas>
-                        </div>
-                    </div>
-                    
-                    <div class="containSecond">
-                        <div class="preferences">
-                            <div class="buttons-container">
-                                <button id="Build" class="buttons" onclick="startEffect()"> Build </button>
-                                <button id="Clear" class="buttons" onclick="clearEvery()"> Delete </button>
-                            </div>
-                            <div class="userInputs">
-                            <div id="countSend" class="variants">
-                                <p id="countSendCount">Count: 1500</p>
-                                <input id="countSendDiapason" type="number" min="10" max="5000" value="1500" oninput="inputAttributes('countSend')">
-                            </div>
-                            <div id="feromonQ" class="variants">
-                                <p id="qCount" >Q: 2</p>
-                                <input id="qDiapason" type="number" min="1" max="10" value="2" step="1" oninput="inputAttributes('q')">
-                            </div>
-                            <div id="remainFeromon" class="variants">
-                                <p id="remainFeromonCount">Remain: 72%</p>
-                                <input id="remainFeromonDiapason" type="number" min="0" max="100" value="72" step="1" oninput="inputAttributes('remainFeromon')">
-                            </div>
-                                <div id="alfa" class="variants">
-                                    <p id="alfaCount">Alfa: 2</p>
-                                    <input id="alfaDiapason" type="number" min="1" max="4" value="2" step="1" oninput="inputAttributes('alfa')">
-                                </div>
-                            <div id="beta" class="variants">
-                                <p id="betaCount">Beta: 4</p>
-                                <input id="betaDiapason" type="number" min="1" max="6" value="4" step="1" oninput="inputAttributes('beta')">
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    
                 </div>
 
 
@@ -148,11 +74,44 @@
                     </header>
                 </div>
             </div>
+            <div class="nav-content">
+
+                <div class="a-star-btn nav-btn">
+                    <span>A-Star</span>
+                    <div></div>
+                </div>
+
+                <div class="claster-btn nav-btn">
+                    <span>Кластеризация</span>
+                    <div></div>
+                </div>
+
+                <div class="gen-btn nav-btn">
+                    <span>Генетический алгоритм</span>
+                    <div></div>
+                </div>
+
+                <div class="ant-btn nav-btn">
+                    <span>Муравьиный алгоритм</span>
+                    <div></div>
+                </div>
+
+                <div class="tree-btn nav-btn">
+                    <span>Дерево решений</span>
+                    <div></div>
+                </div>
+
+                <div class="neural-btn nav-btn">
+                    <span>Нейронная сеть</span>
+                    <div></div>
+                </div>
+
+            </div>
+
 
         </div>
 
     </div>
-
-    <script src="../build/js/home-script.js"></script>
+    <script type="module" src="../build/js/home/ts/home-script.js"></script>
 </body>
 </html>

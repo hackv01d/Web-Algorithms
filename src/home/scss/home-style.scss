@@ -23,7 +23,7 @@ body {
 
 .main-screen {
   display: flex;
-  transition: transform .5s ease;
+  transition: $trans;
   >div {
     height: 100vh;
     min-width: 100vw;
@@ -40,10 +40,6 @@ body {
   >header {
     margin-left: 40px;
   }
-}
-
-.content-nav {
-  margin-left: 40px;
 }
 
 .title {
@@ -110,19 +106,20 @@ body {
 }
 
 .nav-content {
-  margin-left: 2vw;
+  margin-left: 86vw;
   position: fixed;
   z-index: 1;
 }
 
 .nav-btn {
   display: flex;
+  justify-content: flex-end;
   align-items: center;
   min-height: 6vh;
   >div {
     min-width: 1.5vw;
     min-height: 1.5vw;
-    margin-right: 1vw;
+    margin-left: 1vw;
     background-color: transparent;
     border: 2px solid white;
     border-radius: 50%;
@@ -132,6 +129,7 @@ body {
     }
   }
   >span {
+    text-align: left;
     opacity: 0;
     color: white;
     font-size: 1.1vw;
@@ -144,7 +142,7 @@ body {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  transition: transform .5s ease;
+  transition: $trans;
   >div {
     text-align: center;
     min-width: 100vw;
