@@ -85,8 +85,8 @@ button.addEventListener('click', () => {
     }
     const metricType = getMetric();
     const lincageType = getLincage();
-
-    const clust = new clusterisation(k, points, metricType, lincageType);
+    
+    const clust = new clusterisation(k, points);
     const coloredPoints : Point[][] = clust.hierarchicalClustering();
     
     for (let i = 0; i < coloredPoints.length; ++i) {
