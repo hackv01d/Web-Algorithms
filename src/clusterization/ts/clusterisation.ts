@@ -4,11 +4,15 @@ export class clusterisation {
     private k: number = 2;
     private points: Point[];
     private centroids: Point[];
+    private metric: string;
+    private lincage: string;
 
-    constructor(k: number, points: Point[]) {
+    constructor(k: number, points: Point[], metric: string, lincage: string) {
         this.k = k;
         this.points = points;
         this.centroids = this.initializeCentroids();
+        this.metric = metric;
+        this.lincage = lincage;
     }
 
     private initializeCentroids(): Point[] {
@@ -58,7 +62,7 @@ export class clusterisation {
         let closestCentroidIndex = -1;
 
         for (let i = 0; i < this.centroids.length; i++) {
-            let distance = this.euclideanDistance(this.centroids[i], point);
+            let distance = this.countDistance(this.centroids[i], point);
 
             if (distance < closestDistance) {
                 closestDistance = distance;
@@ -80,11 +84,21 @@ export class clusterisation {
         return Math.abs(first_p.x - second_p.x) + Math.abs(first_p.y - second_p.y);
     }
 
+    private countDistance(first_p: Point, second_p: Point): number {
+        if (this.metric === "chebyshev") {
+            return this.chebyshevDistance(first_p, second_p);
+        } else if (this.metric === "manhattanDistance") {
+            return this.manhattanDistance(first_p, second_p);
+        } else {
+            return this.euclideanDistance(first_p, second_p);
+        }
+    }
+
     private singleLinkage(first_c: Point[], second_c: Point[]): number {
         let minDistance = Infinity;
         for (let i = 0; i < first_c.length; i++) {
             for (let j = 0; j < second_c.length; j++) {
-                const distance = this.euclideanDistance(first_c[i], second_c[j]);
+                const distance = this.countDistance(first_c[i], second_c[j]);
                 if (distance < minDistance) {
                     minDistance = distance;
                 }
@@ -97,7 +111,7 @@ export class clusterisation {
         let distanceSum = 0;
         for (let i = 0; i < first_c.length; i++) {
             for (let j = 0; j < second_c.length; j++) {
-                distanceSum += this.euclideanDistance(first_c[i], second_c[j]);
+                distanceSum += this.countDistance(first_c[i], second_c[j]);
             }
         }
         return distanceSum / (first_c.length * second_c.length);
@@ -107,13 +121,22 @@ export class clusterisation {
         let maxDistance = -Infinity;
         for (let i = 0; i < first_c.length; i++) {
             for (let j = 0; j < second_c.length; j++) {
-                const distance = this.euclideanDistance(first_c[i], second_c[j]);
+                const distance = this.countDistance(first_c[i], second_c[j]);
                 if (distance > maxDistance) {
                     maxDistance = distance;
                 }
             }
         }
         return maxDistance;
+    }
+    private defineLinkage(first_c: Point[], second_c: Point[]): number{
+        if (this.lincage ==="complete"){
+            return this.completeLinkage(first_c, second_c);
+        } else if (this.lincage === "average"){
+            return this.averageLinkage(first_c, second_c);
+        } else{
+            return this.singleLinkage(first_c, second_c);
+        }
     }
 
 
@@ -156,7 +179,7 @@ export class clusterisation {
 
             for (let i = 0; i < clusters.length; i++) {
                 for (let j = i + 1; j < clusters.length; j++) {
-                    const dist = this.singleLinkage(clusters[i], clusters[j]);
+                    const dist = this.defineLinkage(clusters[i], clusters[j]);
                     if (dist < minDist) {
                         minDist = dist;
                         idClosestClusters = [i, j];
