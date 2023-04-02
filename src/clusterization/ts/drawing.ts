@@ -1,6 +1,6 @@
 
-import { Point } from "./cluster.js";
-import { kmeans } from "./Kmeans.js";
+import { Point} from "./interfaces.js";
+import { clusterisation } from "./clusterisation.js";
 
 
 
@@ -49,7 +49,9 @@ const drawVar = new Drawing();
 
 const slider = document.getElementById("slider") as HTMLInputElement;
 const currentValueSpan = document.getElementById("currentValue") as HTMLSpanElement;
-const button = document.getElementById('sendBtn') as HTMLButtonElement;
+const button = document.getElementById("sendBtn") as HTMLButtonElement;
+
+
 
 let canvas = document.getElementById('canv') as HTMLCanvasElement;
 let ctx = canvas.getContext('2d');
@@ -81,8 +83,11 @@ button.addEventListener('click', () => {
     for(let i = 0; i < k; ++i){
         colorsArray.push(drawVar.getRandomColor());
     }
+    const metricType = getMetric();
+    const lincageType = getLincage();
+    const algorithmType = getAlgorithm();
     
-    const clust = new kmeans(k, points);
+    const clust = new clusterisation(k, points, metricType, lincageType, algorithmType);
     const coloredPoints : Point[][] = clust.cluster();
     
     for (let i = 0; i < coloredPoints.length; ++i) {
@@ -92,3 +97,31 @@ button.addEventListener('click', () => {
     } 
 })
 
+function getMetric() : string{
+    const metric = document.querySelectorAll('input[name="metric"]');
+    for (const iterator of metric) {
+        if (iterator.ariaChecked){
+            return iterator.ariaValueText;
+        }
+    }
+    return "euclidean";
+
+}
+function getLincage() : string{
+    const lincage = document.querySelectorAll('input[name="lincage"]');
+    for (const iterator of lincage) {
+        if (iterator.ariaChecked){
+            return iterator.ariaValueText;
+        }
+    }
+    return "single";
+}
+function getAlgorithm() : string{
+    const lincage = document.querySelectorAll('input[name="algorithm"]');
+    for (const iterator of lincage) {
+        if (iterator.ariaChecked){
+            return iterator.ariaValueText;
+        }
+    }
+    return "kmeans";
+}

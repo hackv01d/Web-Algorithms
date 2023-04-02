@@ -59,29 +59,53 @@ h1, h2, h3, h4, h5, h6 {
 }
 body {
 	font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+	background-color: black;
+	display: flex;
 }
 .canvas {
-	position: fixed;
-	width: 1000;
-	height: 1000;
 	background-color: black;
-	border: 1px solid black ;
-	display: block;
-	margin: 100px;
+	border: 1px solid white ;
+	display: flex;
+	margin:  10% 0  0 10%;
+	
+	height: 600px;
+	width: 1000px;
 }
-
 .btn {
 	color: red;
 }
-.slider {
-	display: inline;
+.cluster{
+	max-width: 330px;
+	max-height: 700px;
+	color: white;
+	display: flex;
+	justify-content: space-evenly;
+	flex-direction: column;
+	align-items: center;
+
+	margin:  7% 0  0 4%;
+
+
 }
 .number {
 	display: block;
 	position: relative;
-	// background: @var1;
 	border-radius: 8px;
 }
+.cluster__slider {
+	display: inline;
+}
+
 .show {
 	border: 1px black solid;
+}
+.cluster__metric{
+	text-align: center;
+
+}
+.cluster__lincage{
+	text-align: center;
+}
+.radio{
+	display: inline;
 }
