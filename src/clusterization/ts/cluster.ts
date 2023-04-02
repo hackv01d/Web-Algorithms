@@ -5,6 +5,3 @@ export interface Point {
 }
 
 
-
-
-
