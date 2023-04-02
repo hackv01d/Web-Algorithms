@@ -9,19 +9,21 @@
 <body>
 <div class="main">
     <div class="container">
-        <div class="row">
-            <div class="containFirst">
-                <div class="container-canvas" id="container-canvas">
-                    <canvas id="canvasAnt">Ваш браузер не поддерживает canvas</canvas>
-                </div>
-            </div>
-            <div class="containSecond">
-                <div class="preferences">
-                    <div class="buttons-container">
-                        <button id="Build" class="buttons" onclick="startEffect()"> Build </button>
-                        <button id="Clear" class="buttons" onclick="clearEvery()"> Delete </button>
+        <div class="allContain">
+            <div class="row"> 
+                <div class="containFirst">
+                    <div class="container-canvas" id="container-canvas">
+                        <canvas id="canvasAnt" width="1000px" height="600px">Ваш браузер не поддерживает canvas</canvas>
                     </div>
-                    <div class="userInputs">
+                    <div class="preferences">
+                        <div class="buttons-container">
+                            <button id="Build" class="buttons" onclick="startEffect()"> Build </button>
+                            <button id="Clear" class="buttons" onclick="clearEvery()"> Delete </button>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="userInputs">
                     <div id="countSend" class="variants">
                         <p id="countSendCount">Count: 1500</p>
                         <input id="countSendDiapason" type="number" min="10" max="5000" value="1500" oninput="inputAttributes('countSend')">
@@ -41,7 +43,6 @@
                     <div id="beta" class="variants">
                         <p id="betaCount">Beta: 4</p>
                         <input id="betaDiapason" type="number" min="1" max="6" value="4" step="1" oninput="inputAttributes('beta')">
-                    </div>
                     </div>
                 </div>
             </div>

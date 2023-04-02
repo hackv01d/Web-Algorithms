@@ -1,8 +1,24 @@
 @import url("https://fonts.googleapis.com/css?family=Literata&display=swap");
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: "Comfortaa";
+  src: url("/src/assets/fonts/Comfortaa-VariableFont_wght.ttf");
+}
+
+@font-face {
+  font-family: "Roboto Mono";
+  src: url("/src/assets/fonts/RobotoMono-VariableFont_wght.ttf");
+}
+
 
 body {
   font-family: "Literata", serif;
-  background: black no-repeat center;
+  background: #111111 no-repeat center;
   background-size: cover;
   font-size: 20px;
   margin: 0;
@@ -83,10 +99,9 @@ body {
   height: 100vh;
 }
 
-.variants {
-  margin: 0 40px 10px;
-  position: relative;
-  left: -40px;
+.row {
+  display: flex;
+  flex-direction: row-reverse;
 }
 
 .container-canvas {
@@ -109,17 +124,14 @@ body {
 
 .userInputs {
   display: flex;
+  flex-direction: column;
   align-items: baseline;
+  justify-content: space-around;
 }
 
-#countSendDiapason {
+.allContain {
+  display: flex;
+  justify-content: center;
   align-items: center;
-  position: relative;
-  left: 10%;
 }
 
-#remainFeromonDiapason {
-  align-items: center;
-  position: relative;
-  left: 20%;
-}
