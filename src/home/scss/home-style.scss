@@ -156,8 +156,10 @@ body {
     color: white;
   }
 }
-.content-iframe{
-    width: 1800px;
-    height: 900px;
-    border: 0;
-}
+iframe {
+  background-color: transparent;
+  width: 100vw;
+  height: 100vh;
+  border: none;
+  overflow: hidden;
+  }
