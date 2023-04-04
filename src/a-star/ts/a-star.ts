@@ -9,7 +9,7 @@ class Vertex {
     fScore: number
     gScore: number
     heuristicScore: number
-    readonly point: Point
+    point: Point
     readonly neighbors: NullableVertex[]
 
     constructor(x: number, y: number) {
@@ -29,20 +29,14 @@ export class Graph {
     private _startVertex: Vertex
     private _goalVertex: Vertex
 
-    private startPoint: Point
-    private goalPoint: Point
-
     private readonly size: number;
     private readonly matrix: NullableVertex[][];
 
     constructor(size: number) {
         this.size = size
 
-        this.startPoint = { x: 0, y: 0}
-        this.goalPoint = { x: size - 1, y: size - 1}
-
-        this._startVertex = new Vertex(this.startPoint.y, this.startPoint.x)
-        this._goalVertex = new Vertex(this.goalPoint.y, this.goalPoint.x)
+        this._startVertex = new Vertex(0, 0)
+        this._goalVertex = new Vertex(size - 1, size - 1)
 
         this.matrix = new Array(size)
         for (let q = 0; q < size; q++) {
@@ -67,11 +61,11 @@ export class Graph {
     }
 
     removeWallFromStart(): void {
-        this.removeWall(this.startPoint)
+        this.removeWall(this.startVertex.point)
     }
 
     removeWallFromGoal(): void {
-        this.removeWall(this.goalPoint)
+        this.removeWall(this.goalVertex.point)
     }
 
     removeWall(point: Point): void {
@@ -84,12 +78,12 @@ export class Graph {
 
     updateStart(point: Point): void {
         if (!this.isAvailableAt(point)) return;
-        this.startPoint = point
+        this._startVertex.point = point
     }
 
     updateGoal(point: Point): void {
         if (!this.isAvailableAt(point)) return;
-        this.goalPoint = point
+        this._goalVertex.point = point
     }
 
     toggleWall(point: Point): void {
@@ -120,8 +114,8 @@ export class Graph {
             }
         }
 
-        this._startVertex = this.matrix[this.startPoint.y][this.startPoint.x] as Vertex
-        this._goalVertex = this.matrix[this.goalPoint.y][this.goalPoint.x] as Vertex
+        this._startVertex = this.matrix[this._startVertex.point.y][this._startVertex.point.x] as Vertex
+        this._goalVertex = this.matrix[this._goalVertex.point.y][this._goalVertex.point.x] as Vertex
     }
 }
 
