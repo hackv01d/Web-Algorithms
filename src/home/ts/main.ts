@@ -1,30 +1,32 @@
+import { welcomeInfo } from "./models/welcomeInfo.js";
 import { ITitle } from "./interfaces/ITitle.js";
 import { INavOptions } from "./interfaces/INavOptions.js";
 import { animateHeader } from "./animation.js";
+import { ElementClass }  from "./enums/elementClass.js";
 import {
     toggleDisplayName,
     navigationButtonHandle,
     buttonStartHandle } from "./eventHandlers.js";
 
-const mainScreen = document.querySelector('.main-screen') as HTMLDivElement
-const buttonStart = document.querySelector('.button-start') as HTMLButtonElement
+const mainScreen = document.querySelector(`.${ElementClass.mainScreen}`) as HTMLDivElement
+const buttonStart = document.querySelector(`.${ElementClass.buttonStart}`) as HTMLButtonElement
 
-const navigationButtons = Array.from<HTMLDivElement>(document.querySelectorAll('.nav-btn div'))
-const algorithmScreen = document.querySelector('.algorithms-screen') as HTMLDivElement
+const algorithmScreen = document.querySelector(`.${ElementClass.algorithmScreen}`) as HTMLDivElement
+const navigationButtons = Array.from<HTMLDivElement>(document.querySelectorAll(`.${ElementClass.navigationButtons}`))
 
-const elTitle = document.querySelector('.title') as HTMLDivElement
-const elSubtitle = document.querySelector('.subtitle') as HTMLDivElement
+const elTitle = document.querySelector(`.${ElementClass.title}`) as HTMLDivElement
+const elSubtitle = document.querySelector(`.${ElementClass.subtitle}`) as HTMLDivElement
 
-const lettersOfTitle = Array.from("Привет! Я Алготрон")
-const lettersOfSubtitle = Array.from("Твой гид в мире алгоритмов.")
+const lettersOfTitle: string[] = Array.from(welcomeInfo.title)
+const lettersOfSubtitle: string[] = Array.from(welcomeInfo.subtitle)
 
-const showModeName = 'anim-letter'
+const titleStyleClass: string = ElementClass.titleStyle
 
 export const titleInfo: ITitle = {
     wrapper: elTitle,
     letterArray: lettersOfTitle,
     lineBreakIndex: 6,
-    showModeName: showModeName,
+    styleClass: titleStyleClass,
     displaySpeed: 80,
     isLast: false
 }
@@ -44,15 +46,10 @@ const navOptions: INavOptions = {
 
 animateHeader(buttonStart)
 
-buttonStart.addEventListener('click', () => {
-    buttonStartHandle(mainScreen)
-})
-
-navigationButtons.forEach(element => { element.addEventListener('mouseover', toggleDisplayName) })
-navigationButtons.forEach(element => { element.addEventListener('mouseleave', toggleDisplayName) })
+buttonStart.addEventListener('click', () => buttonStartHandle(mainScreen))
+navigationButtons.forEach(element => element.addEventListener('mouseover', toggleDisplayName) )
+navigationButtons.forEach(element => element.addEventListener('mouseleave', toggleDisplayName) )
 
 navigationButtons.forEach(el => {
-    el.addEventListener('click', (event: MouseEvent) => {
-        navigationButtonHandle(event, navOptions)
-    })
+    el.addEventListener('click', (event: MouseEvent) => navigationButtonHandle(event, navOptions))
 })
