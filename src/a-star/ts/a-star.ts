@@ -1,6 +1,6 @@
-import { animCell } from "./animation.js";
-import { Position } from "./types/position.js";
-import { ElementColors } from "./enums/elementColors.js";
+import { map } from "./main.js";
+import { Point } from "./types/point.js";
+import { SearchCellType } from "./enums/searchCellType.js";
 
 type NullableVertex = (Vertex | null)
 
@@ -9,29 +9,28 @@ class Vertex {
     fScore: number
     gScore: number
     heuristicScore: number
-    readonly position: Position
+    readonly point: Point
     readonly neighbors: NullableVertex[]
 
     constructor(x: number, y: number) {
-        this.position = { x: x, y: y }
+        this.point = { x: x, y: y }
         this.neighbors = []
         this.fScore = 0
         this.gScore = 0
         this.heuristicScore = 0
     }
 
-    updateCost() {
+    updateCost(): void {
         this.fScore = this.gScore + this.heuristicScore
     }
 }
 
 export class Graph {
-
     private _startVertex: Vertex
     private _goalVertex: Vertex
 
-    private startPosition: Position
-    private goalPosition: Position
+    private startPoint: Point
+    private goalPoint: Point
 
     private readonly size: number;
     private readonly matrix: NullableVertex[][];
@@ -39,15 +38,15 @@ export class Graph {
     constructor(size: number) {
         this.size = size
 
-        this.startPosition = { x: 0, y: 0}
-        this.goalPosition = { x: size - 1, y: size - 1}
+        this.startPoint = { x: 0, y: 0}
+        this.goalPoint = { x: size - 1, y: size - 1}
 
-        this._startVertex = new Vertex(this.startPosition.y, this.startPosition.x)
-        this._goalVertex = new Vertex(this.goalPosition.y, this.goalPosition.x)
+        this._startVertex = new Vertex(this.startPoint.y, this.startPoint.x)
+        this._goalVertex = new Vertex(this.goalPoint.y, this.goalPoint.x)
 
-        this.matrix = Array(size);
+        this.matrix = new Array(size)
         for (let q = 0; q < size; q++) {
-            this.matrix[q] = Array(size);
+            this.matrix[q] = Array(size)
         }
     }
 
@@ -59,24 +58,44 @@ export class Graph {
         return this._goalVertex
     }
 
-    isAvailableMatrixValAt(position: Position): boolean {
-        return this.matrix[position.y][position.x] !== null
+    isAvailableAt(point: Point): boolean {
+        return this.matrix[point.y][point.x] !== null
     }
 
-    updateStart(position: Position): void {
-        if (!this.isAvailableMatrixValAt(position)) return;
-        this.startPosition = position
+    addWall(point: Point): void {
+        this.matrix[point.y][point.x] = null
     }
 
-    updateGoal(position: Position): void {
-        if (!this.isAvailableMatrixValAt(position)) return;
-        this.goalPosition = position
+    removeWallFromStart(): void {
+        this.removeWall(this.startPoint)
     }
 
-    addWall(position: Position): void {
-        this.matrix[position.y][position.x] === null
-            ? this.matrix[position.y].splice(position.x, 1)
-            : this.matrix[position.y][position.x] = null
+    removeWallFromGoal(): void {
+        this.removeWall(this.goalPoint)
+    }
+
+    removeWall(point: Point): void {
+        this.matrix[point.y][point.x] = new Vertex(point.x, point.y)
+    }
+
+    clearMatrix(): void {
+        this.matrix.forEach(arr => arr.map(() => arr.splice(0, arr.length)))
+    }
+
+    updateStart(point: Point): void {
+        if (!this.isAvailableAt(point)) return;
+        this.startPoint = point
+    }
+
+    updateGoal(point: Point): void {
+        if (!this.isAvailableAt(point)) return;
+        this.goalPoint = point
+    }
+
+    toggleWall(point: Point): void {
+        this.matrix[point.y][point.x] === null
+            ? this.matrix[point.y][point.x] = new Vertex(point.x, point.y)
+            : this.matrix[point.y][point.x] = null
     }
 
     build(): void {
@@ -101,8 +120,8 @@ export class Graph {
             }
         }
 
-        this._startVertex = this.matrix[this.startPosition.y][this.startPosition.x] as Vertex
-        this._goalVertex = this.matrix[this.goalPosition.y][this.goalPosition.x] as Vertex
+        this._startVertex = this.matrix[this.startPoint.y][this.startPoint.x] as Vertex
+        this._goalVertex = this.matrix[this.goalPoint.y][this.goalPoint.x] as Vertex
     }
 }
 
@@ -113,57 +132,40 @@ export class AStar {
         this.graph = graph
     }
 
-    async search(map: HTMLTableElement): Promise<void> {
+     async search(): Promise<void> {
+         this.graph.build()
 
-        const start = this.graph.startVertex
-        const goal = this.graph.goalVertex
+         const [start, goal] = this.initialConfig()
+         const openSet: Vertex[] = [start]
+         const closedSet: Vertex[] = []
 
-        start.gScore = 0;
-        start.heuristicScore = this.heuristic(start, goal)
-        start.updateCost()
-
-        const openSet: Vertex[] = [start]
-        const closedSet: Vertex[] = []
-
-        while (openSet.length != 0) {
+         while (openSet.length !== 0) {
             openSet.sort((a, b) => a.fScore - b.fScore)
 
             const curVertex = openSet[0]
-            const position = curVertex.position
+            const point = curVertex.point
+
             if (closedSet.includes(curVertex)) continue
-            await animCell(map.rows[position.y].cells[position.x], ElementColors.chosenCell)
+            await map.updateCellAppearance(point, SearchCellType.chosenCell)
 
-            if (curVertex == goal) {
-                const path = []
-                let current: Vertex | undefined = curVertex
-
-                while (current != undefined) {
-                    path.unshift(current)
-                    current = current.parent
-                }
-
-                for (const vertex of path) {
-                    await animCell(map.rows[vertex.position.y].cells[vertex.position.x], ElementColors.pathCell)
-                }
-                return
+            if (curVertex === goal) {
+                await this.reconstructPath(curVertex)
+                break;
             }
 
-            openSet.splice(openSet.indexOf(curVertex), 1)
             closedSet.push(curVertex)
-            await animCell(map.rows[position.y].cells[position.x], ElementColors.exploredCell)
+            openSet.splice(openSet.indexOf(curVertex), 1)
+            await map.updateCellAppearance(point, SearchCellType.exploredCell)
 
             for (const neighbor of curVertex.neighbors) {
-                if (neighbor === null) continue;
-                const position = neighbor.position
-                if (closedSet.includes(neighbor)) {
-                    continue;
-                }
+                if (neighbor === null || closedSet.includes(neighbor)) continue;
 
+                const point = neighbor.point
                 const tempScore = curVertex.gScore + 1
 
                 if (!openSet.includes(neighbor)) {
                     openSet.push(neighbor)
-                    await animCell(map.rows[position.y].cells[position.x], ElementColors.regardedCell)
+                    await map.updateCellAppearance(point, SearchCellType.regardedCell)
                 } else if (tempScore >= neighbor.gScore) continue;
 
                 neighbor.gScore = tempScore
@@ -172,11 +174,37 @@ export class AStar {
                 neighbor.parent = curVertex
             }
         }
+         map.endShowingSearch()
     }
 
     private heuristic(vertex: Vertex, goal: Vertex): number {
-        const dx = Math.abs(vertex.position.x - goal.position.x)
-        const dy = Math.abs(vertex.position.y - goal.position.y)
+        const dx = Math.abs(vertex.point.x - goal.point.x)
+        const dy = Math.abs(vertex.point.y - goal.point.y)
         return dx + dy
+    }
+
+    private initialConfig(): [Vertex, Vertex] {
+        const start = this.graph.startVertex
+        const goal = this.graph.goalVertex
+
+        start.gScore = 0
+        start.heuristicScore = this.heuristic(start, goal)
+        start.updateCost()
+
+        return [start, goal]
+    }
+
+    private async reconstructPath(goal: Vertex): Promise<void> {
+        const path: Vertex[] = []
+        let current: Vertex | undefined = goal
+
+        while (current !== undefined) {
+            path.unshift(current)
+            current = current.parent
+        }
+
+        for (const vertex of path) {
+            await map.updateCellAppearance(vertex.point, SearchCellType.pathCell)
+        }
     }
 }

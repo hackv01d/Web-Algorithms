@@ -1,4 +1,4 @@
-export enum EditMode {
+export enum EditCellMode {
     start,
     goal,
     wall

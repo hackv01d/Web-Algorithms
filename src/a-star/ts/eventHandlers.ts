@@ -1,26 +1,26 @@
 import { map } from "./main.js";
-import { graph } from "./main.js";
-import { aStar }  from "./main.js";
-import { EditMode } from "./enums/editMode.js";
+import { EditCellMode } from "./enums/editCellMode.js";
+
+export function runButtonHandle(): void {
+    map.beginShowingSearch()
+}
+
+export function generateMapButtonHandle(): void {
+    map.generateMap()
+}
 
 export function addWallButtonHandle(): void {
-    map.updateEditMapMode(EditMode.wall)
+    map.updateEditMapMode(EditCellMode.wall)
 }
 
 export function selectGoalButtonHandle(): void {
-    map.updateEditMapMode(EditMode.goal)
+    map.updateEditMapMode(EditCellMode.goal)
 }
 
 export function selectStartButtonHandle(): void {
-    map.updateEditMapMode(EditMode.start)
+    map.updateEditMapMode(EditCellMode.start)
 }
 
-export function mapCellHandle(event: MouseEvent): void {
-    const cell = event.target as HTMLTableCellElement
-    map.update(cell)
-}
-
-export function runButtonHandle(map: HTMLTableElement): void {
-    graph.build()
-    aStar.search(map)
+export function resetMapButtonHandle(): void {
+    map.reset()
 }
