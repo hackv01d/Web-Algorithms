@@ -5,7 +5,7 @@ export function toggleDisplayName(event: MouseEvent): void {
     const parent = target.closest('.nav-btn') as HTMLSpanElement
 
     let elContentName = parent.querySelector('span') as HTMLSpanElement
-    event.type == 'mouseover' ? elContentName.style.opacity = '1' : elContentName.style.opacity = '0'
+    event.type === 'mouseover' ? elContentName.style.opacity = '1' : elContentName.style.opacity = '0'
 }
 
 export function navigationButtonHandle(event: MouseEvent, options: INavOptions): void {
