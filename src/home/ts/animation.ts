@@ -1,25 +1,30 @@
-import { makeSpanWith } from "./utils/dom.js";
+import { makeSpanWith } from "./utils/elementUtils.js";
 import { ITitle } from "./interfaces/ITitle.js";
 import { titleInfo,
-        subtitleInfo } from "./main.js";
+         subtitleInfo } from "./main.js";
 
 export function animateHeader(button: HTMLButtonElement, title: ITitle = titleInfo): void {
     let curIndex = 0
+    let curSpan: HTMLSpanElement
 
-    let currentSpan: HTMLSpanElement
     const animationInterval = setInterval(() => {
-        if (currentSpan != undefined) currentSpan.classList.remove(title.showModeName)
+        if (curSpan !== undefined && title.styleClass !== undefined) {
+            curSpan.classList.remove(title.styleClass)
+        }
 
-        currentSpan = makeSpanWith(title.letterArray[curIndex], title.showModeName)
-        title.wrapper.appendChild(currentSpan)
+        curSpan = makeSpanWith(title.letterArray[curIndex], title.styleClass)
+        title.wrapper.appendChild(curSpan)
 
-        if (curIndex == title.lineBreakIndex) title.wrapper.appendChild(document.createElement('br'))
-        if (curIndex == title.letterArray.length - 1)  {
+        if (curIndex === title.lineBreakIndex) {
+            title.wrapper.appendChild(document.createElement('br'))
+        }
+
+        if (curIndex === title.letterArray.length - 1)  {
             stopAnimationInterval()
             if (!title.isLast) animateHeader(button, subtitleInfo)
             else {
-                currentSpan.classList.remove(title.showModeName)
                 button.style.opacity = "1"
+                return
             }
         }
 

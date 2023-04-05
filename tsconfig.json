@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
     "sourceMap": true,
-    "target": "es2019",
+    "strict": true,
+    "target": "es2017",
     "outDir": "./src/build/js",
     "rootDir": "./src",
     "watch": true

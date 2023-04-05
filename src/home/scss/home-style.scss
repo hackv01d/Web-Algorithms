@@ -1,4 +1,4 @@
-@import "_variables";
+@import "_variables.scss";
 
 @font-face {
   font-family: "Comfortaa";
@@ -21,6 +21,14 @@ body {
   overflow: hidden;
 }
 
+iframe {
+  background-color: transparent;
+  width: 100vw;
+  height: 100vh;
+  border: none;
+  overflow: hidden;
+}
+
 .main-screen {
   display: flex;
   transition: $trans;
@@ -30,7 +38,7 @@ body {
   }
 }
 
-.container {
+.home-screen {
   height: 100vh;
   background: $background-app;
   display: flex;
@@ -39,61 +47,56 @@ body {
   align-items: flex-start;
   >header {
     margin-left: 40px;
+    .title {
+      text-align: left;
+      color: white;
+      font-size: 6vw;
+      line-height: 7vw;
+      font-family: $title-font;
+    }
+    .subtitle {
+      text-align: left;
+      color: white;
+      line-height: 1.5;
+      font-size: 2.3vw;
+      margin-top: 24px;
+      font-weight: normal;
+      font-family: $app-font;
+    }
+    .anim-letter {
+      border-width: 7px;
+      border-right: 5px solid white;
+      padding-right: 18px;
+    }
+
+    .visible-letter {
+      border-color: transparent;
+    }
   }
-}
-
-.title {
-  text-align: left;
-  color: white;
-  font-size: 6vw;
-  line-height: 7vw;
-  font-family: $title-font;
-}
-
-.subtitle {
-  text-align: left;
-  color: white;
-  line-height: 1.5;
-  font-size: 2.3vw;
-  margin-top: 24px;
-  font-weight: normal;
-  font-family: $app-font;
-}
-
-.anim-letter {
-  border-width: 7px;
-  border-right: 5px solid white;
-  padding-right: 18px;
-}
-
-.visible-letter {
-  border-color: transparent;
-}
-
-.nav-start {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  bottom: 15vh;
-  left: 40px;
-}
-
-.button-start {
-  margin-bottom: 0.7vh;
-  font-size: 1.5vw;
-  text-decoration: none;
-  border: none;
-  color: white;
-  font-weight: bold;
-  letter-spacing: 2px;
-  cursor: pointer;
-  background-color: transparent;
-  opacity: 0;
-  transition: opacity 2s;
-  font-family: $app-font;
-  &:hover {
-    color: $purple;
+  .nav-start {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    bottom: 15vh;
+    left: 40px;
+    .button-start {
+      margin-bottom: 0.7vh;
+      font-size: 1.5vw;
+      text-decoration: none;
+      border: none;
+      color: white;
+      font-weight: bold;
+      letter-spacing: 2px;
+      cursor: pointer;
+      background-color: transparent;
+      opacity: 0;
+      transition: opacity 2s;
+      font-family: $app-font;
+      &:hover {
+        color: $purple;
+      }
+    }
   }
 }
 
@@ -103,63 +106,50 @@ body {
   align-items: center;
   background-color: $background-app;
   font-family: $app-font;
-}
-
-.nav-content {
-  margin-left: 86vw;
-  position: fixed;
-  z-index: 1;
-}
-
-.nav-btn {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  min-height: 6vh;
-  >div {
-    min-width: 1.5vw;
-    min-height: 1.5vw;
-    margin-left: 1vw;
-    background-color: transparent;
-    border: 2px solid white;
-    border-radius: 50%;
-    transition: background-color .3s;
-    &:hover {
-      background-color: white;
+  .algorithms-screen {
+    display: flex;
+    align-self: flex-start;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    transition: $trans;
+    >div {
+      text-align: center;
+      min-width: 100vw;
+      height: 100vh;
+      header {
+        margin-top: 3vh;
+        color: white;
+      }
     }
   }
-  >span {
-    text-align: left;
-    opacity: 0;
-    color: white;
-    font-size: 1.1vw;
+  .nav-content {
+    margin-left: 86vw;
+    position: fixed;
+    z-index: 1;
+    .nav-btn {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      min-height: 6vh;
+      >div {
+        min-width: 1.5vw;
+        min-height: 1.5vw;
+        margin-left: 1vw;
+        background-color: transparent;
+        border: 2px solid white;
+        border-radius: 50%;
+        transition: background-color .3s;
+        &:hover {
+          background-color: white;
+        }
+      }
+      >span {
+        text-align: left;
+        opacity: 0;
+        color: white;
+        font-size: 1.1vw;
+      }
+    }
   }
 }
-
-.algorithms-screen {
-  display: flex;
-  align-self: flex-start;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  transition: $trans;
-  >div {
-    text-align: center;
-    min-width: 100vw;
-    height: 100vh;
-  }
-}
-
-.content-screen {
-  header {
-    margin-top: 3vh;
-    color: white;
-  }
-}
-iframe {
-    background-color: transparent;
-    width: 100vw;
-    height: 100vh;
-    border: none;
-    overflow: hidden;
-  }
