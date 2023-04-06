@@ -1,23 +1,22 @@
 $var1: black;
+@font-face {
+	font-family: "Comfortaa";
+	src: url("/src/assets/fonts/Comfortaa-VariableFont_wght.ttf");
+}
+  
+@font-face {
+	font-family: "Roboto Mono";
+	src: url("/src/assets/fonts/RobotoMono-VariableFont_wght.ttf");
+}
+
+$title-font: "Roboto Mono", sans-serif;
 * {
+	box-sizing: border-box;
 	padding: 0;
 	margin: 0;
 	border: 0;
 }
-*, *:before, *:after {
-	-moz-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
-}
-:focus, :active {
-	outline: none;
-}
-a:focus, a:active {
-	outline: none;
-}
-nav, footer, header, aside {
-	display: block;
-}
+
 html, body {
 	height: 100%;
 	width: 100%;
@@ -28,12 +27,7 @@ html, body {
 	-ms-text-size-adjust: 100%;
 	-webkit-text-size-adjust: 100%;
 }
-input, button, textarea {
-	font-family: inherit;
-}
-input::-ms-clear {
-	display: none;
-}
+
 button {
 	cursor: pointer;
 	&::-moz-focus-inner {
@@ -41,32 +35,37 @@ button {
 		border: 0;
 	}
 }
-a, a:visited {
-	text-decoration: none;
-}
-a:hover {
-	text-decoration: none;
-}
-ul li {
-	list-style: none;
-}
-img {
-	vertical-align: top;
-}
-h1, h2, h3, h4, h5, h6 {
-	font-size: inherit;
-	font-weight: 400;
+
+h1{
+	display: block;
+	font-size: 2em;
+	margin-block-start: 0.67em;
+	margin-block-end: 0.67em;
+	margin-inline-start: 0px;
+	margin-inline-end: 0px;
+	font-weight: bold;
+	text-align: center;
+
 }
 body {
 	font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
 	background-color: black;
 	display: flex;
 }
+header {
+	font-family: $title-font;
+	position: absolute;
+	color: white;
+	margin: auto;
+	top: 3vh;
+	left: 0;
+	right: 0;
+}
 .canvas {
 	background-color: black;
 	border: 1px solid white ;
 	display: flex;
-	margin:  10% 0  0 10%;
+	margin:  9% 0  0 3%;
 	
 	height: 600px;
 	width: 1000px;
@@ -108,9 +107,4 @@ body {
 }
 .radio{
 	display: inline;
-}
-.content-iframe{
-	width: 1800px;
-	height: 900px;
-	border: 0;
 }
