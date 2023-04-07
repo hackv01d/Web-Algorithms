@@ -1,49 +1,49 @@
 
-
 export class TreeNode{
   public value?: string;
   public children: TreeNode[];
   public attribute?: string;
 
-  constructor(attribute?: string, value?: string){ // мб добавить value
+  constructor(attribute?: string, value?: string){ 
     this.children = [];
     this.attribute = attribute;
     this.value = value;
   }
-  public addChild(attributeValue: string, subtree: TreeNode): void {
-    const newChild = new TreeNode(attributeValue);
+  public addChild(attribute: string, value: string, subtree: TreeNode): void {
+    const newChild = new TreeNode(attribute, value);
     newChild.children.push(subtree);
     this.children.push(newChild);
   }
 }
 
-class Tree{
-  private rootNode: TreeNode;
+export class Tree{
+  public rootNode: TreeNode;
   private headers: string[];
 
-  constructor(data: string[][]){ // обработать данные для хранения в дереве, возможно, добавить targetValue для настройки поиска элемента
-    this.headers = data.shift()|| []; // вырезать первую строку матрицы data
+  constructor(data: string[][]){
+    this.headers = data.shift()|| []; 
     this.rootNode = this.buildTree(data, this.headers);
   }
 
   private buildTree(data: string[][], headers: string[]) : TreeNode{
-    const [bestAttributeIndex, bestGain] = this.getBestFuture(data); // получаем индекс атрибута для лучшей выборки и его сумму 
+    const [bestAttributeIndex, bestGain] = this.getBestFuture(data);  
 
-    if (bestGain === 0){
-      const attributes = data.map((row) => row[row.length - 1]); //извлекает последний элемент каждой строки row из массива data и сохраняет их в массив attributes
+    if (bestGain === 0){ 
+      const attributes = data.map((row) => row[row.length - 1]); 
       const mostPopularAttribute = this.getMostPopularAttribute(attributes);
-      return new TreeNode(mostPopularAttribute); 
+
+      return new TreeNode(mostPopularAttribute);  
     }
 
     const bestAttribute = headers[bestAttributeIndex];
     const newNode = new TreeNode(bestAttribute);
     
-    const attributeValues = new Set(data.map((row) => row[bestAttributeIndex])); // собираем все неповторяющиеся аттрибуты
+    const attributeValues = new Set(data.map((row) => row[bestAttributeIndex])); 
     for (const attributeValue of attributeValues){
-      const attributeSet = data.filter((row) => row[bestAttributeIndex] === attributeValue); // создаём матрицу только из тех элементов, где в строке есть искомы аттрибут
-      const newHeaders = headers.filter((header) => header !== bestAttribute); // собираем все аттрибуты без уже использованного(attributeValue)
+      const attributeSet = data.filter((row) => row[bestAttributeIndex] === attributeValue); 
+      const newHeaders = headers.filter((header) => header !== bestAttribute); 
       const newSubtree = this.buildTree(attributeSet, newHeaders);
-      newNode.addChild(attributeValue, newSubtree);
+      newNode.addChild(bestAttribute, attributeValue, newSubtree);
     }
     return newNode;
 
@@ -64,20 +64,19 @@ class Tree{
     }
     return mostPopularAttribute;
   }
-  private getBestFuture(data: string[][]): [number, number]{ // нахождение наилучшей выборки, число или значение, благодаря которому мы строим дерево
-  //мы запускаем эту функцию для каждой ветки, если она не является листом
-    const numAttribute = data[0].length - 1; // мб data[0] заменить на headers
+  private getBestFuture(data: string[][]): [number, number]{ 
+    const numAttribute = this.headers.length - 1;
     let bestAttrinuteIndex = 0;
     let bestGain = 0;
     for(let i = 0; i < numAttribute; ++i){
-      const attributeValues = new Set(data.map((row) => (row[i]))); // проходимся по каждой строке и из неё берем i-й аттрибут
+      const attributeValues = new Set(data.map((row) => (row[i]))); 
       let newEntropy = 0;
       for (const attributeValue of attributeValues){
         const probabilitySet = data.filter((row) => row[i] === attributeValue);
-        const localProbability = probabilitySet.length / data.length; // здесь может быть проблема с лишней строкой(может учитываться строка с аттрибутами)
+        const localProbability = probabilitySet.length / data.length; 
         const attributeTypes = probabilitySet.map((row) => row[row.length - 1]);
 
-        const entropy = this.calculateEntropy(attributeTypes); // вычисляем энтропию для нахождения наилучшего информационного прироста
+        const entropy = this.calculateEntropy(attributeTypes); 
         newEntropy += localProbability * entropy;
       }
       const localGain = this.calculateEntropy(data.map((row => (row[row.length - 1])))) - newEntropy;
@@ -91,7 +90,7 @@ class Tree{
     return [bestAttrinuteIndex, bestGain];
   }
 
-  private calculateEntropy(types: string[]): number{ // когда энтропия равна нулю, формируем лист
+  private calculateEntropy(types: string[]): number{ 
     const entryCounts = new Map<string, number>();
     for(const type of types){
       entryCounts.set(type, (entryCounts.get(type)|| 0) + 1);
@@ -106,60 +105,47 @@ class Tree{
 
 
 
-  public traverseTree(way: string[]): TreeNode{ // targetValue здесь искать
-    let currentNode = this.rootNode;
-    for (const step of way) {
-      const matchingChild = currentNode.children.find((child) => child.value === step);
-      console.log(matchingChild);
-      if (!matchingChild) {
-        return undefined; 
-      }
-      currentNode = matchingChild;
+  public traverseTree(node: TreeNode, path: string[]): TreeNode | null {
+    if (node.children.length === 0) {
+      return node;
     }
-    return currentNode;
+    for(const attribute of path){
+      const childNode = node.children.find((child) => child.value === attribute);
+      if (childNode !== undefined) {
+        return this.traverseTree(childNode.children[0], path);
+      }
+  
+    }
+    return null;
+    
   }
+
 }
 
 
+// const way = ["Rain","Cool","Normal","true"];
+// const data = [
+//   ["Outlook","Temperature","Humidity","Windy","Play"],
+//   ["Sunny","Hot","High","false","No"],
+//   ["Sunny","Hot","High","true","No"],
+//   ["Overcast","Hot","High","false","Yes"],
+//   ["Rain","Mild","High","false","Yes"],
+//   ["Rain","Cool","Normal","false","Yes"],
+//   ["Rain","Cool","Normal","true","Hui"],
+//   ["Overcast","Cool","Normal","true","Yes"],
+//   ["Sunny","Mild","High","false","No"],
+//   ["Sunny","Cool","Normal","false","Yes"],
+//   ["Rain","Mild","Normal","false","Yes"],
+//   ["Sunny","Mild","Normal","true","Yes"],
+//   ["Overcast","Mild","High","true","Yes"],
+//   ["Overcast","Hot","Normal","false","Yes"],
+//   ["Rain","Mild","High","true","No"]
+// ];
+//   const decisionTree = new Tree(data);
+  
+//   console.log(decisionTree); 
+//   console.log(decisionTree.traverseTree(decisionTree.rootNode, way).attribute);
+  
 
-// Sunny,Cool,Normal,false
-const way = ["Rain","Cool","Normal","true"];
-const data = [
-  ["Outlook","Temperature","Humidity","Windy","Play"],
-  ["Sunny","Hot","High","false","No"],
-  ["Sunny","Hot","High","true","No"],
-  ["Overcast","Hot","High","false","Yes"],
-  ["Rain","Mild","High","false","Yes"],
-  ["Rain","Cool","Normal","false","Yes"],
-  ["Rain","Cool","Normal","true","No"],
-  ["Overcast","Cool","Normal","true","Yes"],
-  ["Sunny","Mild","High","false","No"],
-  ["Sunny","Cool","Normal","false","Yes"],
-  ["Rain","Mild","Normal","false","Yes"],
-  ["Sunny","Mild","Normal","true","Yes"],
-  ["Overcast","Mild","High","true","Yes"],
-  ["Overcast","Hot","Normal","false","Yes"],
-  ["Rain","Mild","High","true","No"]
-  ];
-  
-  const decisionTree = new Tree(data);
-  
-  console.log(decisionTree); // отображаем дерево решений, построенное на входных данных
-  console.log(decisionTree.traverseTree(way));
-  
-//   // Для тестирования работы дерева сделаем простое консольное приложение
-  
-//   const readline = require("readline");
-//   const rl = readline.createInterface({
-//   input: process.stdin,
-//   output: process.stdout
-//   });
-  
-//   rl.question("Введите данные в формате csv для принятия решения: ", function(data) {
-//   const input = data.split(",").map(value => value.trim());
-//   const result = decisionTree.traverseTree(input);
-//   console.log(`Результат принятия решения: ${result.value}`);
-//   rl.close();
-//   });
 
 
