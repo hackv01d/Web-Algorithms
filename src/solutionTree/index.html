@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,16 +8,34 @@
     <title>Solution tree</title>
     <link rel="stylesheet" href="../build/css/tree-style.css">
 </head>
+
 <body>
 
-    <textarea id="data-input" rows="30" cols="60"></textarea>
-    <button id="submit-button">Отправить</button>
-    <textarea id="data-input_two" rows="30" cols="60"></textarea>
-    <button id="submit-button_two">Отправить</button>
-    <script type="module" src="../build/js/solutionTree/ts/interfaces.js" defer></script>
+    <div class="container">
+        <div class="container__create-tree">
+            <textarea class="container__area tree-data" id="create-tree-area" rows="15" cols="60"></textarea>
+            <button class="button" id="create-tree-button">Создать дерево</button>
+        </div>
+
+        <div class="container__find-way">
+            <textarea class="container__area find-way-data" id="find-way-area" rows="5" cols="60"></textarea>
+            <button class="button" id="get-answer-button">Найти элемент</button>
+        </div>
+
+        <div class="container__symbol-selector">
+            <label for="separator">Cимвол разделителя:</label>
+            <select id="separator" name="separator">
+                <option value=";">Точка с запятой (;)</option>
+                <option value=",">Запятая (,)</option>
+            </select>
+        </div>
+
+        <div class="container__answer" id="container__answer">
+        </div>
+    </div>
     <script type="module" src="../build/js/solutionTree/ts/tree.js" defer></script>
-    <script type="module" src="../build/js/solutionTree/ts/parseData.js" defer></script>
     <script type="module" src="../build/js/solutionTree/ts/drawing.js" defer></script>
-    
+
 </body>
+
 </html>

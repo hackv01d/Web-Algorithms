@@ -1,27 +1,70 @@
-
-import {Tree} from "./tree.js";
-
+import { Tree } from "./tree.js";
 
 
-// добавить функцию визуализации созданного дерева
-// добавить функцию визуализации поиска пути и вывод результата targetValue
-const dataInput = document.getElementById("data-input") as HTMLInputElement;
-const submitButton = document.getElementById("submit-button");
+const createTreeInput = document.getElementById("create-tree-area") as HTMLInputElement;
+const createTreeButton = document.getElementById("create-tree-button") as HTMLButtonElement;
 
-const dataInputTwo = document.getElementById("data-input_two") as HTMLInputElement;
-const submitButtonTwo = document.getElementById("submit-button_two");
+const inputFindAnswer = document.getElementById("find-way-area") as HTMLInputElement;
+const getAnswerButton = document.getElementById("get-answer-button") as HTMLButtonElement;
+
+const answerText = document.getElementById("container__answer") as HTMLElement;
+const separatorSymbol = document.getElementById('separator') as HTMLSelectElement;
+
 let tree: Tree;
-submitButton.addEventListener("click", () => {
-  const data: string = dataInput.value;
-  const rows: string[] = data.split('\n');
-  const matrix: string[][] = rows.map((row) => row.split(';'));
-  tree = new Tree(matrix);
-  console.log(tree.rootNode);
+
+
+createTreeButton.addEventListener("click", () => {
+  const rows: string[] = createTreeInput.value.split('\n');
+  const matrix: string[][] = rows.map((row) => row.split(separatorSymbol.value));
+  const matrixIsCorrect = isMatrixCorrect(matrix);
+  
+  if (matrix.length <= 1) {
+    changeTextContent("red", "Error, add the children of the tree");
+  } else {
+    if (matrixIsCorrect) {
+      tree = new Tree(matrix);
+      answerText.textContent = "";
+    } else {
+      changeTextContent("red", "Error, check the matrix for correctness");
+    }
+
+  }
 });
 
 
-submitButtonTwo.addEventListener("click", () => {
-  const data: string = dataInputTwo.value;
-  const rows: string[] = data.split(';');
-  console.log(tree.traverseTree(tree.rootNode, rows).attribute);
+getAnswerButton.addEventListener("click", () => {
+  const rows: string[] = inputFindAnswer.value.split(separatorSymbol.value);
+
+  if (tree !== undefined && tree.rootNode.attribute !== "") {
+    const content = tree.traverseTree(tree.rootNode, rows);
+    if (content !== undefined) {
+      if (tree.rootNode.children.length > 0) {
+        changeTextContent("green", content.attribute);
+      } else if (rows[0] === content.attribute) {
+        changeTextContent("green", content.value);
+      } else {
+        changeTextContent("red", "Error");
+      }
+    } else {
+      changeTextContent("red", "Error");
+    }
+  } else {
+    changeTextContent("red", "Error");
+  }
 });
+
+
+function changeTextContent(color: string, value: string) {
+  answerText.style.color = color;
+  answerText.textContent = value;
+}
+
+function isMatrixCorrect(matrix: string[][]): boolean {
+  const correctLength = matrix[0].length;
+  for (const row of matrix) {
+    if (row.length !== correctLength) {
+      return false;
+    }
+  }
+  return true;
+}
