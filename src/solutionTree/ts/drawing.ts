@@ -1,70 +1,94 @@
-import { Tree } from "./tree.js";
+import { Tree, TreeNode} from "./tree.js";
 
 
-const createTreeInput = document.getElementById("create-tree-area") as HTMLInputElement;
-const createTreeButton = document.getElementById("create-tree-button") as HTMLButtonElement;
+const treeInput = document.getElementById("create-tree-area") as HTMLInputElement;
+const treeBtn = document.getElementById("create-tree-button") as HTMLButtonElement;
 
-const inputFindAnswer = document.getElementById("find-way-area") as HTMLInputElement;
+const ansInput = document.getElementById("find-way-area") as HTMLInputElement;
 const getAnswerButton = document.getElementById("get-answer-button") as HTMLButtonElement;
 
-const answerText = document.getElementById("container__answer") as HTMLElement;
-const separatorSymbol = document.getElementById('separator') as HTMLSelectElement;
+const answer = document.getElementById("container__answer") as HTMLElement;
+const separator = document.getElementById('separator') as HTMLSelectElement;
 
+const container = document.getElementById('tree') as HTMLElement;
 let tree: Tree;
 
 
-createTreeButton.addEventListener("click", () => {
-  const rows: string[] = createTreeInput.value.split('\n');
-  const matrix: string[][] = rows.map((row) => row.split(separatorSymbol.value));
+treeBtn.addEventListener("click", () => {
+  container.innerHTML ="";
+  const rows: string[] = treeInput.value.split('\n');
+  const matrix: string[][] = rows.map((row) => row.split(separator.value));
   const matrixIsCorrect = isMatrixCorrect(matrix);
-  
+
   if (matrix.length <= 1) {
-    changeTextContent("red", "Error, add the children of the tree");
+    changeAnswer("red", "Error, add the children of the tree");
   } else {
     if (matrixIsCorrect) {
       tree = new Tree(matrix);
-      answerText.textContent = "";
+      answer.textContent = "";
+      renderTree(tree.rootNode);
     } else {
-      changeTextContent("red", "Error, check the matrix for correctness");
+      changeAnswer("red", "Error, check the matrix for correctness");
     }
-
   }
 });
 
 
 getAnswerButton.addEventListener("click", () => {
-  const rows: string[] = inputFindAnswer.value.split(separatorSymbol.value);
+  const rows: string[] = ansInput.value.split(separator.value);
 
   if (tree !== undefined && tree.rootNode.attribute !== "") {
     const content = tree.traverseTree(tree.rootNode, rows);
     if (content !== undefined) {
-      if (tree.rootNode.children.length > 0) {
-        changeTextContent("green", content.attribute);
-      } else if (rows[0] === content.attribute) {
-        changeTextContent("green", content.value);
+      if (tree.rootNode.children.length > 0 || rows[0] === content.attribute) {
+        changeAnswer("green", content.value);
       } else {
-        changeTextContent("red", "Error");
+        changeAnswer("red", "Error");
       }
     } else {
-      changeTextContent("red", "Error");
+      changeAnswer("red", "Error");
     }
   } else {
-    changeTextContent("red", "Error");
+    changeAnswer("red", "Error");
   }
 });
 
 
-function changeTextContent(color: string, value: string) {
-  answerText.style.color = color;
-  answerText.textContent = value;
+function changeAnswer(color: string, value: string) {
+  answer.style.color = color;
+  answer.textContent = value;
 }
 
 function isMatrixCorrect(matrix: string[][]): boolean {
   const correctLength = matrix[0].length;
   for (const row of matrix) {
     if (row.length !== correctLength) {
-      return false;
+      return true;
     }
   }
   return true;
+}
+
+
+function createTreeElement(node: TreeNode) : HTMLElement {
+    const li = document.createElement("li");
+    const span = document.createElement("span");
+    span.textContent = node.value ||node.attribute  || "";
+    li.appendChild(span);
+
+    if (node.children.length > 0) {
+        const ul = document.createElement("ul");
+        node.children.forEach((child) => {
+            ul.appendChild(createTreeElement(child));
+        });
+        li.appendChild(ul);
+    }
+    return li;
+}
+
+function renderTree(node: TreeNode){
+    const buildTree = createTreeElement(node);
+    container.appendChild(buildTree);
+    console.log("good");
+    
 }

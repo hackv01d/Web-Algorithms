@@ -1,68 +1,118 @@
-$var1: black;
-* {
-	padding: 0;
-	margin: 0;
-	border: 0;
-}
-*, *:before, *:after {
-	-moz-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
-}
-:focus, :active {
-	outline: none;
-}
-a:focus, a:active {
-	outline: none;
-}
-nav, footer, header, aside {
-	display: block;
-}
-html, body {
-	height: 100%;
-	width: 100%;
-	font-size: 100%;
-	line-height: 1;
-	font-size: 20px;
-	-ms-text-size-adjust: 100%;
-	-ms-text-size-adjust: 100%;
-	-webkit-text-size-adjust: 100%;
-}
-input, button, textarea {
-	font-family: inherit;
-}
-input::-ms-clear {
-	display: none;
-}
-button {
-	cursor: pointer;
-	&::-moz-focus-inner {
-		padding: 0;
-		border: 0;
-	}
-}
-a, a:visited {
-	text-decoration: none;
-}
-a:hover {
-	text-decoration: none;
-}
-ul li {
+/* 
+ 	Взял отсюда https://www.cssscript.com/clean-tree-diagram/
+*/
+.tree {
 	list-style: none;
-}
-img {
-	vertical-align: top;
-}
-h1, h2, h3, h4, h5, h6 {
-	font-size: inherit;
-	font-weight: 400;
-}
-body {
-	font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-	background-color:dimgray;
-}
-.answer{
-	color: red;
-	font-size: 50px;
+	margin: 0;
+	padding: 0;
+	position: relative;
+	margin: 0 0 1em;
 	text-align: center;
-}
+	display: table;
+  
+	ul {
+	  list-style: none;
+	  margin: 0;
+	  padding: 0;
+	  position: relative;
+	  display: table;
+	  width: 100%;
+  
+	  &:before {
+		outline: solid 1px #666;
+		content: "";
+		height: .5em;
+		left: 50%;
+		position: absolute;
+		top: -.5em;
+	  }
+	}
+  
+	li {
+	  list-style: none;
+	  margin: 0;
+	  padding: 0;
+	  position: relative;
+	  display: table-cell;
+	  padding: .5em 0;
+	  vertical-align: top;
+  
+	  &:before {
+		outline: solid 1px #666;
+		content: "";
+		left: 0;
+		position: absolute;
+		right: 0;
+		top: 0;
+	  }
+  
+	  &:first-child {
+		&:before {
+		  left: 50%;
+		}
+	  }
+  
+	  &:last-child {
+		&:before {
+		  right: 50%;
+		}
+	  }
+	}
+  
+	code {
+	  border: solid .1em #666;
+	  border-radius: .2em;
+	  display: inline-block;
+	  margin: 0 .2em .5em;
+	  padding: .2em .5em;
+	  position: relative;
+  
+	  &:before {
+		outline: solid 1px #666;
+		content: "";
+		height: .5em;
+		left: 50%;
+		position: absolute;
+		top: -.55em;
+	  }
+	}
+  
+	span {
+	  border: solid .1em #666;
+	  border-radius: .2em;
+	  display: inline-block;
+	  margin: 0 .2em .5em;
+	  padding: .2em .5em;
+	  position: relative;
+  
+	  &:before {
+		outline: solid 1px #666;
+		content: "";
+		height: .5em;
+		left: 50%;
+		position: absolute;
+		top: -.55em;
+	  }
+	}
+  
+	>li {
+	  margin-top: 0;
+	  &:before {
+		outline: none;
+	  }
+	  &:after {
+		outline: none;
+	  }
+	  >code {
+		&:before {
+		  outline: none;
+		}
+	  }
+
+	  >span {
+		&:before {
+		  outline: none;}
+	  }
+	}
+  }
+  

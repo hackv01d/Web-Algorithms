@@ -26,7 +26,7 @@ export class Tree {
   }
 
   private buildTree(data: string[][], headers: string[]): TreeNode {
-    const [bestAttributeIndex, bestGain] = this.getBestFuture(data);
+    const [bestAttributeId, bestGain] = this.getBestFuture(data);
 
     if (bestGain === 0) {
       const attributes = data.map((row) => row[row.length - 1]);
@@ -37,21 +37,21 @@ export class Tree {
       return new TreeNode(mostPopularAttribute);
     }
 
-    const bestAttribute = headers[bestAttributeIndex];
+    const bestAttribute = headers[bestAttributeId];
     const newNode = new TreeNode(bestAttribute);
 
-    const attributeValues = new Set(data.map((row) => row[bestAttributeIndex]));
-    for (const attributeValue of attributeValues) {
-      const attributeSet = data.filter((row) => row[bestAttributeIndex] === attributeValue);
-      const newHeaders = headers.filter((header) => header !== bestAttribute);
-      const newSubtree = this.buildTree(attributeSet, newHeaders);
+    const attributeValues = new Set(data.map((row) => row[bestAttributeId]));
 
-      newNode.addChild(bestAttribute, attributeValue, newSubtree);
+    for (const attributeValue of attributeValues) {
+      const attributeSet = data.filter((row) => row[bestAttributeId] === attributeValue);
+      const newHeaders = headers.filter((header) => header !== bestAttribute);
+      const subtree = this.buildTree(attributeSet, newHeaders);
+
+      newNode.addChild(bestAttribute, attributeValue, subtree);
     }
     return newNode;
   }
 
-  
   private getMostPopularAttribute(attributes: string[]): string {
     const attributeCounts = new Map<string, number>();
     for (const attribute of attributes) {
@@ -73,16 +73,12 @@ export class Tree {
     const numAttribute = this.headers.length - 1;
     let bestAttrinuteIndex = 0;
     let bestGain = 0;
+
     for (let i = 0; i < numAttribute; ++i) {
       const attributeValues = new Set(data.map((row) => (row[i])));
       let newEntropy = 0;
       for (const attributeValue of attributeValues) {
-        const probabilitySet = data.filter((row) => row[i] === attributeValue);
-        const localProbability = probabilitySet.length / data.length;
-        const attributeTypes = probabilitySet.map((row) => row[row.length - 1]);
-
-        const entropy = this.calculateEntropy(attributeTypes);
-        newEntropy += localProbability * entropy;
+        newEntropy += this.calculateAttributeValueEntropy(attributeValue, data, i);
       }
       const localGain = this.calculateEntropy(data.map((row => (row[row.length - 1])))) - newEntropy;
 
@@ -94,6 +90,14 @@ export class Tree {
     return [bestAttrinuteIndex, bestGain];
   }
 
+  private calculateAttributeValueEntropy(attributeValue : string, data: string[][], i: number) : number{
+    const probabilitySet = data.filter((row) => row[i] === attributeValue);
+    const localProbability = probabilitySet.length / data.length;
+    const attributeTypes = probabilitySet.map((row) => row[row.length - 1]);
+
+    const entropy = this.calculateEntropy(attributeTypes);
+    return localProbability * entropy;
+  }
 
   private calculateEntropy(types: string[]): number {
     const entryCounts = new Map<string, number>();

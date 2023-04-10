@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Solution tree</title>
+    <link rel="stylesheet" href="../build/css/page-style.css">
     <link rel="stylesheet" href="../build/css/tree-style.css">
 </head>
 
@@ -13,18 +14,18 @@
 
     <div class="container">
         <div class="container__create-tree">
-            <textarea class="container__area tree-data" id="create-tree-area" rows="15" cols="60"></textarea>
-            <button class="button" id="create-tree-button">Создать дерево</button>
+            <textarea class="container__area data__tree" id="create-tree-area" rows="15" cols="60"></textarea>
+            <button class="constainer__button" id="create-tree-button">Создать дерево</button>
         </div>
 
         <div class="container__find-way">
-            <textarea class="container__area find-way-data" id="find-way-area" rows="5" cols="60"></textarea>
-            <button class="button" id="get-answer-button">Найти элемент</button>
+            <textarea class="container__area data__find-way" id="find-way-area" rows="5" cols="60"></textarea>
+            <button class="constainer__button" id="get-answer-button">Найти элемент</button>
         </div>
 
         <div class="container__symbol-selector">
-            <label for="separator">Cимвол разделителя:</label>
-            <select id="separator" name="separator">
+            <label class="container__label-separator" for="separator">Cимвол разделителя:</label>
+            <select class="container__separator" id="separator" name="separator">
                 <option value=";">Точка с запятой (;)</option>
                 <option value=",">Запятая (,)</option>
             </select>
@@ -33,6 +34,52 @@
         <div class="container__answer" id="container__answer">
         </div>
     </div>
+    <ul class="tree" id="tree" style="height: 600px; width: 600px; ">
+        <!-- <li> <span>Home</span>
+          <ul>
+            <li> <span>About us</span>
+              <ul>
+                <li> <span>Our history</span>
+                  <ul>
+                    <li><span>Founder</span></li>
+                  </ul>
+                </li>
+                <li> <span>Our board</span>
+                  <ul>
+                    <li><span>Brad Whiteman</span></li>
+                    <li><span>Cynthia Tolken</span></li>
+                    <li><span>Bobby Founderson</span></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li> <span>Our products</span>
+              <ul>
+                <li> <span>The Widget 2000™</span>
+                  <ul>
+                    <li><span>Order form</span></li>
+                  </ul>
+                </li>
+                <li> <span>The McGuffin V2</span>
+                  <ul>
+                    <li><span>Order form</span></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li> <span>Contact us</span>
+              <ul>
+                <li> <span>Social media</span>
+                  <ul>
+                    <li><span>Facebook</span></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li> -->
+    </ul>
+
     <script type="module" src="../build/js/solutionTree/ts/tree.js" defer></script>
     <script type="module" src="../build/js/solutionTree/ts/drawing.js" defer></script>
 
