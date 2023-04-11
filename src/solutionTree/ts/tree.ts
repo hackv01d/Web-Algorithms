@@ -37,7 +37,7 @@ export class Tree {
       return new TreeNode(mostPopularAttribute);
     }
 
-    const bestAttribute = headers[bestAttributeId];
+    const bestAttribute = this.headers[bestAttributeId];
     const newNode = new TreeNode(bestAttribute);
 
     const attributeValues = new Set(data.map((row) => row[bestAttributeId]));
@@ -46,7 +46,8 @@ export class Tree {
       const attributeSet = data.filter((row) => row[bestAttributeId] === attributeValue);
       const newHeaders = headers.filter((header) => header !== bestAttribute);
       const subtree = this.buildTree(attributeSet, newHeaders);
-
+      console.log(headers[bestAttributeId] + attributeValue);
+      
       newNode.addChild(bestAttribute, attributeValue, subtree);
     }
     return newNode;
@@ -116,17 +117,30 @@ export class Tree {
 
 
 
-  public traverseTree(node: TreeNode, path: string[]): TreeNode | undefined {
+  public traverseTree(node: TreeNode, path: string[], way: string[]): string[]{
+    
     if (node.children.length === 0) {
-      return node;
+      way.push(node.attribute);
+      return way;
     }
     for (const attribute of path) {
       const childNode = node.children.find((child) => child.value === attribute);
-      if (childNode !== undefined) {
-        return this.traverseTree(childNode.children[0], path);
+      
+      if (childNode !== undefined && childNode.value !==undefined) {
+        way.push(this.headers[path.indexOf(attribute)]);
+        way.push(attribute);
+        
+        return this.traverseTree(childNode.children[0], path, way);
+      } else{
+        const childNodeAttribute = node.children.find((child) => child.attribute === attribute);
+        if (childNodeAttribute !== undefined) {
+          way.push(this.headers[path.indexOf(attribute)]);
+          way.push(attribute);
+          return this.traverseTree(childNodeAttribute.children[0], path, way);  
       }
     }
-    return undefined;
+  }
+    return [];
 
   }
 

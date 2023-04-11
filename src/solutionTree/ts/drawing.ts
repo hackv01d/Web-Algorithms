@@ -1,3 +1,4 @@
+import { log } from "console";
 import { Tree, TreeNode} from "./tree.js";
 
 
@@ -25,6 +26,8 @@ treeBtn.addEventListener("click", () => {
   } else {
     if (matrixIsCorrect) {
       tree = new Tree(matrix);
+      console.log(tree);
+      
       answer.textContent = "";
       renderTree(tree.rootNode);
     } else {
@@ -32,24 +35,30 @@ treeBtn.addEventListener("click", () => {
     }
   }
 });
-
+let content: string[];
 
 getAnswerButton.addEventListener("click", () => {
   const rows: string[] = ansInput.value.split(separator.value);
 
   if (tree !== undefined && tree.rootNode.attribute !== "") {
-    const content = tree.traverseTree(tree.rootNode, rows);
-    if (content !== undefined) {
-      if (tree.rootNode.children.length > 0 || rows[0] === content.attribute) {
-        changeAnswer("green", content.value);
-      } else {
-        changeAnswer("red", "Error");
-      }
-    } else {
-      changeAnswer("red", "Error");
-    }
-  } else {
-    changeAnswer("red", "Error");
+    
+    content = tree.traverseTree(tree.rootNode, rows, []);
+  //   if (content !== undefined) {
+  //     if (tree.rootNode.children.length > 0 || rows[0] === content.attribute) {
+  //       changeAnswer("green", content.value);
+  //     } else {
+  //       changeAnswer("red", "Error");
+  //     }
+  //   } else {
+  //     changeAnswer("red", "Error");
+  //   }
+  // } else {
+  //   changeAnswer("red", "Error");
+    console.log(content);
+    
+    const constSpan = container.querySelector('span');
+    constSpan.style.color = "red";
+    showWay(content, container.querySelector('ul'), 1);
   }
 });
 
@@ -73,7 +82,12 @@ function isMatrixCorrect(matrix: string[][]): boolean {
 function createTreeElement(node: TreeNode) : HTMLElement {
     const li = document.createElement("li");
     const span = document.createElement("span");
-    span.textContent = node.value ||node.attribute  || "";
+    if (node.value !== undefined){
+      span.textContent = node.value;
+    } else{
+      span.textContent = node.attribute  || "";
+    }
+    
     li.appendChild(span);
 
     if (node.children.length > 0) {
@@ -89,6 +103,51 @@ function createTreeElement(node: TreeNode) : HTMLElement {
 function renderTree(node: TreeNode){
     const buildTree = createTreeElement(node);
     container.appendChild(buildTree);
-    console.log("good");
-    
+}
+function showWay(way: string[], constainer: HTMLElement,index: number){
+  const elements = constainer.children;
+  if (index === way.length - 1){
+    const constSpan = constainer.querySelector('span');
+    constSpan.style.color = "green";
+    return;
+  }
+  for(const element of elements){
+    const constSpan = element.querySelector('span');
+    const constElementUl = element.querySelector('ul');
+
+    if (index === way.length){
+      constSpan.style.color = "green";
+      break;
+    }
+    if (constSpan.textContent === way[index]){
+      constSpan.style.color = "red";
+
+      index += 1;
+      showWay(way, constElementUl, index);
+      
+    }
+  }
+}
+function deleteWay(way: string[], constainer: HTMLElement,index: number){
+  const elements = constainer.children;
+  if (index === way.length - 1){
+    const constSpan = constainer.querySelector('span');
+    constSpan.style.color = "black";
+    return;
+  }
+  for(const element of elements){
+    const constSpan = element.querySelector('span');
+    const constElementUl = element.querySelector('ul');
+    if (index === way.length){
+      constSpan.style.color = "black";
+      break;
+    }
+    if (constSpan.textContent === way[index]){
+      constSpan.style.color = "black";
+
+      index += 1;
+      deleteWay(way, constElementUl, index);
+      
+    }
+  }
 }
