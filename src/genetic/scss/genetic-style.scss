@@ -36,57 +36,58 @@ body {
     text-decoration: none;
     display: inline-block;
     position: relative;
-    color: white;
+    color: #fff;
     border: 1px solid rgba(255, 255, 255, 0.4);
     background: none;
     font-weight: 300;
     font-family: "Montserrat", sans-serif;
     text-transform: uppercase;
     letter-spacing: 2px;
-}
-  
-.buttons:before, .border-button:after {
-    content: "";
-    position: absolute;
-    width: 0;
-    height: 0;
-    opacity: 0;
-    box-sizing: border-box;
-}
-  
-.buttons:before {
-    bottom: 0;
-    left: 0;
-    border-left: 1px solid white;
-    border-top: 1px solid white;
-    transition: 0s ease opacity 0.8s, 0.2s ease width 0.4s, 0.2s ease height 0.6s;
-}
-  
-.buttons:after {
-    top: 0;
-    right: 0;
-    border-right: 1px solid white;
-    border-bottom: 1px solid white;
-    transition: 0s ease opacity 0.4s, 0.2s ease width, 0.2s ease height 0.2s;
-}
-  
-.buttons:hover:before,
-.buttons:hover:after {
-    height: 100%;
-    width: 100%;
-    opacity: 1;
-}
-  
-.buttons:hover:before {
-    transition: 0s ease opacity 0s, 0.2s ease height, 0.2s ease width 0.2s;
-}
-  
-.buttons:hover:after {
-    transition: 0s ease opacity 0.4s, 0.2s ease height 0.4s, 0.2s ease width 0.6s;
-}
-  
-.buttons:hover {
-    background: rgba(255, 255, 255, 0.2);
+
+    &:before,
+    &:after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 0;
+        opacity: 0;
+        box-sizing: border-box;
+    }
+
+    &:before {
+        bottom: 0;
+        left: 0;
+        border-left: 1px solid #fff;
+        border-top: 1px solid #fff;
+        transition: opacity 0.8s ease 0s, width 0.4s ease 0.2s, height 0.6s ease 0.2s;
+    }
+
+    &:after {
+        top: 0;
+        right: 0;
+        border-right: 1px solid #fff;
+        border-bottom: 1px solid #fff;
+        transition: opacity 0.4s ease 0s, width 0.6s ease 0.2s, height 0.2s ease 0.2s;
+    }
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.2);
+
+        &:before,
+        &:after {
+            height: 100%;
+            width: 100%;
+            opacity: 1;
+        }
+
+        &:before {
+            transition: opacity 0s ease 0s, height 0.2s ease 0s, width 0.2s ease 0.2s;
+        }
+
+        &:after {
+            transition: opacity 0.4s ease 0s, height 0.4s ease 0.2s, width 0.6s ease 0.2s;
+        }
+    }
 }
 
 .main {
