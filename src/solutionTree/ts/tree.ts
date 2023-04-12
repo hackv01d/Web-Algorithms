@@ -26,9 +26,9 @@ export class Tree {
   }
 
   private buildTree(data: string[][], headers: string[]): TreeNode {
-    const [bestAttributeId, bestGain] = this.getBestFuture(data);
+    const [bestAttrIdx, bestInfoGain] = this.getBestFuture(data);
 
-    if (bestGain === 0) {
+    if (bestInfoGain === 0) {
       const attributes = data.map((row) => row[row.length - 1]);
       const mostPopularAttribute = this.getMostPopularAttribute(attributes);
       if (data.length === 1) {
@@ -37,18 +37,17 @@ export class Tree {
       return new TreeNode(mostPopularAttribute);
     }
 
-    const bestAttribute = this.headers[bestAttributeId];
-    const newNode = new TreeNode(bestAttribute);
+    const bestAttr = this.headers[bestAttrIdx];
+    const newNode = new TreeNode(bestAttr);
 
-    const attributeValues = new Set(data.map((row) => row[bestAttributeId]));
+    const uniqueAttrValues = new Set(data.map((row) => row[bestAttrIdx]));
 
-    for (const attributeValue of attributeValues) {
-      const attributeSet = data.filter((row) => row[bestAttributeId] === attributeValue);
-      const newHeaders = headers.filter((header) => header !== bestAttribute);
-      const subtree = this.buildTree(attributeSet, newHeaders);
-      console.log(headers[bestAttributeId] + attributeValue);
-      
-      newNode.addChild(bestAttribute, attributeValue, subtree);
+    for (const attrValue of uniqueAttrValues) {
+      const attrSet = data.filter((row) => row[bestAttrIdx] === attrValue);
+      const attrSetHeaders = headers.filter((header) => header !== bestAttr);
+      const subtree = this.buildTree(attrSet, attrSetHeaders);
+
+      newNode.addChild(bestAttr, attrValue, subtree);
     }
     return newNode;
   }
@@ -70,37 +69,37 @@ export class Tree {
   }
 
 
-  private getBestFuture(data: string[][]): [number, number] {
+  private getBestFuture(inputData: string[][]): [number, number] {
     const numAttribute = this.headers.length - 1;
-    let bestAttrinuteIndex = 0;
-    let bestGain = 0;
+    let bestAttrIdx = 0;
+    let maxInfoGain = 0;
 
     for (let i = 0; i < numAttribute; ++i) {
-      const attributeValues = new Set(data.map((row) => (row[i])));
-      let newEntropy = 0;
+      const attributeValues = new Set(inputData.map((row) => (row[i])));
+      let entropy = 0;
       for (const attributeValue of attributeValues) {
-        newEntropy += this.calculateAttributeValueEntropy(attributeValue, data, i);
+        entropy += this.calculateAttributeValueEntropy(attributeValue, inputData, i);
       }
-      const localGain = this.calculateEntropy(data.map((row => (row[row.length - 1])))) - newEntropy;
+      const localInfoGain = this.calculateShannonEntropy(inputData.map((row => (row[row.length - 1])))) - entropy;
 
-      if (bestGain < localGain) {
-        bestGain = localGain;
-        bestAttrinuteIndex = i;
+      if (maxInfoGain < localInfoGain) {
+        maxInfoGain = localInfoGain;
+        bestAttrIdx = i;
       }
     }
-    return [bestAttrinuteIndex, bestGain];
+    return [bestAttrIdx, maxInfoGain];
   }
 
-  private calculateAttributeValueEntropy(attributeValue : string, data: string[][], i: number) : number{
+  private calculateAttributeValueEntropy(attributeValue: string, data: string[][], i: number): number {
     const probabilitySet = data.filter((row) => row[i] === attributeValue);
     const localProbability = probabilitySet.length / data.length;
     const attributeTypes = probabilitySet.map((row) => row[row.length - 1]);
 
-    const entropy = this.calculateEntropy(attributeTypes);
+    const entropy = this.calculateShannonEntropy(attributeTypes);
     return localProbability * entropy;
   }
 
-  private calculateEntropy(types: string[]): number {
+  private calculateShannonEntropy(types: string[]): number {
     const entryCounts = new Map<string, number>();
     for (const type of types) {
       entryCounts.set(type, (entryCounts.get(type) || 0) + 1);
@@ -117,29 +116,29 @@ export class Tree {
 
 
 
-  public traverseTree(node: TreeNode, path: string[], way: string[]): string[]{
-    
+  public traverseDecisionTree(node: TreeNode, path: string[], way: string[]): string[] {
+
     if (node.children.length === 0) {
       way.push(node.attribute);
       return way;
     }
-    for (const attribute of path) {
-      const childNode = node.children.find((child) => child.value === attribute);
-      
-      if (childNode !== undefined && childNode.value !==undefined) {
-        way.push(this.headers[path.indexOf(attribute)]);
-        way.push(attribute);
-        
-        return this.traverseTree(childNode.children[0], path, way);
-      } else{
-        const childNodeAttribute = node.children.find((child) => child.attribute === attribute);
+
+    for (let i = 0; i < path.length; ++i) {
+      const attributeValue = path[i];
+      const childNode = node.children.find((child) => child.value === attributeValue);
+
+      if (childNode !== undefined && childNode.value !== undefined) {
+        way.push(this.headers[i], attributeValue);
+        return this.traverseDecisionTree(childNode.children[0], path, way);
+
+      } else {
+        const childNodeAttribute = node.children.find((child) => child.attribute === attributeValue);
         if (childNodeAttribute !== undefined) {
-          way.push(this.headers[path.indexOf(attribute)]);
-          way.push(attribute);
-          return this.traverseTree(childNodeAttribute.children[0], path, way);  
+          way.push(this.headers[i], attributeValue);
+          return this.traverseDecisionTree(childNodeAttribute.children[0], path, way);
+        }
       }
     }
-  }
     return [];
 
   }

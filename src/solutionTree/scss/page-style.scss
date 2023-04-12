@@ -56,7 +56,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 body {
 	font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-	background-color:rgb(161, 151, 151);
+	// background-color:rgb(161, 151, 151);
 }
 
 
@@ -90,3 +90,9 @@ body {
 
 	}
 }	
+.display__Tree{
+	display: block;
+	overflow-x: scroll;
+	max-height: 500px;
+	max-width: 1500px;
+}
