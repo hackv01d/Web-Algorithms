@@ -1,4 +1,4 @@
-import { Point } from "../interface/point.js";
+import { Point } from "../types/point.js";
 
 
 export function fillDistance(distancesGens: number[][], arrayGens: Point[], calculateDistance): number[][] {

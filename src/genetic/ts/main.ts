@@ -1,4 +1,4 @@
-import { Point } from "./interface/point.js";
+import { Point } from "./types/point.js";
 import { Canvas } from "./canvas.js";
 import { prepareData } from "./algorithm/initial.js";
 

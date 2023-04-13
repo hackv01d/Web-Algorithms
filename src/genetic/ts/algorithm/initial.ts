@@ -1,4 +1,4 @@
-import { Point } from "../interface/point.js";
+import { Point } from "../types/point.js";
 import { fillDistance } from "./fillDistance.js";
 import { buildMutations } from "./mutations.js";
 import { populationSize, percentMutation, countGeneration, arrayPoints, solve} from "../main.js";
