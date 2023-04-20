@@ -174,3 +174,4 @@ package-lock.json
 *v8.log
 lib/
 /src/build/
+/package.json
