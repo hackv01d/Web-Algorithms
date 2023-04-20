@@ -1,10 +1,6 @@
 @import "_variables.scss";
 @import "../../common/scss/_variables.scss";
-
-@font-face {
-  font-family: "Comfortaa";
-  src: url("/src/assets/fonts/Comfortaa-VariableFont_wght.ttf");
-}
+@import "../../common/scss/app-styles.scss";
 
 @font-face {
   font-family: "Roboto Mono";
