@@ -11,9 +11,9 @@
   margin: 0;
 }
 
-%content-header {
+@mixin content-header($leftPercent) {
   top: 3%;
-  left: 37%;
+  left: $leftPercent;
   position: absolute;
   color: white;
   font-family: $app-font;

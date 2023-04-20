@@ -1,4 +1,6 @@
 @import "_variables";
+@import "../../common/scss/_variables.scss";
+@import "../../common/scss/app-styles.scss";
 
 @font-face {
   font-family: "Roboto Mono";
@@ -6,20 +8,15 @@
 }
 
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+  @extend %universal
 }
 
 body {
-  overflow: hidden;
   background-color: $background-app;
 }
 
 header {
-  position: absolute;
-  top: 3vh;
-  color: white;
+  @include content-header(45%)
 }
 
 .container {
