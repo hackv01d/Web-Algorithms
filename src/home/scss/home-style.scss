@@ -1,4 +1,5 @@
 @import "_variables.scss";
+@import "../../common/scss/_variables.scss";
 
 @font-face {
   font-family: "Comfortaa";
@@ -94,7 +95,7 @@ iframe {
       transition: opacity 2s;
       font-family: $app-font;
       &:hover {
-        color: $purple;
+        color: $primary-color;
       }
     }
   }
