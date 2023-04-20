@@ -1,6 +1,6 @@
 import { Map } from "./map.js";
-import { Graph } from "./a-star.js";
-import { AStar } from "./a-star.js";
+import { Graph } from "./implementation/graph.js";
+import { AStar } from "./implementation/astar.js";
 import { updateOptBtnOnClick } from "./utils/buttonUtils.js";
 import {
     selectStartButtonHandle,
@@ -8,7 +8,9 @@ import {
     addWallButtonHandle,
     runButtonHandle,
     generateMapButtonHandle,
-    resetMapButtonHandle } from "./eventHandlers.js";
+    resetMapButtonHandle,
+    rangeSizeHandle,
+    rangeSpeedHandle } from "./eventHandlers.js";
 
 const elMap = document.querySelector('.matrix') as HTMLTableElement
 
@@ -22,17 +24,28 @@ const runButton = document.querySelector('.run-btn') as HTMLButtonElement
 const addWallButton = document.querySelector('.add-wall-btn') as HTMLButtonElement
 export const allOptionButtons = Array.from<HTMLButtonElement>(document.querySelectorAll('.setup-btn'))
 
-export const sizeMap = 18
-export const graph = new Graph(sizeMap)
-export const aStar = new AStar(graph)
-export const map = new Map(elMap, sizeMap)
+const rangeSize = document.querySelector('#size') as HTMLInputElement
+const rangeSpeed = document.querySelector('#speed') as HTMLInputElement
+const labelSpeed = document.querySelector('#speed-label') as HTMLLabelElement
+
+const sizeMap: number = rangeSize.valueAsNumber
+const speedAnim: number = rangeSpeed.valueAsNumber
+
+export const graph: Graph = new Graph(sizeMap)
+export const aStar: AStar = new AStar(graph)
+export const map: Map = new Map(elMap, sizeMap, speedAnim)
+
+selectStartButton.addEventListener('click', selectStartButtonHandle)
+selectGoalButton.addEventListener('click', selectGoalButtonHandle)
 
 resetMapButton.addEventListener('click', resetMapButtonHandle)
 generateMapButton.addEventListener('click', generateMapButtonHandle)
 runButton.addEventListener('click', () => runButtonHandle())
 
-selectStartButton.addEventListener('click', selectStartButtonHandle)
-selectGoalButton.addEventListener('click', selectGoalButtonHandle)
+rangeSize.addEventListener('input', rangeSizeHandle)
+rangeSpeed.addEventListener('input', (event) => {
+    rangeSpeedHandle(event, labelSpeed)
+})
 
 addWallButton.addEventListener('click', addWallButtonHandle)
 allOptionButtons.forEach(el => {

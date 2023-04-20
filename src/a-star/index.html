@@ -20,16 +20,42 @@
 
       <div class="content">
 
-          <div class="options-menu">
-              <button class="setup-btn reset-map-btn" id="reset">Очистить карту</button>
-              <button class="setup-btn generate-map-btn" id="generate">Сгенерировать карту</button>
-              <button class="setup-btn select-start-btn" id="start">Изменить начало пути</button>
-              <button class="setup-btn select-goal-btn" id="goal">Изменить конец пути</button>
-              <button class="setup-btn add-wall-btn" id="wall">Добавить/Убрать стену</button>
-              <button class="setup-btn run-btn" id="run">Запустить алгоритм</button>
+          <div class="config-field">
+
+              <div class="options-button">
+                  <button class="setup-btn select-start-btn">Изменить начало пути</button>
+                  <button class="setup-btn select-goal-btn">Изменить конец пути</button>
+                  <button class="setup-btn add-wall-btn">Добавить/Убрать стену</button>
+                  <button class="setup-btn reset-map-btn">Очистить карту</button>
+              </div>
+
+              <div class="ranges-field">
+                  <div class="edit-size-field">
+                      <p>Размер карты</p>
+                      <form oninput="result.value=size.value">
+                          <input id="size" type="range" value="19" min="11" max="27" step="2">
+                          <output name="result" for="range-size">19</output>
+                      </form>
+                  </div>
+
+                  <div class="edit-speed-field">
+                      <p>Скорость анимации</p>
+                      <form>
+                          <input id="speed" type="range" value="20" min="20" max="100" step="40">
+                          <label id="speed-label" for="speed">low</label>
+                      </form>
+                  </div>
+              </div>
+
           </div>
 
-          <table class="matrix"></table>
+          <div class="general-field">
+              <table class="matrix"></table>
+              <div class="command-buttons">
+                  <button class="setup-btn run-btn">Запустить алгоритм</button>
+                  <button class="setup-btn generate-map-btn">Сгенерировать карту</button>
+              </div>
+          </div>
 
       </div>
 

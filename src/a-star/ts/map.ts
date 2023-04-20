@@ -12,12 +12,14 @@ import { graph,
          allOptionButtons } from "./main.js";
 
 export class Map {
+    private size: number
     private editMapMode?: EditCellMode
-    private readonly size: number
+    private speedAnim: number
     private readonly elementMap: HTMLTableElement
 
-    constructor(elementMap: HTMLTableElement, size: number) {
+    constructor(elementMap: HTMLTableElement, size: number, speedAnim: number) {
         this.size = size
+        this.speedAnim = speedAnim
         this.elementMap = elementMap
         this.setup()
     }
@@ -36,6 +38,15 @@ export class Map {
         graph.clearMatrix()
     }
 
+    updateSpeedAnim(speed: number): void {
+        this.speedAnim = speed
+    }
+
+    updateSize(newSize: number): void {
+        this.size = newSize
+        graph.updateSize(newSize)
+    }
+
     updateEditMapMode(mode: EditCellMode): void {
         this.editMapMode = mode
     }
@@ -45,11 +56,15 @@ export class Map {
     }
 
     async updateCellAppearance(point: Point, color: SearchCellType): Promise<void> {
-        const cell = this.elementMap.rows[point.y].cells[point.x]
-        await animBackgroundCell(cell, color)
+        const cell: HTMLTableCellElement = this.elementMap.rows[point.y].cells[point.x]
+        await animBackgroundCell(cell, color, this.speedAnim)
     }
 
     generateMap(): void {
+        graph.updateMatrix()
+        graph.setDefaultStartAndGoal()
+        this.setup()
+
         for (let i = 0; i < this.size; i++) {
             for (let q = 0; q < this.size; q++) {
                 const cell = this.elementMap.rows[i].cells[q]
