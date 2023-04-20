@@ -12,15 +12,16 @@
 
 <body>
 
+
     <div class="container">
         <div class="container__create-tree">
             <textarea class="container__area data__tree" id="create-tree-area" rows="15" cols="60"></textarea>
-            <button class="constainer__button" id="create-tree-button">Создать дерево</button>
+            <button class="constainer__button hover-slide-right" id="create-tree-button">Создать дерево</button>
         </div>
 
         <div class="container__find-way">
             <textarea class="container__area data__find-way" id="find-way-area" rows="5" cols="60"></textarea>
-            <button class="constainer__button" id="get-answer-button">Найти элемент</button>
+            <button class="constainer__button hover-slide-right" id="get-answer-button">Найти элемент</button>
         </div>
 
         <div class="container__symbol-selector">
@@ -34,14 +35,14 @@
         <div class="container__answer" id="container__answer">
         </div>
     </div>
-    <div class="display__Tree">
-        <div class="tree" id="tree">
-            
-        </div>
+    <div class="tree" id="tree">
+        
     </div>
 
+    <script type="module" src="../build/js/solutionTree/ts/parseData.js" defer></script>
+    <script type="module" src="../build/js/solutionTree/ts/interfaces.js" defer></script>
     <script type="module" src="../build/js/solutionTree/ts/tree.js" defer></script>
-    <script type="module" src="../build/js/solutionTree/ts/drawing.js" defer></script>
+    <script type="module" src="../build/js/solutionTree/ts/handler.js" defer></script>
 
 </body>
 
