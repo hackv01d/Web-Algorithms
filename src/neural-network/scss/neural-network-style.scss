@@ -11,7 +11,7 @@ body {
 }
 
 header {
-  @include content-header(37%)
+  @include content-header(40%)
 }
 
 .container {
@@ -58,7 +58,7 @@ header {
 
 .digits-field {
   height: 33vw;
-  margin-left: 5vw;
+  margin-right: 5vw;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
