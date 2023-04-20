@@ -1,0 +1,14 @@
+@import "_variables.scss";
+
+@font-face {
+  font-family: "Comfortaa";
+  src: url("/src/assets/fonts/Comfortaa-VariableFont_wght.ttf");
+}
+
+%content-header {
+  top: 3%;
+  left: 37%;
+  position: absolute;
+  color: white;
+  font-family: $app-font;
+}
