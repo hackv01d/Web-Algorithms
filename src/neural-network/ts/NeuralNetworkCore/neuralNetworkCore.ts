@@ -12,7 +12,7 @@ class NeuralNetworkCore {
     private readonly weights: Weights
     private readonly biases: Biases
 
-    constructor(numInputNodes: number, numHiddenNodes: number, numOutputNodes: number) {
+    constructor(numInputNodes: number = 784, numHiddenNodes: number = 512, numOutputNodes: number = 10) {
         this.inputLayer = Array(numInputNodes).fill(0);
         this.hiddenLayer = Array(numHiddenNodes).fill(0);
         this.outputLayer = Array(numOutputNodes).fill(0);
@@ -65,10 +65,10 @@ class NeuralNetworkCore {
         return fx * (1 - fx)
     }
 
-    private initializeWeights(input_neuron_count: number, output_neuron_count: number): number[][] {
-        return Array.from({length: output_neuron_count}, () =>
-            Array.from({length: input_neuron_count}, () =>
-                this.normalRandom(0.0, Math.pow(input_neuron_count, -0.5))
+    private initializeWeights(numInputNodes: number, numOutputNodes: number): number[][] {
+        return Array.from({length: numOutputNodes}, () =>
+            Array.from({length: numInputNodes}, () =>
+                this.normalRandom(0.0, Math.pow(numInputNodes, -0.5))
             )
         )
     }
@@ -164,9 +164,9 @@ class NeuralNetworkCore {
     }
 }
 
-function training(neuralNetwork: NeuralNetworkCore): void {
+function training(neuralNetwork: NeuralNetworkCore, epochs: number, learningRate: number = 0.1): void {
     const trainData: MNISTData = DataProvider.shared.loadMNISTData(MNISTDataType.train)
-    neuralNetwork.train(trainData.input, trainData.target, 30, 0.1)
+    neuralNetwork.train(trainData.input, trainData.target, epochs, learningRate)
 }
 
 function testing(neuralNetwork: NeuralNetworkCore): void {
