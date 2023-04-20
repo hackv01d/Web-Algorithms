@@ -11,7 +11,7 @@ body {
 }
 
 header {
-  @extend %content-header
+  @include content-header(37%)
 }
 
 .container {
