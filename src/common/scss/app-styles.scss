@@ -5,9 +5,15 @@
   src: url("/src/assets/fonts/Comfortaa-VariableFont_wght.ttf");
 }
 
-%content-header {
+%universal {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+@mixin content-header($leftPercent) {
   top: 3%;
-  left: 37%;
+  left: $leftPercent;
   position: absolute;
   color: white;
   font-family: $app-font;
