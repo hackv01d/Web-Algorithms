@@ -1,27 +1,17 @@
 @import "_variables.scss";
-
-@font-face {
-  font-family: "Comfortaa";
-  src: url("/src/assets/fonts/Comfortaa-VariableFont_wght.ttf");
-}
+@import "../../common/scss/_variables.scss";
+@import "../../common/scss/app-styles.scss";
 
 * {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+  @extend %universal
 }
 
 body {
   background-color: $background-app;
-  text-align: center;
 }
 
 header {
-  top: 3%;
-  left: 37%;
-  position: absolute;
-  color: white;
-  font-family: $app-font;
+  @extend %content-header
 }
 
 .container {
