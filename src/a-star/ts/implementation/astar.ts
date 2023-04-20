@@ -16,6 +16,7 @@ export class AStar {
         const [start, goal] = this.initialConfig()
         const openSet: Vertex[] = [start]
         const closedSet: Vertex[] = []
+        let isPathFound: boolean = false
 
         while (openSet.length !== 0) {
             openSet.sort((a, b) => a.fScore - b.fScore)
@@ -28,6 +29,7 @@ export class AStar {
 
             if (curVertex === goal) {
                 await this.reconstructPath(curVertex)
+                isPathFound = true
                 break;
             }
 
@@ -52,7 +54,9 @@ export class AStar {
                 neighbor.parent = curVertex
             }
         }
+
         map.endShowingSearch()
+        if (!isPathFound) alert("Не удалось найти путь")
     }
 
     private heuristic(vertex: Vertex, goal: Vertex): number {

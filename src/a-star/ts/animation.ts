@@ -3,6 +3,6 @@ export function animBackgroundCell(cell: HTMLTableCellElement, styleClass: strin
         setTimeout(() => {
             cell.className = styleClass
             resolve()
-        }, 100-duration)
+        }, 100 - duration)
     })
 }
