@@ -6,6 +6,9 @@ $fiolet-color: rgb(89, 48, 167);
 $ff-color: rgb(28, 148, 196);
 $red-color: rgb(202, 69, 87);
 $green-color: rgb(44, 182, 62);
+
+
+
 .tree {
 	list-style: none;
 	margin: 0;
@@ -15,7 +18,15 @@ $green-color: rgb(44, 182, 62);
 	text-align: center;
 	display: table;
 	color: $red-color;//*можно переделать
-  
+	
+	li a:hover {
+		background: $green-color;
+		color: $fiolet-color; 
+	}
+	li a:hover+ul li a{
+		background: $green-color;
+		color: $fiolet-color; 
+	}
 	ul {
 	  list-style: none;
 	  margin: 0;
@@ -83,7 +94,7 @@ $green-color: rgb(44, 182, 62);
 	  }
 	}
   
-	span {
+	a {
 	  border: solid .1em $fiolet-color;  //*можно переделать
 	//   border-radius: .2em;  //*можно переделать
 	  display: inline-block;
@@ -115,10 +126,11 @@ $green-color: rgb(44, 182, 62);
 		}
 	  }
 
-	  >span {
+	  >a {
 		&:before {
-		  outline: none;}
+		  outline: none;
+		}
 	  }
 	}
+
   }
-  

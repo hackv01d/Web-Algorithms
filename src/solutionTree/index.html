@@ -16,24 +16,28 @@
     <div class="container">
         <div class="container__create-tree">
             <textarea class="container__area data__tree" id="create-tree-area" rows="15" cols="60"></textarea>
-            <button class="constainer__button hover-slide-right" id="create-tree-button">Создать дерево</button>
+            <button class="container__button hover-slide-right" id="clear-tree-button">Отчистить поле</button>
+            <button class="container__button hover-slide-right" id="create-tree-button">Создать дерево</button>
+            
         </div>
 
         <div class="container__find-way">
             <textarea class="container__area data__find-way" id="find-way-area" rows="5" cols="60"></textarea>
-            <button class="constainer__button hover-slide-right" id="get-answer-button">Найти элемент</button>
+            <button class="container__button hover-slide-right" id="clear-answer-button">Отчистить поле</button>
+            <button class="container__button hover-slide-right" id="create-answer-button">Найти элемент</button>
         </div>
 
         <div class="container__symbol-selector">
-            <label class="container__label-separator" for="separator">Cимвол разделителя:</label>
+            <label class="container__label-separator" for="separator">Cимвол разделителя:<br/></label>
             <select class="container__separator" id="separator" name="separator">
                 <option value=";">Точка с запятой (;)</option>
                 <option value=",">Запятая (,)</option>
             </select>
         </div>
-
+        <button class="constainer__btn-clear" id="clear-all-button">Отчистить всё</button>
         <div class="container__answer" id="container__answer">
         </div>
+        
     </div>
     <div class="tree" id="tree">
         

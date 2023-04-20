@@ -59,15 +59,20 @@ h1, h2, h3, h4, h5, h6 {
 body {
 	font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
 	background-color: $background-color;
+	display: flex;
 }
 
 
 .container {
+	outline: 5px solid black;
+	display: flex;
+	align-items: start;
+	justify-content: start;
 	&__area {
 		background-color: $input-color;
+
 		max-width: 250px;
 		max-height: 300px;
-		display: block;
 	}
 	&__create-tree {
 	}
@@ -84,6 +89,9 @@ body {
 	&__separator{
 	}
 	&__answer {
+	}
+	&__btn-clear{
+		
 	}
 		
 	&__button {

@@ -1,68 +1,96 @@
 import { Tree, TreeNode } from "./tree.js";
 import { parseData } from "./parseData.js";
 
-class treeEventHandler {
+class TreeEventHandler {
   private treeInput: HTMLInputElement;
   private ansInput: HTMLInputElement;
   private separator: HTMLSelectElement;
   private answer: HTMLElement;
-  private container: HTMLElement;
+  private treeContainer: HTMLElement;
+
+  private createTreeBtn:  HTMLButtonElement;
+  private getAnswerBtn:  HTMLButtonElement;
+  private clearTreeTextBtn:  HTMLButtonElement;
+  private clearAnswerBtn:  HTMLButtonElement;
+  private clearAllBtn:  HTMLButtonElement;
+
   private tree: Tree;
   private parser: parseData;
   private markedPath: (string | number)[];
-
+  private errorTexts = ["Error, add the children of the tree", "Error, check the matrix for correctness","Error, the length of the desired path is too short"];
 
   constructor() {
     this.treeInput = document.getElementById("create-tree-area") as HTMLInputElement;
     this.ansInput = document.getElementById("find-way-area") as HTMLInputElement;
     this.separator = document.getElementById('separator') as HTMLSelectElement;
     this.answer = document.getElementById("container__answer") as HTMLElement;
-    this.container = document.getElementById('tree') as HTMLElement;
+    this.treeContainer = document.getElementById('tree') as HTMLElement;
+
+    this.createTreeBtn =  document.getElementById("create-tree-button") as HTMLButtonElement;
+    this.getAnswerBtn =  document.getElementById("create-answer-button") as HTMLButtonElement;
+    this.clearTreeTextBtn =  document.getElementById("clear-tree-button") as HTMLButtonElement;
+    this.clearAnswerBtn =  document.getElementById("clear-answer-button") as HTMLButtonElement;
+    this.clearAllBtn =  document.getElementById("clear-all-button") as HTMLButtonElement;
 
     this.tree = null;
     this.parser = new parseData(this.treeInput, this.ansInput, this.separator.value);
     this.markedPath = [];
 
 
-    document.getElementById("create-tree-button").addEventListener("click", () => {
-      this.container.innerHTML = "";
+    this.createTreeBtn.addEventListener("click", () => {
+      this.treeContainer.innerHTML = "";
       const matrix: (number | string)[][] = this.parser.getInputDataMatrix();
 
       if (matrix.length <= 1) {
-        this.changeAnswer("red", "Error, add the children of the tree");
-      } else {
-        if (this.isMatrixCorrect(matrix)) {
+        this.changeAnswer("red", this.errorTexts[0]);
+      } else if (this.isMatrixCorrect(matrix)){
           this.tree = new Tree(matrix);
+          console.log(this.tree);
+          
           this.answer.textContent = "";
           this.renderTree(this.tree.rootNode);
-        } else {
-          this.changeAnswer("red", "Error, check the matrix for correctness");
-        }
+      }else {
+        this.changeAnswer("red", this.errorTexts[1]);
       }
     });
 
-    document.getElementById("get-answer-button").addEventListener("click", async () => {
-      const row: (string | number)[] = this.parser.getOutputDataRow();
-      console.log(row);
 
+    this.getAnswerBtn.addEventListener("click", async () => {
+      const row: (string | number)[] = this.parser.getOutputDataRow();
       if (this.tree !== undefined && this.tree.rootNode.attribute !== "") {
         const answerPath = this.tree.traverseDecisionTree(this.tree.rootNode, row, []);
         if (!this.isEqual(this.markedPath, answerPath)) {
           if (this.markedPath.length > 0) {
-            await this.clearOldWay(this.container.querySelector('ul'), 1);
+            await this.clearOldWay(this.treeContainer.querySelector('ul'), 1);
           }
-          this.buildPath(answerPath);
+          if (answerPath.length > 0){
+            this.changeAnswer("green", "");
+            this.buildPath(answerPath);
+          } else{
+            this.changeAnswer("red", this.errorTexts[2]);
+          }
         };
-
       }
     });
+
+    this.clearTreeTextBtn.addEventListener("click", () => {
+      this.treeInput.value = "";
+    });
+    this.clearAnswerBtn.addEventListener("click", () => {
+      this.ansInput.value = "";
+    });
+
+    this.clearAllBtn.addEventListener("click", () => {
+      this.treeInput.value = "";
+      this.ansInput.value = "";
+      this.treeContainer.innerHTML = "";
+    });
+    
   }
 
-  private renderTree(node: TreeNode) {
-    const buildTree = this.createTreeElement(node);
-    this.container.appendChild(buildTree);
-  }
+  
 
+  
   private getNodeValue(node: TreeNode): string {
     if (node.value !== undefined && node.value !== null) {
       return String(node.value);
@@ -71,12 +99,20 @@ class treeEventHandler {
     }
   }
 
+
+  private renderTree(node: TreeNode) {
+    const buildTree = this.createTreeElement(node);
+    this.treeContainer.appendChild(buildTree);
+  }
+
+
   private createTreeElement(node: TreeNode): HTMLElement {
     const li = document.createElement("li");
-    const span = document.createElement("span");
+    const link = document.createElement("a");
+    // link.href = "#";
 
-    span.textContent = this.getNodeValue(node);
-    li.appendChild(span);
+    link.textContent = this.getNodeValue(node);
+    li.appendChild(link);
     if (node.children.length > 0) {
       const ul = document.createElement("ul");
 
@@ -92,10 +128,10 @@ class treeEventHandler {
 
 
   private buildPath(answerPath: (string | number)[]) {
-    const constSpan = this.container.querySelector('span');
-    constSpan.style.color = "#1C94C4";
+    const link = this.treeContainer.querySelector('a');
+    link.style.color = "#1C94C4";
     this.markedPath = [...answerPath];
-    this.showWay(answerPath, this.container.querySelector('ul'), 1);
+    this.showWay(answerPath, this.treeContainer.querySelector('ul'), 1);
   }
 
 
@@ -104,49 +140,53 @@ class treeEventHandler {
 
     if (index === answerPath.length - 1) {
       await this.delay(300);
-      const constSpan = container.querySelector('span');
-      constSpan.style.color = "#2CB63E";
+      const link = container.querySelector('a');
+      link.style.color = "#2CB63E";
       return;
     }
 
     for (const element of elements) {
-      const constSpan = element.querySelector('span');
+      const link = element.querySelector('a');
       const constElementUl = element.querySelector('ul');
 
-      if (constSpan.textContent === answerPath[index]) {
+      if (String(link.textContent) === String(answerPath[index])) {
         await this.delay(300);
-        constSpan.style.color = "#1C94C4";
+        link.style.color = "#1C94C4";
         await this.showWay(answerPath, constElementUl, ++index);
       }
     }
   }
+
+
   private async clearOldWay(container: HTMLElement, index: number): Promise<void> {
     if (index === 1) {
       await this.delay(200);
-      const constSpan = this.container.querySelector('span');
-      constSpan.style.color = "#CA4557";
+      const link = this.treeContainer.querySelector('a');
+      link.style.color = "#CA4557";
     }
 
     const elements = container.children;
 
     if (index === this.markedPath.length - 1) {
       await this.delay(300);
-      const constSpan = container.querySelector('span');
-      constSpan.style.color = "#CA4557";
+      const link = container.querySelector('a');
+      link.style.color = "#CA4557";
       return;
     }
 
     for (const element of elements) {
-      const constSpan = element.querySelector('span');
+      const link = element.querySelector('a');
       const constElementUl = element.querySelector('ul');
 
-      if (constSpan.textContent === this.markedPath[index]) {
+      if (String(link.textContent) === String(this.markedPath[index])) {
         await this.delay(200);
-        constSpan.style.color = "#CA4557";
+        link.style.color = "#CA4557";
         await this.clearOldWay(constElementUl, ++index);
       }
     }
   }
+
+
   private delay(ms: number): Promise<void> {
     return new Promise<void>(resolve => {
       setTimeout(() => {
@@ -154,6 +194,7 @@ class treeEventHandler {
       }, ms);
     });
   }
+
 
   private isEqual(arr1: (string | number)[], arr2: (string | number)[]): boolean {
     if (arr1.length !== arr2.length) {
@@ -166,6 +207,7 @@ class treeEventHandler {
       return true;
     }
   }
+
 
   private isMatrixCorrect(matrix: (string | number)[][]): boolean {
     const correctLength = matrix[0].length;
@@ -181,10 +223,8 @@ class treeEventHandler {
     this.answer.style.color = color;
     this.answer.textContent = value;
   }
-
-
 }
 
-const decisionTree = new treeEventHandler();
+const decisionTree = new TreeEventHandler();
 
 

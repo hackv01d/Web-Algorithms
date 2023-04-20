@@ -19,13 +19,14 @@ export class TreeNode {
 
 export class Tree {
   public rootNode: TreeNode;
-  public headers: HeaderType[];
+  private headers: HeaderType[];
 
   constructor(data: (string | number)[][]) {
     const headers = data.shift() || [];
     this.headers = this.parseHeaders(headers.map(variable => String(variable)), data);
     this.rootNode = this.buildTree(data, this.headers);
   }
+
 
   private parseHeaders(headers: string[], data: (string | number)[][]): HeaderType[] {
     return headers.map((header) => {
@@ -42,23 +43,26 @@ export class Tree {
   }
 
 
+
   private buildTree(data: (string | number)[][], headers: HeaderType[]): TreeNode {
-    const [bestAttrIdx, bestInfoGain] = this.getBestFeature(data);
-    
-    if (bestInfoGain === 0) {
+    const uniqueClasses = new Set(data.map(item => item[item.length - 1]));
+    const [bestAttrIdx, bestGainRatio] = this.getBestFeature(data);
+
+    if (uniqueClasses.size === 1 || headers.length === 0 || bestGainRatio === 0) {
       return this.createLeaf(data);
     }
-
-    if (bestAttrIdx !== -1) {
+    
+    if (bestAttrIdx !== -1){
       const bestAttr = this.headers[bestAttrIdx];
       const newNode = new TreeNode(bestAttr.name);
-      const uniqueAttrValues = new Set(data.map((row) => row[bestAttrIdx]));
-
-      for (const attrValue of uniqueAttrValues) {
-
+      const attrValues = new Set(data.map((row) => row[bestAttrIdx]));
+  
+      for (const attrValue of attrValues) {
+  
         const attrSet = data.filter((row) => row[bestAttrIdx] === attrValue);
         const attrSetHeaders = headers.filter((header) => header !== bestAttr);
         const subtree = this.buildTree(attrSet, attrSetHeaders);
+  
         if (bestAttr.type === 'number') {
           newNode.addChild(bestAttr.name, Number(attrValue), subtree);
         } else {
@@ -67,6 +71,7 @@ export class Tree {
       }
       return newNode;
     }
+    
   }
 
 
@@ -80,34 +85,45 @@ export class Tree {
   }
 
 
-
   private getBestFeature(inputData: (string | number)[][]): [number, number] {
     const numAttributes = this.headers.length - 1;
-    let bestAttrIndex = -1, maxInfoGain = 0;
+    let bestAttrIndex = -1, maxGainRatio = 0;
 
     for (let i = 0; i < numAttributes; ++i) {
-      let stringEntropy = 0, numberEntropy = 0;
-      const attributeValues = new Set(inputData.map((row) => (row[i])));
-
-      for (const attributeValue of attributeValues) {
-        const isNumeric = typeof attributeValue === 'number';
-
-        if (isNumeric) {
-          numberEntropy += this.calculateNumberAttrEntropy(inputData, i);
-        } else {
-          stringEntropy += this.calculateStringAttrEntropy(attributeValue, inputData, i);
-        }
-      }
-      const shannonEntropy = this.calculateShannonEntropy(inputData.map((row => (row[row.length - 1]))));
+      
+      const attributeValues = new Set(inputData.map((row) => row[i]));
+      const [stringEntropy, numberEntropy] = this.calculateEntropies(attributeValues, inputData, i);
+      
+      const shannonEntropy = this.calculateShannonEntropy(inputData.map((row) => row[row.length - 1]));
       const localInfoGain = this.calculateLocalInfoGain(shannonEntropy, stringEntropy, numberEntropy);
 
-      if (maxInfoGain < localInfoGain) {
-        maxInfoGain = localInfoGain;
-        bestAttrIndex = i;
+      if (localInfoGain > 0) {
+        const intrinsicInfo = this.calculateIntrinsicInfo(inputData, i);
+        const gainRatio = localInfoGain / intrinsicInfo;
+
+        if (gainRatio > maxGainRatio) {
+          maxGainRatio = gainRatio;
+          bestAttrIndex = i;
+        }
       }
-    
     }
-    return [bestAttrIndex, maxInfoGain];
+
+    return [bestAttrIndex, maxGainRatio];
+  }
+
+
+  private calculateEntropies(attributeValues: Set<string | number>, inputData: (string | number)[][], i: number) : [number, number]{
+    let stringEntropy = 0, numberEntropy = 0;
+    for (const attributeValue of attributeValues) {
+      const isNumeric = typeof attributeValue === 'number';
+
+      if (isNumeric) {
+        numberEntropy += this.calculateNumberAttrEntropy(inputData, i);
+      } else {
+        stringEntropy += this.calculateStringAttrEntropy(attributeValue, inputData, i);
+      }
+    }
+    return [stringEntropy, numberEntropy];
   }
 
 
@@ -126,25 +142,44 @@ export class Tree {
     return localInfoGain;
   }
 
-  private calculateNumberAttrEntropy(data: (string | number)[][], i: number): number {
 
-    const threshold = data.reduce((sum, row) => sum + Number(row[i]), 0) / data.length;;
-  
-    const lessThan = data.filter((row) => Number(row[i]) < threshold);
-    const greaterThan = data.filter((row) => Number(row[i]) >= threshold);
+  private calculateIntrinsicInfo(data: (string | number)[][], i: number): number { // интринсическая информация - помогает избежать занижения информационного выигрыша для атрибутов с высокой частотой встречаемости.
+    const attributeValues = new Set(data.map((row) => (row[i])));
+    const numRecords = data.length;
+    let intrinsicInfo = 0;
 
-    const lessThanProbability = lessThan.length / data.length;
-    const greaterThanProbability = greaterThan.length / data.length;
+    for (const attributeValue of attributeValues) {
+      const probability = data.filter((row) => row[i] === attributeValue).length / numRecords;
+      intrinsicInfo -= probability * Math.log2(probability);
+    }
 
-    const lessThanAttributeTypes = lessThan.map((row) => row[row.length - 1]);
-    const greaterThanAttributeTypes = greaterThan.map((row) => row[row.length - 1]);
-
-    const lessThanEntropy = this.calculateShannonEntropy(lessThanAttributeTypes);
-    const greaterThanEntropy = this.calculateShannonEntropy(greaterThanAttributeTypes);
-
-    const weightedEntropy = lessThanProbability * lessThanEntropy + greaterThanProbability * greaterThanEntropy;
-    return weightedEntropy;
+    return intrinsicInfo;
   }
+
+
+  private calculateNumberAttrEntropy(inputData: (string | number)[][], attributeIndex: number): number {
+    const attributeValues = new Set(inputData.map(row => row[attributeIndex]));
+    let entropy = 0;
+
+    attributeValues.forEach(attributeValue => {
+      const subset = inputData.filter(row => row[attributeIndex] === attributeValue);
+      const classCounts = new Map<string | number, number>();
+      subset.forEach(row => {
+        const classLabel = row[row.length - 1];
+        classCounts.set(classLabel, (classCounts.get(classLabel) || 0) + 1);
+      });
+
+      let subsetEntropy = 0;
+      for (const count of classCounts.values()) {
+        const probability = count / subset.length;
+        subsetEntropy -= probability * Math.log2(probability);
+      }
+      entropy += (subset.length / inputData.length) * subsetEntropy;
+    });
+
+    return entropy;
+  }
+
 
   private calculateStringAttrEntropy(attributeValue: string, data: (string | number)[][], i: number): number {
     const probabilitySet = data.filter((row) => row[i] === attributeValue);
@@ -191,7 +226,6 @@ export class Tree {
   }
 
 
-
   public traverseDecisionTree(node: TreeNode, path: (string | number)[], way: (string | number)[]): (string | number)[] {
 
     if (node.children.length === 0) {
@@ -202,23 +236,19 @@ export class Tree {
     for (let i = 0; i < path.length; ++i) {
       const attributeValue = path[i];
       const childNode = node.children.find((child) => child.value === attributeValue);
+      const childNodeAttribute = node.children.find((child) => child.attribute === attributeValue);
 
-      if (childNode !== undefined && childNode.value !== undefined) {
+      if (childNode !== undefined) {
         way.push(this.headers[i].name, attributeValue);
         return this.traverseDecisionTree(childNode.children[0], path, way);
 
-      } else {
-        const childNodeAttribute = node.children.find((child) => child.attribute === attributeValue);
-        if (childNodeAttribute !== undefined) {
-          way.push(this.headers[i].name, attributeValue);
-          return this.traverseDecisionTree(childNodeAttribute.children[0], path, way);
-        }
+      } else if (childNodeAttribute !== undefined) {
+        way.push(this.headers[i].name, attributeValue);
+        return this.traverseDecisionTree(childNodeAttribute.children[0], path, way);
       }
     }
     return [];
-
   }
-
 }
 
 
