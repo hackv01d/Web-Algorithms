@@ -1,9 +1,6 @@
 @import "_variables.scss";
-
-@font-face {
-  font-family: "Comfortaa";
-  src: url("/src/assets/fonts/Comfortaa-VariableFont_wght.ttf");
-}
+@import "../../common/scss/_variables.scss";
+@import "../../common/scss/app-styles.scss";
 
 @font-face {
   font-family: "Roboto Mono";
@@ -94,7 +91,7 @@ iframe {
       transition: opacity 2s;
       font-family: $app-font;
       &:hover {
-        color: $purple;
+        color: $primary-color;
       }
     }
   }
