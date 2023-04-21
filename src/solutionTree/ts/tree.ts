@@ -1,4 +1,4 @@
-import { DataType, HeaderType } from "./interfaces.js";
+import {HeaderType } from "./interfaces.js";
 
 export class TreeNode {
   public value?: string | number;
@@ -10,6 +10,7 @@ export class TreeNode {
     this.attribute = attribute;
     this.value = value;
   }
+
   public addChild(attribute: string | number, value: string | number, subtree: TreeNode): void {
     const newChild = new TreeNode(attribute, value);
     newChild.children.push(subtree);
@@ -30,7 +31,7 @@ export class Tree {
 
   private parseHeaders(headers: string[], data: (string | number)[][]): HeaderType[] {
     return headers.map((header) => {
-      let type: DataType = 'number';
+      let type: ('string' | 'number') = 'number';
       const index = headers.indexOf(header);
       for (let i = 0; i < data.length; i++) {
         if (typeof data[i][index] === 'string') {
@@ -164,6 +165,7 @@ export class Tree {
     attributeValues.forEach(attributeValue => {
       const subset = inputData.filter(row => row[attributeIndex] === attributeValue);
       const classCounts = new Map<string | number, number>();
+
       subset.forEach(row => {
         const classLabel = row[row.length - 1];
         classCounts.set(classLabel, (classCounts.get(classLabel) || 0) + 1);
@@ -209,7 +211,6 @@ export class Tree {
 
   private getMostPopularAttribute(attributes: (string | number)[]): string | number {
     const attributeCounts = new Map<string | number, number>();
-
     for (const attribute of attributes) {
       attributeCounts.set(attribute, (attributeCounts.get(attribute) || 0) + 1);
     }
