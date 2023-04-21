@@ -1,6 +1,6 @@
 $var1: black;
 $background-color: rgb(45, 22, 65);
-$input-color: rgb(88, 47, 124);
+$input-color: rgb(71, 19, 116);
 
 
 @import "_variables";
@@ -29,11 +29,13 @@ body {
 	flex-wrap: wrap;
 	height: 100vh;
   	width: 100vw;
-	
+	margin-top: 2vh;
+	font-family: $app-font;
+	color: #fff;
   }
 
 header {
-	@include content-header(45%)
+	@include content-header(42%)
 }
 .content{
 	display: flex;
@@ -46,7 +48,12 @@ header {
 		display: flex;
 		justify-content: space-around;
 		button{
+			margin-top: 0.7vh;
 			@extend %command-button;
+			span{
+				padding: 0.55vw;
+				font-size: .8vw;
+			}
 		}
 		
 	}
@@ -60,7 +67,10 @@ header {
 	flex-direction: column;
 	margin-right: 15vh;
 	&__area {
-		background-color: $input-color;
+		background-color: #111111;
+		color: white;
+		padding: 0.6vw;
+		border:1px solid $primary-color;
 		width: 15vw;
 		height: 25vh;
 		max-width: 15vw;
@@ -84,6 +94,7 @@ header {
 	&__data {
 	}
 	&__symbol-selector {
+		margin-top: 1.5vh;
 	}
 	&__label-separator{
 		display: flex;
@@ -98,6 +109,7 @@ header {
 		button{
 			@extend %option-button;
 		}
+		margin-bottom: 0.5vh;
 		
 		
 	}
@@ -107,6 +119,7 @@ header {
 
 }
 .tree{
+	font-size: 0.8vw;
 	height: 55vh;
 	width: 40vw;
 	box-shadow: 0 0 15px #a06df3, 5px 5px 15px #2ecc71;;
