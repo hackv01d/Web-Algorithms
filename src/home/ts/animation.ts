@@ -3,8 +3,8 @@ import { ITitle } from "./interfaces/ITitle.js";
 import { titleInfo,
          subtitleInfo } from "./main.js";
 
-export function animateHeader(button: HTMLButtonElement, title: ITitle = titleInfo): void {
-    let curIndex = 0
+export function animateHeader(button: HTMLLinkElement, title: ITitle = titleInfo): void {
+    let curIndex: number = 0
     let curSpan: HTMLSpanElement
 
     const animationInterval = setInterval(() => {
