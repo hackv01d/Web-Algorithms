@@ -24,7 +24,7 @@ class Drawing {
         this.currentValueSpan = document.getElementById("currentValue") as HTMLSpanElement;
         
         this.canvas.addEventListener('click', this.addPoint.bind(this));
-        this.canvas.addEventListener('resize', this.changeSize.bind(this));
+       
 
         this.slider.addEventListener("input", (event) => {
             const target = event.target as HTMLInputElement;
@@ -32,10 +32,7 @@ class Drawing {
         });
         
     }
-    private changeSize(): void {
-        this.canvas.width = window.innerWidth * 0.4;
-        this.canvas.height = window.innerHeight * 0.4;
-    }
+
     public clearField(){
         this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
     }
@@ -115,6 +112,7 @@ class ClusterHandler {
         this.clusterPoints = this.cluster.clust;
         this.clearButton = document.getElementById("clearBtn") as HTMLButtonElement;
         this.clearButton.addEventListener('click', this.clearField.bind(this));
+        
     }
     public clearField(){
         this.points = [];
@@ -179,14 +177,20 @@ class DrawAndHandle {
         this.button = document.getElementById("sendBtn") as HTMLButtonElement;
         this.clearButton = document.getElementById("clearBtn") as HTMLButtonElement;
         this.slider = document.getElementById("slider") as HTMLInputElement;
-        
+        this.canvas.height = window.innerHeight * 0.4;
+        this.canvas.width = window.innerWidth * 0.4;
+
         this.drawVar = new Drawing();
         this.canvas.addEventListener('click', this.addPointListener.bind(this));
         this.button.addEventListener('click', this.startClickListener.bind(this));
         this.clearButton.addEventListener('click', this.clearField.bind(this));
+        this.canvas.addEventListener('resize', this.changeSize.bind(this));
     }
 
-    
+    private changeSize(): void {
+        this.canvas.width = window.innerWidth * 0.4;
+        this.canvas.height = window.innerHeight * 0.4;
+    }
     private clearField(){
         this.drawVar.clearField();
         this.points = [];
