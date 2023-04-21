@@ -6,10 +6,6 @@
   @extend %universal
 }
 
-body {
-  background-color: $background-app;
-}
-
 header {
   @include content-header(40%)
 }
