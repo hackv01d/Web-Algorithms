@@ -37,17 +37,7 @@ header {
     margin-top: 3vh;
 
     >button {
-      width: 8vw;
-      height: 5vh;
-      border-style: none;
-      border-radius: .7vw;
-      color: #d5d0d0;
-      cursor: pointer;
-      background-color: #4f4d4d;
-
-      &:hover {
-        opacity: .7;
-      }
+      @extend %command-button;
     }
   }
 }
