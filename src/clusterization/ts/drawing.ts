@@ -13,30 +13,43 @@ class Drawing {
     private ctx: CanvasRenderingContext2D;
     private slider: HTMLInputElement;
     private currentValueSpan: HTMLSpanElement;
-
-
     constructor() {
         this.canvas = document.getElementById('canv') as HTMLCanvasElement;
-        this.ctx = this.canvas.getContext('2d') as unknown as CanvasRenderingContext2D;
+        this.canvas.height = window.innerHeight * 0.4;
+        this.canvas.width = window.innerWidth * 0.4;
+
+        this.ctx = this.canvas.getContext('2d') as CanvasRenderingContext2D;
 
         this.slider = document.getElementById("slider") as HTMLInputElement;
         this.currentValueSpan = document.getElementById("currentValue") as HTMLSpanElement;
-
+        
         this.canvas.addEventListener('click', this.addPoint.bind(this));
+        this.canvas.addEventListener('resize', this.changeSize.bind(this));
 
         this.slider.addEventListener("input", (event) => {
             const target = event.target as HTMLInputElement;
             this.currentValueSpan.textContent = target.value;
         });
+        
+    }
+    private changeSize(): void {
+        this.canvas.width = window.innerWidth * 0.4;
+        this.canvas.height = window.innerHeight * 0.4;
+    }
+    public clearField(){
+        this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
     }
 
+
     private addPoint(event: MouseEvent): void {
+        const canvasBounds = this.canvas.getBoundingClientRect();
         const point: Point = {
-            x: event.clientX - this.canvas.offsetLeft,
-            y: event.clientY - this.canvas.offsetTop
+            x: event.clientX - canvasBounds.left,
+            y: event.clientY - canvasBounds.top
         };
         this.drawCirce(point, this.radiusCircle, this.baseColorCircle);
     }
+
 
     public drawCirce(point: Point, radiusCircle: number, color: string) {
         this.ctx.beginPath();
@@ -45,6 +58,7 @@ class Drawing {
         this.ctx.fill();
         this.ctx.closePath();
     }
+
 
     public getRandomColor(): string {
         const letters = '0123456789ABCDEF';
@@ -55,6 +69,7 @@ class Drawing {
         return color;
     }
 
+
     public getArrayRandomColor(k: number): string[] {
         let colors: string[] = [];
         while (colors.length < k) {
@@ -64,6 +79,7 @@ class Drawing {
         }
         return colors;
     }
+
 
     private contains(arr: any, item: any): boolean {
         for (const elem of arr) {
@@ -85,6 +101,9 @@ class ClusterHandler {
     private cluster: clusterisation;
     private points: Point[];
     public clusterPoints: Point[][];
+    private clearButton: HTMLButtonElement;
+
+
 
     constructor(points: Point[], k?: number) {
         this.points = points;
@@ -94,11 +113,15 @@ class ClusterHandler {
         this.algorithmType = this.getAlgorithm();
         this.cluster = new clusterisation(this.k, this.metricType, this.lincageType, this.algorithmType, this.points);
         this.clusterPoints = this.cluster.clust;
+        this.clearButton = document.getElementById("clearBtn") as HTMLButtonElement;
+        this.clearButton.addEventListener('click', this.clearField.bind(this));
     }
-    public logTypes(){
-        console.log(this.lincageType,this.metricType, this.algorithmType);
-        
+    public clearField(){
+        this.points = [];
+        this.clusterPoints = [];
+        this.cluster.clust =[];
     }
+
 
     private getMetric(): string {
         const metric = Array.from<HTMLInputElement>(document.querySelectorAll('input[name="metric"]:checked'));
@@ -111,6 +134,8 @@ class ClusterHandler {
         }
         return "euclidean";
     }
+
+
     private getLincage(): string {
         const lincage = Array.from<HTMLInputElement>(document.querySelectorAll('input[name="lincage"]:checked'));
         
@@ -121,6 +146,8 @@ class ClusterHandler {
         }
         return "single";
     }
+
+
     private getAlgorithm(): string {
         const lincage = Array.from<HTMLInputElement>(document.querySelectorAll('input[name="algorithm"]:checked'));
         for (const iterator of lincage) {
@@ -137,28 +164,43 @@ class DrawAndHandle {
     private readonly radiusCircle = 22;
 
     private button: HTMLButtonElement;
+    private clearButton: HTMLButtonElement;
     private canvas: HTMLCanvasElement;
     private slider: HTMLInputElement;
+    
     private points: Point[] = [];
 
     private k: number = 2;
     private drawVar: Drawing;
 
+
     constructor() {
         this.canvas = document.getElementById('canv') as HTMLCanvasElement;
         this.button = document.getElementById("sendBtn") as HTMLButtonElement;
+        this.clearButton = document.getElementById("clearBtn") as HTMLButtonElement;
         this.slider = document.getElementById("slider") as HTMLInputElement;
+        
         this.drawVar = new Drawing();
         this.canvas.addEventListener('click', this.addPointListener.bind(this));
         this.button.addEventListener('click', this.startClickListener.bind(this));
+        this.clearButton.addEventListener('click', this.clearField.bind(this));
     }
+
+    
+    private clearField(){
+        this.drawVar.clearField();
+        this.points = [];
+    }
+
     private addPointListener(event: MouseEvent): void {
+        const canvasBounds = this.canvas.getBoundingClientRect();
         const point: Point = {
-            x: event.clientX - this.canvas.offsetLeft,
-            y: event.clientY - this.canvas.offsetTop
+            x: event.clientX - canvasBounds.left,
+            y: event.clientY - canvasBounds.top
         };
         this.points.push(point);
     }
+
 
     private startClickListener(event: MouseEvent): void {
         this.k = parseInt(this.slider.value, 10) || 2;
@@ -168,12 +210,11 @@ class DrawAndHandle {
         }
 
         const handler = new ClusterHandler(this.points, this.k);
-        handler.logTypes();
         const coloredPoints: Point[][] = handler.clusterPoints;
         this.colorAllClusters(coloredPoints, colorsArray);
-
-
     }
+
+
     private colorAllClusters(coloredPoints: Point[][], colorsArray: string[]): void {
         for (let i = 0; i < coloredPoints.length; ++i) {
             for (let point of coloredPoints[i]) {

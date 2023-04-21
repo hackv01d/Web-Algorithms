@@ -13,41 +13,45 @@
     <header>
         <h1>Кластеризация</h1>
     </header>
-    <div class="cluster">
+    <div class="container">
+        <div class="cluster">
+            <div class="cluster__slider">
+                <label for="slider">Выберите число кластеров:<br /></label>
+                <input type="range" id="slider" name="slider" min="2" max="20" value="2">
+                <p>Текущее число: <span id="currentValue">2</span> кластеров</p>
+            </div>
         
-
-        <div class="cluster__slider">
-            <label for="slider">Выберите число кластеров:<br /></label>
-            <input type="range" id="slider" name="slider" min="2" max="20" value="2">
-            <p>Текущее число: <span id="currentValue">2</span> кластеров</p>
+            <div class="cluster__metric">
+                <p>Выберите метрику измерения:</p>
+                <input checked type="radio" class="radio" name="metric" value="euclidean">euclidean
+                <input type="radio" class="radio" name="metric" value="chebyshev">chebyshev    
+                <input type="radio" class="radio" name="metric" value="manhattan">manhattan
+            </div>
+        
+            <div class="cluster__lincage">
+                <p>Выберите метрику связи:</p>
+                <input checked type="radio" class="radio" name="lincage" value="single">single
+                <input type="radio" class="radio" name="lincage" value="average">average
+                <input type="radio" class="radio" name="lincage" value="complete">complete
+            </div>
+            <div class="cluster__lincage">
+                <p>Выберите алгоритм:</p>
+                <input checked type="radio" class="radio" name="algorithm" value="kmeans">kmeans
+                <input type="radio" class="radio" name="algorithm" value="hierarchical">hierarchical
+            </div>
+        </div >
+        <div class="canvas">
+            <canvas id="canv" class="canvas__field"></canvas>
+            <div class="buttons_block">
+                <button class="canvas__button" id="sendBtn">
+                    <span>Запустить алгоритм</span>
+                </button>
+                <button class="canvas__clear" id="clearBtn">
+                    <span>Отчисчить поле</span>
+                </button>
+            </div>
         </div>
-    
-        <div class="cluster__metric">
-            <p>Выберите метрику измерения:</p>
-            <input checked type="radio" class="radio" name="metric" value="euclidean">euclidean
-            <input type="radio" class="radio" name="metric" value="chebyshev">chebyshev    
-            <input type="radio" class="radio" name="metric" value="manhattan">manhattan
-        </div>
-    
-        <div class="cluster__lincage">
-            <p>Выберите метрику связи:</p>
-            <input checked type="radio" class="radio" name="lincage" value="single">single
-            <input type="radio" class="radio" name="lincage" value="average">average
-            <input type="radio" class="radio" name="lincage" value="complete">complete
-        </div>
-        <div class="cluster__lincage">
-            <p>Выберите алгоритм:</p>
-            <input checked type="radio" class="radio" name="algorithm" value="kmeans">kmeans
-            <input type="radio" class="radio" name="algorithm" value="hierarchical">hierarchical
-        </div>
-    
-        <div class="cluster__button">
-            <button class="sendBtn" id="sendBtn">
-                Запустить алгоритм
-            </button>
-        </div>
-    </div >
-    <canvas id="canv" class="canvas" width="1000" height="600"></canvas>
+    </div>
 
     <script type="module" src="/src/build/js/clusterization/ts/interfaces.js" defer></script>
     <script type="module" src="/src/build/js/clusterization/ts/clusterisation.js" defer></script>
