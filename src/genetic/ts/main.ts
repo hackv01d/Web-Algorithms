@@ -12,10 +12,10 @@ export let solve = new Canvas('canvasGenetic', 'container-canvas');
 
 
 function changeSize(): void {
-    solve.canvas.width = solve.container.offsetWidth;
-    solve.canvas.height = solve.container.offsetHeight;
-    solve.width = solve.context.canvas.width;
-    solve.height = solve.context.canvas.height;
+    solve.canvas.width = window.innerWidth * 0.6;
+    solve.canvas.height = window.innerHeight * 0.6;
+    solve.width = window.innerWidth * 0.6;
+    solve.height = window.innerHeight * 0.6;
 }
 
 
@@ -78,6 +78,7 @@ function changeValue(id: string) {
 }
 
 
+
 function launchGeneticAlgorithm() {
     if (arrayPoints.length === 0) {
         return;
@@ -103,19 +104,19 @@ document.getElementById('Build').addEventListener('click', launchGeneticAlgorith
 document.getElementById('Clear').addEventListener('click', clearEvery);
 
 
-const generationSizeInput = document.getElementById('generationSizeDiapason') as HTMLInputElement;
-generationSizeInput.addEventListener('input', () => {
-    changeValue('generationSize');
+const generationSizeDiapason = document.getElementById("generationSizeDiapason") as HTMLInputElement;
+generationSizeDiapason.addEventListener("input", () => {
+  isValidCountGeneration(generationSizeDiapason.valueAsNumber);
 });
 
 
-const populationSizeInput = document.getElementById('populationSizeDiapason') as HTMLInputElement;
-populationSizeInput.addEventListener('input', () => {
-    changeValue('populationSize');
+const populationSizeDiapason = document.getElementById("populationSizeDiapason") as HTMLInputElement;
+populationSizeDiapason.addEventListener("input", () => {
+    isValidPopulationSize(populationSizeDiapason.valueAsNumber);
 });
 
 
-const mutationPercentInput = document.getElementById('mutationPercentDiapason') as HTMLInputElement;
-mutationPercentInput.addEventListener('input', () => {
-    changeValue('mutationPercent');
+const mutationPercentDiapason = document.getElementById("mutationPercentDiapason") as HTMLInputElement;
+mutationPercentDiapason.addEventListener("input", () => {
+    isValidPercentMutation(mutationPercentDiapason.valueAsNumber);
 });
