@@ -11,10 +11,6 @@
   @extend %universal
 }
 
-body {
-  font-family: $app-font;
-}
-
 header {
   @include content-header(45%)
 }
@@ -47,8 +43,13 @@ header {
     flex-direction: column;
     justify-content: space-around;
 
-    button {
+    .opt-btn {
+      @extend %option-button;
       margin-top: 2vw;
+    }
+
+    .selected-btn {
+      background-color: #1C1B1B70;
     }
   }
 
@@ -144,7 +145,7 @@ header {
     output, label {
       width: 9vw;
       height: 4vh;
-      background-color: #605d5d;
+      background-color: #4A4658;
       border-radius: 3px;
       color: #fff;
       text-align: center;
@@ -154,35 +155,20 @@ header {
   }
 }
 
-.command-buttons {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-}
+.general-field {
+  .command-buttons {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
 
-.setup-btn {
-  color: white;
-  border: 1vw none;
-  cursor: pointer;
-  padding: 1vw;
-  font-size: 1vw;
-  font-family: $scene-font;
-  box-shadow: .3px .3px 6px #f5f5f5;
-  transition: opacity .3s;
-  border-radius: 1vw;
-  background-color: $setup-button-background;
-
-  &:hover {
-    opacity: .7;
+    .cmd-btn {
+      @extend %command-button
+    }
   }
 }
 
-.selected-btn {
-  background-color: #1C1B1B70;
-}
-
 .matrix {
-  box-shadow: 0 0 20px #853aff, 5px 5px 20px #2ecc71;
+  box-shadow: 0 0 15px #853aff, 5px 5px 15px #2ecc71;
   min-width: 30vw;
   min-height: 30vw;
   margin-bottom: 3vh;

@@ -7,7 +7,12 @@ export function enableButtons(buttons: HTMLButtonElement[]): void {
 }
 
 export function updateOptBtnOnClick(event: MouseEvent, optionsButtons: HTMLButtonElement[]): void {
-    optionsButtons.forEach(button => button.className = 'setup-btn')
+    optionsButtons.forEach(button => {
+        if (button.classList.contains('selected-btn')) {
+            button.classList.remove('selected-btn');
+        }
+    })
+
     const button = event.target as HTMLButtonElement
     button.classList.add('selected-btn')
 }

@@ -74,7 +74,15 @@ export class Map {
             }
         }
 
-        const point: Point = { x: this.getRandomNum(this.size), y: this.getRandomNum(this.size)}
+        let x: number = 1;
+        let y: number = 1;
+
+        while (x % 2 != 0 || y % 2 != 0) {
+            x = this.getRandomNum(this.size)
+            y = this.getRandomNum(this.size)
+        }
+
+        const point: Point = {x: x, y: y}
         graph.removeWall(point)
         this.removeWallFromMap(point)
 
