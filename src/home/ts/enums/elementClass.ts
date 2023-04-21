@@ -1,4 +1,5 @@
 export enum ElementClass {
+    logoButton = 'logo-btn',
     mainScreen = 'main-screen',
     buttonStart = 'button-start',
     navigationButtons = 'nav-btn div',
