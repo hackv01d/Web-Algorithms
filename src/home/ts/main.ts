@@ -6,7 +6,10 @@ import { ElementClass }  from "./enums/elementClass.js";
 import {
     toggleDisplayName,
     navigationButtonHandle,
-    buttonStartHandle } from "./eventHandlers.js";
+    buttonStartHandle,
+    logoButtonHandle } from "./eventHandlers.js";
+
+const logoButton = document.querySelector(`.${ElementClass.logoButton}`) as HTMLButtonElement
 
 const mainScreen = document.querySelector(`.${ElementClass.mainScreen}`) as HTMLDivElement
 const buttonStart = document.querySelector(`.${ElementClass.buttonStart}`) as HTMLLinkElement
@@ -41,15 +44,17 @@ export const subtitleInfo: ITitle = {
 const navOptions: INavOptions = {
     buttons: navigationButtons,
     screen: algorithmScreen,
-    currentScreenIndex: 0
+    currentScreenIndex: 0,
 }
 
 animateHeader(buttonStart)
 
-buttonStart.addEventListener('click', () => buttonStartHandle(mainScreen))
+logoButton.addEventListener('click', () => logoButtonHandle(mainScreen))
+buttonStart.addEventListener('click', () => buttonStartHandle(navOptions, mainScreen))
 navigationButtons.forEach(element => element.addEventListener('mouseover', toggleDisplayName) )
 navigationButtons.forEach(element => element.addEventListener('mouseleave', toggleDisplayName) )
 
 navigationButtons.forEach(el => {
     el.addEventListener('click', (event: MouseEvent) => navigationButtonHandle(event, navOptions))
 })
+
