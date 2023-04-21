@@ -12,15 +12,15 @@ let canvas = new Canvas('canvasAnt', 'container-canvas');
 
 
 function changeSize(): void {
-    canvas.canvas.width = canvas.container.offsetWidth;
-    canvas.canvas.height = canvas.container.offsetHeight;
-    canvas.width = canvas.context.canvas.width;
-    canvas.height = canvas.context.canvas.height;
+    canvas.canvas.width = window.innerWidth * 0.6;
+    canvas.canvas.height = window.innerHeight * 0.6;
+    canvas.width = window.innerWidth * 0.6;
+    canvas.height = window.innerHeight * 0.6;
 }
 
 
 function isValidCount(count: number): void {
-    if (count >= 10 && count <= 1000) {
+    if (count >= 10 && count <= 6000) {
         countSendAnts = count;
     }
 }
@@ -80,42 +80,34 @@ function startEffect(): void {
 }
 
 
-function changeValue(id: string): void {
-    let elem = document.getElementById(`${id}Diapason`) as HTMLInputElement;
-    let countElem = document.getElementById(`${id}Count`);
-    countElem.textContent = countElem.textContent!.replace(/\d+/, `${elem.value}`);
-    switch (id) { 
-        case 'countSend':
-            isValidCount(parseInt(elem.value));
-            break;
-        case 'q':
-            isValidQ(parseInt(elem.value));
-            break;
-        case 'remainFeromon':
-            isValidRemainFeromon(parseInt(elem.value));
-            break;
-        case 'beta':
-            isValidBeta(parseInt(elem.value));
-            break;
-        case 'alfa':
-            isValidAlfa(parseInt(elem.value));
-            break;
-        default:
-            break;
-    }
-}
-
-
 startEffect();
 
 document.getElementById("Build")!.addEventListener('click', startEffect);
 
-document.getElementById("countSendDiapason")!.addEventListener('input', () => changeValue('countSend'));
 
-document.getElementById("qDiapason")!.addEventListener("input", () => {changeValue("q");});
+const countSendDiapason = document.getElementById("countSendDiapason") as HTMLInputElement;
+countSendDiapason.addEventListener("input", () => {
+  isValidCount(countSendDiapason.valueAsNumber);
+});
 
-document.getElementById("remainFeromonDiapason")!.addEventListener("input", () => {changeValue("remainFeromon");});
 
-document.getElementById("alfaDiapason")!.addEventListener("input", () => {changeValue("alfa");});
+const qDiapason = document.getElementById("qDiapason") as HTMLInputElement;
+qDiapason.addEventListener("input", () => {
+    isValidQ(qDiapason.valueAsNumber);
+});
 
-document.getElementById("betaDiapason")!.addEventListener("input", () => {changeValue("beta");});
+
+const alfaDiapason = document.getElementById("alfaDiapason") as HTMLInputElement;
+alfaDiapason.addEventListener("input", () => {
+    isValidAlfa(alfaDiapason.valueAsNumber);
+});
+
+const remainFeromonDiapason = document.getElementById("remainFeromonDiapason") as HTMLInputElement;
+remainFeromonDiapason.addEventListener("input", () => {
+    isValidRemainFeromon(remainFeromonDiapason.valueAsNumber);
+});
+
+const betaDiapason = document.getElementById("betaDiapason") as HTMLInputElement;
+betaDiapason.addEventListener("input", () => {
+    isValidBeta(betaDiapason.valueAsNumber);
+});

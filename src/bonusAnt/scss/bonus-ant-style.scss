@@ -2,6 +2,7 @@
 @import "../../common/scss/_variables.scss";
 @import "../../common/scss/app-styles.scss";
 
+
 *{
     @extend %universal;
 }
@@ -20,10 +21,48 @@ body {
     overflow:hidden; 
 }
 
+
 header {
-   @include content-header(40%);
-   position: relative;
-   left: 0;
+    @include content-header(40%);
+    position: relative;
+    left: 0;
+}
+
+.buttons {
+    @extend %command-button
+}
+
+form {
+    @extend %form-range;
+    margin-top: 2vh;
+}
+
+
+#countSend, #numFood, #foodSpawn {
+    text-align: center;
+    justify-content: center;
+    margin-bottom: 5%;
+}
+
+
+#countSendDiapason, #numFoodDiapason, #foodSpawnDiapason {
+    text-align: center;
+}
+
+#collected {
+    margin-top: 3vh;
+}
+
+#countCollected {
+    width: 9vw;
+    height: 4vh;
+    background-color: #4A4658;
+    border-radius: 3px;
+    color: #fff;
+    text-align: center;
+    line-height: 4vh;
+    font-size: 1.3vw;
+    font-family: $app-font;
 }
 
 .container {
@@ -34,15 +73,6 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.buttons {
-    @extend %command-button
-}
-
-form {
-    @extend %form-range;
-    margin-top: 2vh;
 }
 
 .row {
@@ -62,13 +92,12 @@ form {
     align-items: center;
     height: 40vw; 
 }
-    
-#canvasAnt {
+
+#canvasBonusAnt {
     border-radius: 3vw;
     box-shadow: 0 0 15px $primary-color, 5px 5px 15px #2ecc71;
     background: no-repeat #b4afaf;
     margin-bottom: 3vh;
-    
 }
 
 .buttons {
@@ -99,17 +128,6 @@ form {
     align-items: baseline;
     justify-content: space-around;
     margin-bottom: 5%;
-}
-
-#countSend, #feromonQ, #remainFeromon, #alfa, #beta {
-    text-align: center;
-    justify-content: center;
-    margin-bottom: 5%;
-}
-
-
-#countSendDiapason, #qDiapason, #mutationPercentDiapason, #alfaDiapason, #betaDiapason {
-    text-align: center;
 }
 
 

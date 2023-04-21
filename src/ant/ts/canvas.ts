@@ -11,8 +11,10 @@ export class Canvas {
     constructor(canvasId: string, containerId: string) {
         this.canvas = document.getElementById(canvasId) as HTMLCanvasElement;
         this.context = this.canvas.getContext('2d') as CanvasRenderingContext2D;
-        this.width = this.context.canvas.width;
-        this.height = this.context.canvas.height;
+        this.canvas.width = window.innerWidth * 0.6;
+        this.canvas.height = window.innerHeight * 0.6
+        this.width = window.innerWidth * 0.6;
+        this.height = window.innerHeight * 0.6;
         this.container = document.getElementById(containerId) as HTMLElement;
     }
 
