@@ -95,33 +95,40 @@ class ClusterHandler {
         this.cluster = new clusterisation(this.k, this.metricType, this.lincageType, this.algorithmType, this.points);
         this.clusterPoints = this.cluster.clust;
     }
-
+    public logTypes(){
+        console.log(this.lincageType,this.metricType, this.algorithmType);
+        
+    }
 
     private getMetric(): string {
-        const metric = document.querySelectorAll('input[name="metric"]');
+        const metric = Array.from<HTMLInputElement>(document.querySelectorAll('input[name="metric"]:checked'));
+        console.log(metric);
+        
         for (const iterator of metric) {
-            if (iterator.ariaChecked) {
-                return iterator.ariaValueText || "single";
+            if (iterator.value !=="euclidean"){
+                return iterator.value;
             }
         }
         return "euclidean";
     }
     private getLincage(): string {
-        const lincage = document.querySelectorAll('input[name="lincage"]');
+        const lincage = Array.from<HTMLInputElement>(document.querySelectorAll('input[name="lincage"]:checked'));
+        
         for (const iterator of lincage) {
-            if (iterator.ariaChecked) {
-                return iterator.ariaValueText || "single";
+            if (iterator.value !=="single"){
+                return iterator.value;
             }
         }
         return "single";
     }
     private getAlgorithm(): string {
-        const lincage = document.querySelectorAll('input[name="algorithm"]');
+        const lincage = Array.from<HTMLInputElement>(document.querySelectorAll('input[name="algorithm"]:checked'));
         for (const iterator of lincage) {
-            if (iterator.ariaChecked) {
-                return iterator.ariaValueText || "kmeans";
+            if (iterator.value !=="kmeans"){
+                return iterator.value;
             }
         }
+        
         return "kmeans";
     }
 }
@@ -161,6 +168,7 @@ class DrawAndHandle {
         }
 
         const handler = new ClusterHandler(this.points, this.k);
+        handler.logTypes();
         const coloredPoints: Point[][] = handler.clusterPoints;
         this.colorAllClusters(coloredPoints, colorsArray);
 
