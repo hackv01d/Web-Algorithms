@@ -36,14 +36,17 @@
                 <input type="radio" class="radio" name="lincage" value="average">average
                 <input type="radio" class="radio" name="lincage" value="complete">complete
             </div>
-            <div class="cluster__lincage">
+            <div class="cluster__algorithm">
                 <p>Выберите алгоритм:</p>
                 <input checked type="radio" class="radio" name="algorithm" value="kmeans">kmeans
                 <input type="radio" class="radio" name="algorithm" value="hierarchical">hierarchical
+                <input type="radio" class="radio" name="algorithm" value="both">сравнить
+
             </div>
         </div >
         <div class="canvas">
-            <canvas id="canv" class="canvas__field"></canvas>
+            <canvas id="canv" class="canvas__field">
+            </canvas>
             <div class="buttons_block">
                 <button class="canvas__button" id="sendBtn">
                     <span>Запустить алгоритм</span>

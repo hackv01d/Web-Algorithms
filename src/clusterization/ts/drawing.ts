@@ -15,11 +15,7 @@ class Drawing {
     private currentValueSpan: HTMLSpanElement;
     constructor() {
         this.canvas = document.getElementById('canv') as HTMLCanvasElement;
-        this.canvas.height = window.innerHeight * 0.4;
-        this.canvas.width = window.innerWidth * 0.4;
-
         this.ctx = this.canvas.getContext('2d') as CanvasRenderingContext2D;
-
         this.slider = document.getElementById("slider") as HTMLInputElement;
         this.currentValueSpan = document.getElementById("currentValue") as HTMLSpanElement;
         
@@ -46,8 +42,14 @@ class Drawing {
         };
         this.drawCirce(point, this.radiusCircle, this.baseColorCircle);
     }
-
-
+    public drawPartCirce(point: Point, radiusCircle: number, color: string, isReversed: boolean) {
+        this.ctx.beginPath();
+        this.ctx.arc(point.x, point.y, radiusCircle, 0, Math.PI, isReversed);
+        this.ctx.fillStyle = color;
+        this.ctx.fill();
+        this.ctx.closePath();
+    }
+    
     public drawCirce(point: Point, radiusCircle: number, color: string) {
         this.ctx.beginPath();
         this.ctx.arc(point.x, point.y, radiusCircle, 0, Math.PI * 2, false);
@@ -102,12 +104,12 @@ class ClusterHandler {
 
 
 
-    constructor(points: Point[], k?: number) {
+    constructor(points: Point[],algorithmType: string, k?: number) {
         this.points = points;
         this.k = k || 2;
         this.metricType = this.getMetric();
         this.lincageType = this.getLincage();
-        this.algorithmType = this.getAlgorithm();
+        this.algorithmType = algorithmType;
         this.cluster = new clusterisation(this.k, this.metricType, this.lincageType, this.algorithmType, this.points);
         this.clusterPoints = this.cluster.clust;
         this.clearButton = document.getElementById("clearBtn") as HTMLButtonElement;
@@ -146,16 +148,7 @@ class ClusterHandler {
     }
 
 
-    private getAlgorithm(): string {
-        const lincage = Array.from<HTMLInputElement>(document.querySelectorAll('input[name="algorithm"]:checked'));
-        for (const iterator of lincage) {
-            if (iterator.value !=="kmeans"){
-                return iterator.value;
-            }
-        }
-        
-        return "kmeans";
-    }
+
 }
 
 class DrawAndHandle {
@@ -177,7 +170,7 @@ class DrawAndHandle {
         this.button = document.getElementById("sendBtn") as HTMLButtonElement;
         this.clearButton = document.getElementById("clearBtn") as HTMLButtonElement;
         this.slider = document.getElementById("slider") as HTMLInputElement;
-        this.canvas.height = window.innerHeight * 0.4;
+        this.canvas.height = window.innerHeight * 0.6;
         this.canvas.width = window.innerWidth * 0.4;
 
         this.drawVar = new Drawing();
@@ -188,8 +181,9 @@ class DrawAndHandle {
     }
 
     private changeSize(): void {
+        this.canvas.height = window.innerHeight * 0.6;
         this.canvas.width = window.innerWidth * 0.4;
-        this.canvas.height = window.innerHeight * 0.4;
+        
     }
     private clearField(){
         this.drawVar.clearField();
@@ -204,7 +198,16 @@ class DrawAndHandle {
         };
         this.points.push(point);
     }
-
+    private getAlgorithm(): string {
+        const lincage = Array.from<HTMLInputElement>(document.querySelectorAll('input[name="algorithm"]:checked'));
+        for (const iterator of lincage) {
+            if (iterator.value !=="kmeans"){
+                return iterator.value;
+            }
+        }
+        
+        return "kmeans";
+    }
 
     private startClickListener(event: MouseEvent): void {
         this.k = parseInt(this.slider.value, 10) || 2;
@@ -212,13 +215,28 @@ class DrawAndHandle {
         for (let i = 0; i < this.k; ++i) {
             colorsArray.push(this.drawVar.getRandomColor());
         }
+        const algorithmType = this.getAlgorithm();
+        if (algorithmType !== "both"){
+            const handler = new ClusterHandler(this.points, algorithmType, this.k);
+            const coloredPoints: Point[][] = handler.clusterPoints;
+            this.colorAllClusters(coloredPoints, colorsArray);
+        } else{
+            const kmeansHandler = new ClusterHandler(this.points, "kmeans", this.k);
+            this.colorPartClusters(kmeansHandler.clusterPoints, colorsArray, true);
 
-        const handler = new ClusterHandler(this.points, this.k);
-        const coloredPoints: Point[][] = handler.clusterPoints;
-        this.colorAllClusters(coloredPoints, colorsArray);
+            const hierarhicalHandler = new ClusterHandler(this.points, "hierarhical", this.k);
+            this.colorPartClusters(hierarhicalHandler.clusterPoints, colorsArray, false);
+        }
+        
     }
 
-
+    private colorPartClusters(coloredPoints: Point[][], colorsArray: string[], isReversed: boolean): void {
+        for (let i = 0; i < coloredPoints.length; ++i) {
+            for (let point of coloredPoints[i]) {
+                this.drawVar.drawPartCirce(point, this.radiusCircle - 5, colorsArray[i], isReversed);
+            }
+        }
+    }
     private colorAllClusters(coloredPoints: Point[][], colorsArray: string[]): void {
         for (let i = 0; i < coloredPoints.length; ++i) {
             for (let point of coloredPoints[i]) {
