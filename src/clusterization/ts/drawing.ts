@@ -13,6 +13,7 @@ class Drawing {
     private ctx: CanvasRenderingContext2D;
     private slider: HTMLInputElement;
     private currentValueSpan: HTMLSpanElement;
+    
     constructor() {
         this.canvas = document.getElementById('canv') as HTMLCanvasElement;
         this.ctx = this.canvas.getContext('2d') as CanvasRenderingContext2D;
