@@ -16,6 +16,10 @@ export function navigationButtonHandle(event: MouseEvent, options: INavOptions):
     options.currentScreenIndex = newScreenIndex
 }
 
-export function buttonStartHandle(screen: HTMLDivElement): void {
+export function buttonStartHandle(options: INavOptions, screen: HTMLDivElement): void {
     screen.style.transform = 'translateX(-100vw)'
+}
+
+export function logoButtonHandle(screen: HTMLDivElement): void {
+    screen.style.transform = 'translateX(0)'
 }
