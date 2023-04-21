@@ -8,7 +8,7 @@
 
 body {
     font-family: $app-font;
-    background: #111111 no-repeat center;
+    background: $background-app no-repeat center;
     background-size: cover;
     font-size: 1vw; 
     color: white;
@@ -20,13 +20,11 @@ body {
     overflow:hidden; 
 }
 
-
 header {
    @include content-header(40%);
    position: relative;
    left: 0;
 }
-
 
 .container {
     width: 100vw;
@@ -38,66 +36,14 @@ header {
     align-items: center;
 }
 
+.buttons {
+    @extend %command-button
+}
 
-/* .buttons {
-    text-decoration: none;
-    display: inline-block;
-    position: relative;
-    color: #fff;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    background: none;
-    font-weight: 300;
-    font-family: "Montserrat", sans-serif;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-size: 1vw;
-
-    &:before,
-    &:after {
-        content: "";
-        position: absolute;
-        width: 0;
-        height: 0;
-        opacity: 0;
-        box-sizing: border-box;
-    }
-
-    &:before {
-        bottom: 0;
-        left: 0;
-        border-left: 1px solid #fff;
-        border-top: 1px solid #fff;
-        transition: opacity 0.8s ease 0s, width 0.4s ease 0.2s, height 0.6s ease 0.2s;
-    }
-
-    &:after {
-        top: 0;
-        right: 0;
-        border-right: 1px solid #fff;
-        border-bottom: 1px solid #fff;
-        transition: opacity 0.4s ease 0s, width 0.6s ease 0.2s, height 0.2s ease 0.2s;
-    }
-
-    &:hover {
-        background: rgba(255, 255, 255, 0.2);
-
-        &:before,
-        &:after {
-            height: 100%;
-            width: 100%;
-            opacity: 1;
-        }
-
-        &:before {
-            transition: opacity 0s ease 0s, height 0.2s ease 0s, width 0.2s ease 0.2s;
-        }
-
-        &:after {
-            transition: opacity 0.4s ease 0s, height 0.4s ease 0.2s, width 0.6s ease 0.2s;
-        }
-    }
-} */
-
+form {
+    @extend %form-range;
+    margin-top: 2vh;
+}
 
 .row {
     margin: 0 auto;
@@ -115,12 +61,14 @@ header {
     justify-content: center;
     align-items: center;
     height: 40vw; 
-    
 }
     
 #canvasGenetic {
-    background: no-repeat white;
+    border-radius: 3vw;
+    box-shadow: 0 0 15px $primary-color, 5px 5px 15px #2ecc71;
+    background: no-repeat #b4afaf;
     margin-bottom: 3vh;
+    
 }
 
 .buttons {
@@ -144,15 +92,16 @@ header {
 }
 
 .userInputs {
+    font-size: 1.3vw;
+    margin-right: 2vw;
     display: flex;
     flex-direction: column;
     align-items: baseline;
     justify-content: space-around;
-    margin-bottom: 20px;
+    margin-top: 3%;
 }
 
 #generationSize, #populationSize, #mutationPercent {
-    margin-left: 30%;
     text-align: center;
     justify-content: center;
     margin-bottom: 40%;
@@ -181,8 +130,8 @@ header {
         min-width: 70%;     
     }
     .containFirst {
-        max-width: 70%;
-        min-width: 80%;
+        max-width: 80%;
+        min-width: 70%;
     }
 }
 
@@ -192,7 +141,7 @@ header {
         min-width: 70%;
     }
     .containFirst {
-        max-width: 70%;
-        min-width: 80%;
+        max-width: 80%;
+        min-width: 70%;
     }
 }
