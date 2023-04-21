@@ -61,20 +61,21 @@ header {
   .digit {
     background-color: #d7d4d4;
     color: #000;
+    font-size: 1.1vw;
   }
-}
 
-.recognized-digit-first {
-  background-color: #058240;
-  color: #fff
-}
+  .recognized-digit-first {
+    background-color: #058240;
+    color: #fff
+  }
 
-.recognized-digit-second {
-  background-color: #F3C301;
-  color: #fff
-}
+  .recognized-digit-second {
+    background-color: #F3C301;
+    color: #fff
+  }
 
-.recognized-digit-third {
-  background-color: #D71232;
-  color: #fff
+  .recognized-digit-third {
+    background-color: #D71232;
+    color: #fff
+  }
 }

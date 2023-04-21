@@ -11,3 +11,8 @@ canvasDrawing.start()
 
 clearButton.addEventListener('click', () => clearButtonHandle(elDigits))
 recognizeButton.addEventListener('click', () => recognizeButtonHandle(canvas, elDigits))
+
+window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth * 0.3
+    canvas.height = window.innerWidth * 0.3
+})
