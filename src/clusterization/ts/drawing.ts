@@ -1,18 +1,49 @@
 
-import { Point} from "./interfaces.js";
+import { Point } from "./interfaces.js";
 import { clusterisation } from "./clusterisation.js";
 
 
 
 
 
-class Drawing{
-    public drawCirce(point: Point, radiusCircle: number, color: string){
-        ctx.beginPath();
-        ctx.arc(point.x, point.y, radiusCircle, 0, Math.PI * 2, false);
-        ctx.fillStyle = color;
-        ctx.fill();
-        ctx.closePath();
+class Drawing {
+    private readonly radiusCircle = 22;
+    private readonly baseColorCircle = 'white';
+    private canvas: HTMLCanvasElement;
+    private ctx: CanvasRenderingContext2D;
+    private slider: HTMLInputElement;
+    private currentValueSpan: HTMLSpanElement;
+
+
+    constructor() {
+        this.canvas = document.getElementById('canv') as HTMLCanvasElement;
+        this.ctx = this.canvas.getContext('2d') as unknown as CanvasRenderingContext2D;
+
+        this.slider = document.getElementById("slider") as HTMLInputElement;
+        this.currentValueSpan = document.getElementById("currentValue") as HTMLSpanElement;
+
+        this.canvas.addEventListener('click', this.addPoint.bind(this));
+
+        this.slider.addEventListener("input", (event) => {
+            const target = event.target as HTMLInputElement;
+            this.currentValueSpan.textContent = target.value;
+        });
+    }
+
+    private addPoint(event: MouseEvent): void {
+        const point: Point = {
+            x: event.clientX - this.canvas.offsetLeft,
+            y: event.clientY - this.canvas.offsetTop
+        };
+        this.drawCirce(point, this.radiusCircle, this.baseColorCircle);
+    }
+
+    public drawCirce(point: Point, radiusCircle: number, color: string) {
+        this.ctx.beginPath();
+        this.ctx.arc(point.x, point.y, radiusCircle, 0, Math.PI * 2, false);
+        this.ctx.fillStyle = color;
+        this.ctx.fill();
+        this.ctx.closePath();
     }
 
     public getRandomColor(): string {
@@ -23,105 +54,126 @@ class Drawing{
         }
         return color;
     }
-    public getArrayRandomColor(k: number): string[]{
+
+    public getArrayRandomColor(k: number): string[] {
         let colors: string[] = [];
-        while(colors.length < k){
+        while (colors.length < k) {
             let color = this.getRandomColor();
-            if (!contains(colors, color))
+            if (!this.contains(colors, color))
                 colors.push();
         }
         return colors;
     }
-}
-function contains(arr: any, item: any): boolean {
-    for(const elem of arr){
-        if (elem === item){
-            return true;
+
+    private contains(arr: any, item: any): boolean {
+        for (const elem of arr) {
+            if (elem === item) {
+                return true;
+            }
         }
+        return false;
     }
-    return false;
-}
-
-
-const radiusCircle = 22;
-const baseColorCircle = 'white';
-const drawVar = new Drawing();
-
-const slider = document.getElementById("slider") as HTMLInputElement;
-const currentValueSpan = document.getElementById("currentValue") as HTMLSpanElement;
-const button = document.getElementById("sendBtn") as HTMLButtonElement;
-
-
-
-let canvas = document.getElementById('canv') as HTMLCanvasElement;
-let ctx = canvas.getContext('2d');
-
-let k: number = 2;
-let points: Point[] = [];
-
-
-canvas.addEventListener('click', function (event) {
-    let point: Point  = {
-        x: event.clientX - canvas.offsetLeft, 
-        y: event.clientY - canvas.offsetTop
-    };
-
-    drawVar.drawCirce(point, radiusCircle, baseColorCircle);
-    points.push(point);
-
-})
-
-slider.addEventListener("input", (event) => {
-    const target = event.target as HTMLInputElement;
-    currentValueSpan.textContent = target.value;
-    k = parseInt(target.value, 10);
-});
-
-
-button.addEventListener('click', () => {
-    let colorsArray: string[] = [];
-    for(let i = 0; i < k; ++i){
-        colorsArray.push(drawVar.getRandomColor());
-    }
-    const metricType = getMetric();
-    const lincageType = getLincage();
-    const algorithmType = getAlgorithm();
-    
-    const clust = new clusterisation(k, points, metricType, lincageType, algorithmType);
-    const coloredPoints : Point[][] = clust.cluster();
-    
-    for (let i = 0; i < coloredPoints.length; ++i) {
-        for (let point of coloredPoints[i]) {
-            drawVar.drawCirce(point, radiusCircle - 5,colorsArray[i]);
-        }
-    } 
-})
-
-function getMetric() : string{
-    const metric = document.querySelectorAll('input[name="metric"]');
-    for (const iterator of metric) {
-        if (iterator.ariaChecked){
-            return iterator.ariaValueText;
-        }
-    }
-    return "euclidean";
 
 }
-function getLincage() : string{
-    const lincage = document.querySelectorAll('input[name="lincage"]');
-    for (const iterator of lincage) {
-        if (iterator.ariaChecked){
-            return iterator.ariaValueText;
+
+
+class ClusterHandler {
+    private metricType: string;
+    private lincageType: string;
+    private algorithmType: string;
+    private k: number;
+    private cluster: clusterisation;
+    private points: Point[];
+    public clusterPoints: Point[][];
+
+    constructor(points: Point[], k?: number) {
+        this.points = points;
+        this.k = k || 2;
+        this.metricType = this.getMetric();
+        this.lincageType = this.getLincage();
+        this.algorithmType = this.getAlgorithm();
+        this.cluster = new clusterisation(this.k, this.metricType, this.lincageType, this.algorithmType, this.points);
+        this.clusterPoints = this.cluster.clust;
+    }
+
+
+    private getMetric(): string {
+        const metric = document.querySelectorAll('input[name="metric"]');
+        for (const iterator of metric) {
+            if (iterator.ariaChecked) {
+                return iterator.ariaValueText || "single";
+            }
+        }
+        return "euclidean";
+    }
+    private getLincage(): string {
+        const lincage = document.querySelectorAll('input[name="lincage"]');
+        for (const iterator of lincage) {
+            if (iterator.ariaChecked) {
+                return iterator.ariaValueText || "single";
+            }
+        }
+        return "single";
+    }
+    private getAlgorithm(): string {
+        const lincage = document.querySelectorAll('input[name="algorithm"]');
+        for (const iterator of lincage) {
+            if (iterator.ariaChecked) {
+                return iterator.ariaValueText || "kmeans";
+            }
+        }
+        return "kmeans";
+    }
+}
+
+class DrawAndHandle {
+    private readonly radiusCircle = 22;
+
+    private button: HTMLButtonElement;
+    private canvas: HTMLCanvasElement;
+    private slider: HTMLInputElement;
+    private points: Point[] = [];
+
+    private k: number = 2;
+    private drawVar: Drawing;
+
+    constructor() {
+        this.canvas = document.getElementById('canv') as HTMLCanvasElement;
+        this.button = document.getElementById("sendBtn") as HTMLButtonElement;
+        this.slider = document.getElementById("slider") as HTMLInputElement;
+        this.drawVar = new Drawing();
+        this.canvas.addEventListener('click', this.addPointListener.bind(this));
+        this.button.addEventListener('click', this.startClickListener.bind(this));
+    }
+    private addPointListener(event: MouseEvent): void {
+        const point: Point = {
+            x: event.clientX - this.canvas.offsetLeft,
+            y: event.clientY - this.canvas.offsetTop
+        };
+        this.points.push(point);
+    }
+
+    private startClickListener(event: MouseEvent): void {
+        this.k = parseInt(this.slider.value, 10) || 2;
+        let colorsArray: string[] = [];
+        for (let i = 0; i < this.k; ++i) {
+            colorsArray.push(this.drawVar.getRandomColor());
+        }
+
+        const handler = new ClusterHandler(this.points, this.k);
+        const coloredPoints: Point[][] = handler.clusterPoints;
+        this.colorAllClusters(coloredPoints, colorsArray);
+
+
+    }
+    private colorAllClusters(coloredPoints: Point[][], colorsArray: string[]): void {
+        for (let i = 0; i < coloredPoints.length; ++i) {
+            for (let point of coloredPoints[i]) {
+                this.drawVar.drawCirce(point, this.radiusCircle - 5, colorsArray[i]);
+            }
         }
     }
-    return "single";
-}
-function getAlgorithm() : string{
-    const lincage = document.querySelectorAll('input[name="algorithm"]');
-    for (const iterator of lincage) {
-        if (iterator.ariaChecked){
-            return iterator.ariaValueText;
-        }
-    }
-    return "kmeans";
-}
+};
+
+
+const draw = new DrawAndHandle();

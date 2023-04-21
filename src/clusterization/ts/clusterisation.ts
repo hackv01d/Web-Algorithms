@@ -7,14 +7,16 @@ export class clusterisation {
     private metric: string;
     private lincage: string;
     private algorithm: string;
+    public clust: Point[][];
 
-    constructor(k: number, points: Point[], metric: string, lincage: string, algorithm: string) {
+    constructor(k: number, metric: string, lincage: string, algorithm: string, points?: Point[]) {
         this.k = k;
-        this.points = points;
+        this.points = points || [];
         this.centroids = this.initializeCentroids();
         this.metric = metric;
         this.lincage = lincage;
         this.algorithm = algorithm;
+        this.clust = this.cluster();
     }
 
     private initializeCentroids(): Point[] {
@@ -86,12 +88,12 @@ export class clusterisation {
         return Math.abs(first_p.x - second_p.x) + Math.abs(first_p.y - second_p.y);
     }
 
-    private calculateDistance(first_p: Point, second_p: Point){
-        if (this.lincage ==="manhattan"){
+    private calculateDistance(first_p: Point, second_p: Point) {
+        if (this.metric === "manhattan") {
             return this.manhattanDistance(first_p, second_p);
-        } else if (this.lincage ==="chebyshev"){
+        } else if (this.metric === "chebyshev") {
             return this.chebyshevDistance(first_p, second_p);
-        } else{
+        } else {
             return this.euclideanDistance(first_p, second_p);
         }
     }
@@ -132,13 +134,13 @@ export class clusterisation {
         return maxDistance;
     }
 
-    private Lincage(first_c: Point[], second_c: Point[]): number{
-        if (this.lincage ==="complete"){
+    private Lincage(first_c: Point[], second_c: Point[]): number {
+        if (this.lincage === "complete") {
             return this.completeLinkage(first_c, second_c);
-        } else if (this.lincage ==="average"){
+        } else if (this.lincage === "average") {
             return this.averageLinkage(first_c, second_c);
-        } else{
-            return this.singleLinkage(first_c,second_c);
+        } else {
+            return this.singleLinkage(first_c, second_c);
         }
     }
     private kmeans(): Point[][] {
@@ -169,7 +171,7 @@ export class clusterisation {
 
         return clusters;
     }
-    
+
 
     private hierarchicalClustering(): Point[][] {
         const clusters: Point[][] = this.points.map((point) => [point]);
@@ -195,10 +197,11 @@ export class clusterisation {
 
         return clusters;
     }
-    public cluster(): Point[][]{
-        if (this.algorithm ==="hierarchical"){
+
+    public cluster(): Point[][] {
+        if (this.algorithm === "hierarchical") {
             return this.hierarchicalClustering();
-        } else{
+        } else {
             return this.kmeans();
         }
     }

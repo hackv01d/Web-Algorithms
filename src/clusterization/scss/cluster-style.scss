@@ -16,7 +16,6 @@ $title-font: "Roboto Mono", sans-serif;
 	margin: 0;
 	border: 0;
 }
-
 html, body {
 	height: 100%;
 	width: 100%;
@@ -27,16 +26,12 @@ html, body {
 	-ms-text-size-adjust: 100%;
 	-webkit-text-size-adjust: 100%;
 }
-
 button {
 	cursor: pointer;
-	&::-moz-focus-inner {
-		padding: 0;
-		border: 0;
-	}
+	padding: 0;
+	border: 0;
 }
-
-h1{
+h1 {
 	display: block;
 	font-size: 2em;
 	margin-block-start: 0.67em;
@@ -45,7 +40,6 @@ h1{
 	margin-inline-end: 0px;
 	font-weight: bold;
 	text-align: center;
-
 }
 body {
 	font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
@@ -53,7 +47,7 @@ body {
 	display: flex;
 }
 header {
-	font-family: $title-font;
+	font-family:  $title-font;
 	position: absolute;
 	color: white;
 	margin: auto;
@@ -65,15 +59,14 @@ header {
 	background-color: black;
 	border: 1px solid white ;
 	display: flex;
-	margin:  9% 0  0 3%;
-	
+	margin: 9% 0  0 3%;
 	height: 600px;
 	width: 1000px;
 }
 .btn {
 	color: red;
 }
-.cluster{
+.cluster {
 	max-width: 330px;
 	max-height: 700px;
 	color: white;
@@ -81,30 +74,25 @@ header {
 	justify-content: space-evenly;
 	flex-direction: column;
 	align-items: center;
-
-	margin:  7% 0  0 4%;
-
-
+	margin: 7% 0  0 4%;
+	&__slider {
+		display: inline;
+	}
+	&__metric {
+		text-align: center;
+	}
+	&__lincage {
+		text-align: center;
+	}
 }
 .number {
 	display: block;
 	position: relative;
 	border-radius: 8px;
 }
-.cluster__slider {
-	display: inline;
-}
-
 .show {
 	border: 1px black solid;
 }
-.cluster__metric{
-	text-align: center;
-
-}
-.cluster__lincage{
-	text-align: center;
-}
-.radio{
+.radio {
 	display: inline;
 }
