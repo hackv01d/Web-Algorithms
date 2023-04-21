@@ -9,7 +9,7 @@ import {
     buttonStartHandle } from "./eventHandlers.js";
 
 const mainScreen = document.querySelector(`.${ElementClass.mainScreen}`) as HTMLDivElement
-const buttonStart = document.querySelector(`.${ElementClass.buttonStart}`) as HTMLButtonElement
+const buttonStart = document.querySelector(`.${ElementClass.buttonStart}`) as HTMLLinkElement
 
 const algorithmScreen = document.querySelector(`.${ElementClass.algorithmScreen}`) as HTMLDivElement
 const navigationButtons = Array.from<HTMLDivElement>(document.querySelectorAll(`.${ElementClass.navigationButtons}`))
