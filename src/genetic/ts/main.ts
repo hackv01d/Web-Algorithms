@@ -59,26 +59,6 @@ function isValidPercentMutation(value: number) {
     }
 }
 
-
-function changeValue(id: string) {
-    let element = document.getElementById(`${id}Diapason`) as HTMLInputElement;
-    let countElement = document.getElementById(`${id}Count`);
-    countElement.textContent = countElement.textContent.replace(/\d+/, `${element.value}`);
-    switch (id) {
-        case 'populationSize':
-            isValidPopulationSize(parseInt(element.value, 10));
-            break;
-        case 'generationSize':
-            isValidCountGeneration(parseInt(element.value, 10));
-            break;
-        case 'mutationPercent':
-            isValidPercentMutation(parseInt(element.value, 10));
-            break;
-    }
-}
-
-
-
 function launchGeneticAlgorithm() {
     if (arrayPoints.length === 0) {
         return;
