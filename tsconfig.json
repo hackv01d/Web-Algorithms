@@ -2,7 +2,7 @@
   "compilerOptions": {
     "sourceMap": true,
     "strict": true,
-    "target": "es2017",
+    "target": "es6",
     "outDir": "./src/build/js",
     "rootDir": "./src",
     "esModuleInterop": true,

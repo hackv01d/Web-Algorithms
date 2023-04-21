@@ -19,13 +19,13 @@ export class TreeNode {
 }
 
 export class Tree {
-  public rootNode: TreeNode;
+  public rootNode?: TreeNode;
   private headers: HeaderType[];
 
   constructor(data: (string | number)[][]) {
     const headers = data.shift() || [];
     this.headers = this.parseHeaders(headers.map(variable => String(variable)), data);
-    this.rootNode = this.buildTree(data, this.headers);
+    this.rootNode = this.buildTree(data, this.headers) ;
   }
 
 
@@ -45,7 +45,7 @@ export class Tree {
 
 
 
-  private buildTree(data: (string | number)[][], headers: HeaderType[]): TreeNode {
+  private buildTree(data: (string | number)[][], headers: HeaderType[]): TreeNode | undefined {
     const uniqueClasses = new Set(data.map(item => item[item.length - 1]));
     const [bestAttrIdx, bestGainRatio] = this.getBestFeature(data);
 
@@ -63,15 +63,18 @@ export class Tree {
         const attrSet = data.filter((row) => row[bestAttrIdx] === attrValue);
         const attrSetHeaders = headers.filter((header) => header !== bestAttr);
         const subtree = this.buildTree(attrSet, attrSetHeaders);
-  
-        if (bestAttr.type === 'number') {
-          newNode.addChild(bestAttr.name, Number(attrValue), subtree);
-        } else {
-          newNode.addChild(bestAttr.name, String(attrValue), subtree);
+        if (subtree !== undefined){
+          if (bestAttr.type === 'number') {
+            newNode.addChild(bestAttr.name, Number(attrValue), subtree);
+          } else {
+            newNode.addChild(bestAttr.name, String(attrValue), subtree);
+          }
         }
+        
       }
       return newNode;
     }
+    return undefined;
     
   }
 
@@ -214,7 +217,7 @@ export class Tree {
     for (const attribute of attributes) {
       attributeCounts.set(attribute, (attributeCounts.get(attribute) || 0) + 1);
     }
-    let mostPopularAttribute: (string | number) = undefined;
+    let mostPopularAttribute: (string | number) = "";
     let maxCount = -Infinity;
 
     for (const [attribute, count] of attributeCounts) {
@@ -230,7 +233,7 @@ export class Tree {
   public traverseDecisionTree(node: TreeNode, path: (string | number)[], way: (string | number)[]): (string | number)[] {
 
     if (node.children.length === 0) {
-      way.push(node.attribute);
+      way.push(node.attribute || "");
       return way;
     }
 

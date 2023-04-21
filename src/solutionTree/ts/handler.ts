@@ -15,18 +15,15 @@ class TreeEventHandler {
   private clearAllBtn:  HTMLButtonElement;
 
 
+  private readonly baseColor = "red";
   private readonly treeColors = new Map([
     ["main", "#CA4557"],
     ["way", "#1C94C4"],
     ["answer", "#2CB63E"],
-    ["mistake", "green"],
+    ["mistake", "red"],
     ["correct", "green"]
   ]);
 
-  private readonly timeBuildWay = new Map([
-    ["basic", 200],
-    ["last", 300]
-  ]);
 
   private readonly errorTexts = new Map([
     ["children", "Ошибка, введите корректный путь"],
@@ -34,7 +31,7 @@ class TreeEventHandler {
     ["shortPath", "Ошибка, длина искомого пути слишком короткая или неверная"]
   ]);
 
-  private tree: Tree;
+  private tree?: Tree;
   private parser: parseData;
   private markedPath: (string | number)[];
 
@@ -52,7 +49,7 @@ class TreeEventHandler {
     this.clearAnswerBtn =  document.getElementById("clear-answer-button") as HTMLButtonElement;
     this.clearAllBtn =  document.getElementById("clear-all-button") as HTMLButtonElement;
 
-    this.tree = null;
+    this.tree = undefined;
     this.parser = new parseData(this.treeInput, this.ansInput, this.separator.value);
     this.markedPath = [];
 
@@ -84,33 +81,37 @@ class TreeEventHandler {
     this.treeContainer.innerHTML = "";
     const matrix: (number | string)[][] = this.parser.getInputDataMatrix();
     if (matrix.length <= 1) {
-      this.changeAnswer(this.treeColors.get("mistake"), this.errorTexts.get("children"));
+
+      this.changeAnswer(this.treeColors.get("mistake") || "red", this.errorTexts.get("children") || "Неизвестная ошибка");
     } else if (!this.isMatrixCorrect(matrix)){
-      this.changeAnswer(this.treeColors.get("mistake"), this.errorTexts.get("matrix"));
+      this.changeAnswer(this.treeColors.get("mistake")|| "red", this.errorTexts.get("matrix")|| "Неизвестная ошибка");
     }else {
       this.tree = new Tree(matrix);
-        this.answer.textContent = "";
+      this.answer.textContent = "";
+      if (this.tree.rootNode !== undefined){
         this.renderTree(this.tree.rootNode);
+      }
     }
   }
   
   private async showWay(){
     const row: (string | number)[] = this.parser.getOutputDataRow();
-    if (this.tree !== undefined && this.tree !== null && this.tree.rootNode.attribute !== "") {
+    if (this.tree !== undefined && this.tree !== null && this.tree.rootNode !== undefined) {
       const answerPath = this.tree.traverseDecisionTree(this.tree.rootNode, row, []);
 
       if (!this.isEqual(this.markedPath, answerPath)) {
         if (this.markedPath.length > 0) {
+
           await this.clearOldWay(this.treeContainer.querySelector('ul'), 1);
         }
         if (answerPath.length > 0){
-          this.changeAnswer(this.treeColors.get("correct"), "");
+          this.changeAnswer(this.treeColors.get("correct")|| "green", "");
           this.buildPath(answerPath);
         } else{
-          this.changeAnswer(this.treeColors.get("mistake"), this.errorTexts.get("path"));
+          this.changeAnswer(this.treeColors.get("mistake")|| "red", this.errorTexts.get("path")|| "Неизвестная ошибка");
         }
       } else {
-        this.changeAnswer(this.treeColors.get("mistake"), this.errorTexts.get("path"));
+        this.changeAnswer(this.treeColors.get("mistake")|| "red", this.errorTexts.get("path")|| "Неизвестная ошибка");
       }
     }
   }
@@ -153,51 +154,75 @@ class TreeEventHandler {
 
   private buildPath(answerPath: (string | number)[]) {
     this.markedPath = [...answerPath];
-    this.coloringWay(answerPath, this.treeContainer.querySelector('ul'), 1);
+    if (this.treeContainer.querySelector('ul') !== null){
+      this.coloringWay(answerPath, this.treeContainer.querySelector('ul'), 1);
+    }
+    
   }
 
 
-  private async coloringWay(answerPath: (string | number)[], container: HTMLElement, index: number) {
+  private async coloringWay(answerPath: (string | number)[], container: HTMLUListElement | null , index: number) {
+    if (container === null){
+      return;
+    }
     if (index === 1) {
-      await this.delay(this.timeBuildWay.get("basic"));
+      await this.delay(200);
       const link = this.treeContainer.querySelector('a');
-      link.style.color = this.treeColors.get("way");
+      if (link !== null){
+        link.style.color = this.treeColors.get("way") || "red";
+      }
+      
     }
     const elements = container.children;
 
     if (index === answerPath.length - 1) {
-      await this.delay(this.timeBuildWay.get("basic"));
+      await this.delay(200);
       const link = container.querySelector('a');
-      link.style.color = this.treeColors.get("answer");
+      if (link !== null){
+        link.style.color = this.treeColors.get("answer") || "red";
+      }
+      
       return;
     }
 
     for (const element of elements) {
       const link = element.querySelector('a');
-      const constElementUl = element.querySelector('ul');
+      if (link !== null){
+        const constElementUl = element.querySelector('ul');
 
-      if (String(link.textContent) === String(answerPath[index])) {
-        await this.delay(this.timeBuildWay.get("basic"));
-        link.style.color = this.treeColors.get("way");
-        await this.coloringWay(answerPath, constElementUl, ++index);
+        if (String(link.textContent) === String(answerPath[index])) {
+          await this.delay( 200);
+          link.style.color = this.treeColors.get("way") || "red";
+          await this.coloringWay(answerPath, constElementUl, ++index);
+        }
       }
+      
     }
   }
 
 
-  private async clearOldWay(container: HTMLElement, index: number): Promise<void> {
+  private async clearOldWay(container: HTMLElement | null, index: number): Promise<void> {
+    if (container === null){
+      return;
+    }
     if (index === 1) {
-      await this.delay(this.timeBuildWay.get("basic"));
+      await this.delay(200);
       const link = this.treeContainer.querySelector('a');
-      link.style.color = this.treeColors.get("main");
+      if (link !== null){
+        link.style.color = this.treeColors.get("main") || "red";
+      }
+      
     }
 
     const elements = container.children;
 
     if (index === this.markedPath.length - 1) {
-      await this.delay(this.timeBuildWay.get("last"));
+      await this.delay(300);
       const link = container.querySelector('a');
-      link.style.color = this.treeColors.get("main");
+      if (link !== null){
+        link.style.color = this.treeColors.get("main") || "red";
+      }
+      
       return;
     }
 
@@ -205,9 +230,12 @@ class TreeEventHandler {
       const link = element.querySelector('a');
       const constElementUl = element.querySelector('ul');
 
-      if (String(link.textContent) === String(this.markedPath[index])) {
-        await this.delay(this.timeBuildWay.get("basic"));
-        link.style.color = this.treeColors.get("main");
+      if (link !== null && String(link.textContent) === String(this.markedPath[index])) {
+        await this.delay(200);
+        if (link !== null){
+          link.style.color = this.treeColors.get("main") || "red";
+        }
+        
         await this.clearOldWay(constElementUl, ++index);
       }
     }
