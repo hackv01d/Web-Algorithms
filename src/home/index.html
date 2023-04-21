@@ -14,23 +14,21 @@
 </head>
 
 <body>
+    <img class="logo" src="../assets/img/logo.png" alt="Лого">
+
     <div class="main-screen">
 
         <div class="home-screen">
-            <div class="container">
 
-                <header>
-                    <div class="title"></div>
-                    <div class="subtitle"></div>
-                </header>
+            <header>
+                <div class="title"></div>
+                <div class="subtitle"></div>
+            </header>
 
-                <div class="nav-start">
-                    <button class="button-start">
-                        Погрузиться в мир алгоритмов
-                        <i class="fas fa-arrow-right"></i>
-                    </button>
-                </div>
-
+            <div class="nav-start">
+                <a class="button-start">
+                <span class="text">Погрузиться в мир алгоритмов</span><span class="text-decoration"></span><span class="decoration">&rArr;</span>
+                </a>
             </div>
 
         </div>
@@ -38,40 +36,41 @@
         <div class="content">
 
             <div class="algorithms-screen">
-                <div class="a-star-screen content-screen">
+
+                <div>
                     <header>
                         <h1>A-Star</h1>
                     </header>
                 </div>
 
-                <div class="claster-screen content-screen">
+                <div>
                     <header>
                         <h1>Кластеризация</h1>
                     </header>
                     <iframe src="../clusterization/index.html" class="content-iframe"></iframe>
                 </div>
 
-                <div class="gen-screen content-screen">
+                <div>
                     <header>
                         <h1>Генетический алгоритм</h1>
                     </header>
                 </div>
 
-                <div class="ant-screen content-screen">
+                <div>
                     <header>
                         <h1>Муравьиный алгоритм</h1>
                     </header>
                 </div>
 
 
-                <div class="tree-screen content-screen">
+                <div>
                     <header>
                         <h1>Дерево решений</h1>
                     </header>
                     <iframe src="../solutionTree/index.html" class="content-iframe"></iframe>
                 </div>
 
-                <div class="neural-screen content-screen">
+                <div>
                     <header>
                         <h1>Нейронная сеть</h1>
                     </header>
@@ -80,32 +79,32 @@
 
             <div class="nav-content">
 
-                <div class="a-star-btn nav-btn">
+                <div class="nav-btn">
                     <span>A-Star</span>
                     <div></div>
                 </div>
 
-                <div class="claster-btn nav-btn">
+                <div class="nav-btn">
                     <span>Кластеризация</span>
                     <div></div>
                 </div>
 
-                <div class="gen-btn nav-btn">
+                <div class="nav-btn">
                     <span>Генетический алгоритм</span>
                     <div></div>
                 </div>
 
-                <div class="ant-btn nav-btn">
+                <div class="nav-btn">
                     <span>Муравьиный алгоритм</span>
                     <div></div>
                 </div>
 
-                <div class="tree-btn nav-btn">
+                <div class="nav-btn">
                     <span>Дерево решений</span>
                     <div></div>
                 </div>
 
-                <div class="neural-btn nav-btn">
+                <div class="nav-btn">
                     <span>Нейронная сеть</span>
                     <div></div>
                 </div>
@@ -116,6 +115,6 @@
 
     </div>
 
-    <script type="module" src="../build/js/home/ts/main.js"></script>
+<script defer type="module" src="../build/js/home/ts/main.js"></script>
 </body>
 </html>
