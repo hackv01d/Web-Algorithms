@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ant algorithm</title>
+    <link rel="stylesheet" href="/src/build/css/bonus-ant-style.css">
+</head>
+<body>
+<div class="container">
+    <div class="row"> 
+        <div class="containFirst">
+            <canvas id="canvasBonusAnt">Ваш браузер не поддерживает canvas</canvas>
+            <div class="preferences">
+                <div class="buttons-container">
+                    <button id="Build" class="buttons"><span>Build</span></button>
+                    <button id="Set" class="buttons"><span>Colony</span></button>
+                    <button id="Create" class="buttons"><span>Generate</span></button>
+                    <button id="Clear" class="buttons"><span>Delete</span></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="userInputs">
+            <div id="countSend">
+                <p>Количество муравьев</p>
+                <form oninput="result.value=countSendDiapason.value">
+                    <input type="range" id="countSendDiapason" name="countSendDiapason" min="1" max="200" value="50">
+                    <output name="result" for="countSendDiapason">50</output>
+                </form>
+            </div>
+            <div id="numFood">
+                <p>Количество еды</p>
+                <form oninput="result.value=numFoodDiapason.value">
+                    <input type="range" id="numFoodDiapason" name="numFoodDiapason" min="10" max="250" value="60">
+                    <output name="result" for="numFoodDiapason">60</output>
+                </form>
+            </div>
+            <div id="foodSpawn">
+                <p>Диапазон еды</p>
+                <form oninput="result.value=foodSpawnDiapason.value">
+                    <input type="range" id="foodSpawnDiapason" name="foodSpawnDiapason" min="1" max="60" value="30">
+                    <output name="result" for="foodSpawnDiapason">30</output>
+                </form>
+            </div>
+
+            <div id="collected">
+                <p id="collectedCount">Собрано </p>
+                <p id="countCollected">0</p>
+            </div>
+        </div>
+    </div>                
+</div>   
+<script type="module" src="../build/js/bonusAnt/ts/script.js"></script>
+</body>
+</html>

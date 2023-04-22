@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "sourceMap": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "target": "es2017",
+    "outDir": "./src/build/js",
+    "rootDir": "./src",
+    "lib": ["es6", "dom"]
+  },
+
+  "include": [
+    "src/**/*"
+  ],
+
+  "exclude": [
+    "node_modules"
+  ],
+}

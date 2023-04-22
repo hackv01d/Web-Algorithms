@@ -1,0 +1,127 @@
+$border-color: #000000;
+$fiolet-color: rgb(89, 48, 167);
+$red-color: rgb(202, 69, 87);
+$blue-color: rgba(4, 252, 219, 0.623);
+
+
+
+.tree {
+	list-style: none;
+	padding: 0;
+	position: relative;
+	margin: 0 0 1em;
+	text-align: center;
+	color: $red-color;
+	
+	li a:hover {
+		background: $blue-color;
+		color: $fiolet-color;
+	}
+	li a:hover+ul li a{
+		background: $blue-color;
+		color: $fiolet-color; 
+	}
+	ul {
+	  list-style: none;
+	  margin: 0;
+	  padding: 0;
+	  position: relative;
+	  display: table;
+	  width: 100%;
+  
+	  &:before {
+		outline: solid 1px $fiolet-color; 
+		content: "";
+		height: .5em;
+		left: 50%;
+		position: absolute;
+		top: -.5em;
+	  }
+	}
+  
+	li {
+	  list-style: none;
+	  margin: 0;
+	  position: relative;
+	  display: table-cell;
+	  padding: .5em 0;
+	  vertical-align: top;
+  
+	  &:before {
+		outline: solid 1px $fiolet-color; 
+		content: "";
+		left: 0;
+		position: absolute;
+		right: 0;
+		top: 0;
+	  }
+  
+	  &:first-child {
+		&:before {
+		  left: 50%;
+		}
+	  }
+  
+	  &:last-child {
+		&:before {
+		  right: 50%;
+		}
+	  }
+	}
+  
+	code {
+	  border: solid .1em $border-color; 
+	  display: inline-block;
+	  margin: 0 .2em .5em;
+	  padding: .2em .5em;
+	  position: relative;
+  
+	  &:before {
+		outline: solid 1px $fiolet-color; 
+		content: "";
+		height: .5em;
+		left: 50%;
+		position: absolute;
+		top: -.55em;
+	  }
+	}
+  
+	a {
+	  border: solid .1em $fiolet-color;  
+	  display: inline-block;
+	  margin: 0 .2em .5em;
+	  padding: .2em .5em;
+	  position: relative;
+  
+	  &:before {
+		outline: solid 1px $fiolet-color; 
+		content: "";
+		height: .5em;
+		left: 50%;
+		position: absolute;
+		top: -.55em;
+	  }
+	}
+  
+	>li {
+	  margin-top: 0;
+	  &:before {
+		outline: none;
+	  }
+	  &:after {
+		outline: none;
+	  }
+	  >code {
+		&:before {
+		  outline: none;
+		}
+	  }
+
+	  >a {
+		&:before {
+		  outline: none;
+		}
+	  }
+	}
+
+  }
