@@ -22,10 +22,6 @@ body {
   	width: 100vw;
   }
 
-header {
-	@include content-header(41%)
-}
-
 
 .container{
 	display: flex;
@@ -90,7 +86,6 @@ header {
 		justify-content: center;
 		margin-left: 8vw;
 		margin-right: 11vw;
-		margin-top: 11vh;
 		&__field{
 			background-color: #42406e94;
 			display: flex;
