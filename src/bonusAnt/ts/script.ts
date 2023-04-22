@@ -2,7 +2,7 @@ import Colony from "./colony.js";
 import Wall from "./wall.js";
 import Food from "./food.js";
 import { Point } from "./types/point.js";
-import { maze, generateMap } from "./map";
+import { maze, generateMap } from "./map.js";
 
 
 export let canvas: HTMLCanvasElement = document.getElementById("canvasBonusAnt") as HTMLCanvasElement;

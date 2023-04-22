@@ -2,14 +2,12 @@
 @import "../../common/scss/_variables.scss";
 @import "../../common/scss/app-styles.scss";
 
-
 *{
     @extend %universal;
 }
 
 body {
     font-family: $app-font;
-    background: $background-app no-repeat center;
     background-size: cover;
     font-size: 1vw; 
     color: white;
@@ -89,7 +87,6 @@ form {
 #canvasBonusAnt {
     border-radius: 3vw;
     box-shadow: 0 0 15px $primary-color, 5px 5px 15px #2ecc71;
-    //background: no-repeat #b4afaf;
     background-image: url("/src/assets/img/earth.png");
     background-size: cover;
     background-position: left;

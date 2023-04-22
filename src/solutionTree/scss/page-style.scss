@@ -29,7 +29,6 @@ body {
 	height: 100vh;
   	width: 100vw;
 	margin-top: 2vh;
-	font-family: $app-font;
 	color: #fff;
   }
 
@@ -58,7 +57,7 @@ body {
 
 .container {
 	display: flex;
-	justify-self: sy;
+	justify-self: center;
 	align-items: center;
 	flex-direction: column;
 	margin-right: 15vh;

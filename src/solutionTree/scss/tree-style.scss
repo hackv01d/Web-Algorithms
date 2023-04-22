@@ -1,6 +1,3 @@
-/* 
- 	Взял отсюда https://www.cssscript.com/clean-tree-diagram/
-*/
 $border-color: #000000;
 $fiolet-color: rgb(89, 48, 167);
 $red-color: rgb(202, 69, 87);
@@ -10,7 +7,6 @@ $blue-color: rgba(4, 252, 219, 0.623);
 
 .tree {
 	list-style: none;
-	margin: 0;
 	padding: 0;
 	position: relative;
 	margin: 0 0 1em;
@@ -19,7 +15,7 @@ $blue-color: rgba(4, 252, 219, 0.623);
 	
 	li a:hover {
 		background: $blue-color;
-		color: $yellow-color; 
+		color: $fiolet-color;
 	}
 	li a:hover+ul li a{
 		background: $blue-color;
@@ -46,7 +42,6 @@ $blue-color: rgba(4, 252, 219, 0.623);
 	li {
 	  list-style: none;
 	  margin: 0;
-	  padding: 0;
 	  position: relative;
 	  display: table-cell;
 	  padding: .5em 0;
