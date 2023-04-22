@@ -6,10 +6,6 @@
   @extend %universal
 }
 
-header {
-  @include content-header(40%)
-}
-
 .container {
   display: flex;
   justify-content: center;
