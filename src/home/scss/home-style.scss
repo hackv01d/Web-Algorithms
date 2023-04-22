@@ -6,6 +6,7 @@
   @extend %universal
 }
 
+
 body {
   background-color: $background-app;
   overflow: hidden;
@@ -85,7 +86,8 @@ iframe {
       border-color: transparent;
     }
   }
-  .nav-start {
+
+.nav-start {
     position: absolute;
     display: flex;
     flex-direction: column;
