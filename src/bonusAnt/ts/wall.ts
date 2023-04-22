@@ -14,7 +14,7 @@ export default class Wall {
 
     public draw(context: CanvasRenderingContext2D) {
       context.beginPath();
-      context.fillStyle = "#808080";
+      context.fillStyle = "#8B4513";
       context.rect(this.position.x, this.position.y, this.width, this.height);
       context.fill();
       context.closePath();
