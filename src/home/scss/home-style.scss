@@ -28,8 +28,7 @@ body {
       transform: scale(1.2);
       transition: transform 0.2s ease-in-out;
     }
-}
-
+  }
 }
 
 iframe {
@@ -85,7 +84,8 @@ iframe {
       border-color: transparent;
     }
   }
-  .nav-start {
+
+.nav-start {
     position: absolute;
     display: flex;
     flex-direction: column;

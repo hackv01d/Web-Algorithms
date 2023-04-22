@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solution tree</title>
+    <link rel="stylesheet" href="../build/css/page-style.css">
+    <link rel="stylesheet" href="../build/css/tree-style.css">
+</head>
+
+<body>
+    <div class="content">
+        <div class="container">
+            <div class="container__create-tree">
+                <textarea class="container__area data__tree" id="create-tree-area" rows="15" cols="60"></textarea>
+                <div class="buttons">
+                    <button class="container__button" id="clear-tree-button">
+                        <span>Отчистить поле дерева</span>
+                    </button>
+                </div>
+            </div>
+    
+            <div class="container__find-way">
+                <textarea class="container__area data__find-way" id="find-way-area" rows="5" cols="60"></textarea>
+                <div class="buttons">
+                    <button class="container__button" id="clear-answer-button">
+                        <span>Отчистить поле пути</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="container__symbol-selector">
+                <label class="container__label-separator" for="separator">Cимвол разделителя:<br/></label>
+                <select class="container__separator" id="separator" name="separator">
+                    <option value=";"><span>Точка с запятой (;)</span></option>
+                    <option value=","><span>Запятая (,)</span></option>
+                </select>
+            </div>
+            <div class="container__answer" id="container__answer">
+            </div>
+        </div>
+
+        
+        <div class="main">
+            <div class="tree" id="tree">
+            </div>
+            <div class="buttons">
+                <button class="hover-slide-right" id="create-answer-button">
+                    <span>Найти элемент</span>
+                </button>
+                <button class="hover-slide-right" id="create-tree-button">
+                    <span>Создать дерево</span>
+                </button>
+                <button class="constainer__btn-clear" id="clear-all-button">
+                    <span>Отчистить всё</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+
+    <script type="module" src="../build/js/solutionTree/ts/parseData.js" defer></script>
+    <script type="module" src="../build/js/solutionTree/ts/interfaces.js" defer></script>
+    <script type="module" src="../build/js/solutionTree/ts/tree.js" defer></script>
+    <script type="module" src="../build/js/solutionTree/ts/handler.js" defer></script>
+
+</body>
+
+</html>
