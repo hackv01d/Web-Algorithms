@@ -2,17 +2,8 @@
 @import "../../common/scss/_variables.scss";
 @import "../../common/scss/app-styles.scss";
 
-@font-face {
-  font-family: "Roboto Mono";
-  src: url("/src/assets/fonts/RobotoMono-VariableFont_wght.ttf");
-}
-
 * {
   @extend %universal
-}
-
-header {
-  @include content-header(45%)
 }
 
 .container {
