@@ -1,15 +1,3 @@
-Outlook;Temperature;Humidity;Windy;Play
-Sunny;Hot;High;false;No
-Sunny;Hot;High;true;No
-Overcast;Hot;High;false;Yes
-Rain;Mild;High;false;Yes
-Rain;Cool;Normal;false;Yes
-Rain;Cool;Normal;true;No
-Overcast;Cool;Normal;true;Yes
-Sunny;Mild;High;false;No
-Sunny;Cool;Normal;false;Yes
-Rain;Mild;Normal;false;Yes
-Sunny;Mild;Normal;true;Yes
-Overcast;Mild;High;true;Yes
-Overcast;Hot;Normal;false;Yes
-Rain;Mild;High;true;No
+version https://git-lfs.github.com/spec/v1
+oid sha256:dd0c531060e7bc6ec109f3f9f3aaabb792d481875202bc003c82a1f968026eb1
+size 409
