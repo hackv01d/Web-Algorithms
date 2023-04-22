@@ -21,13 +21,6 @@ body {
     overflow:hidden; 
 }
 
-
-header {
-    @include content-header(40%);
-    position: relative;
-    left: 0;
-}
-
 .buttons {
     @extend %command-button
 }

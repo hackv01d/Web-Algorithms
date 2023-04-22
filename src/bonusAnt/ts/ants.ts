@@ -125,7 +125,6 @@ export default class Ant {
 
 
     // поведение муравья на границе canvas (изменяем позицию на противоположную)
-    // UPD: на концах canvas добавлены границы
     public wrapEdges(canvasWidth: number, canvasHeight: number): void {
         if (this.positionAnt.x + this.sizeAnt >canvasWidth) {
             this.positionAnt.x = this.sizeAnt;
@@ -141,7 +140,7 @@ export default class Ant {
         }
     }
 
-
+    
     // отражаем муравья на границе canvas
     public reflectEdges(canvasWidth: number, canvasHeight: number): void {
         if (this.positionAnt.x + this.sizeAnt >= canvasWidth) {
@@ -169,7 +168,7 @@ export default class Ant {
     }
 
 
-    // изменяем направление муравья
+    // изменяем направление муравья случайно
     private flipDir() {
         this.velocity.x *= (Math.random() - 1.0);
         this.velocity.y *= (Math.random() - 1.0);
@@ -205,6 +204,7 @@ export default class Ant {
                 break;
             }
         }
+        // муравей больше не несёт еду
         this.foodCarried = [];
     }
 
@@ -260,9 +260,9 @@ export default class Ant {
     }
 
         
-    private direction(pos: {x: number, y: number} | undefined) {
-        if (pos != undefined) {
-            this.dir = Math.atan2(pos.y - this.position.y, pos.x - this.position.x);
+    private direction(position: Point | undefined) {
+        if (position != undefined) {
+            this.dir = Math.atan2(position.y - this.position.y, position.x - this.position.x);
             this.calculateSpeed();
         }
     }
@@ -292,28 +292,29 @@ export default class Ant {
         return false;
     }
       
-    // муравей и стены столкнулись ли
+    // муравей и стены столкнулись ли и где
     private intersects(wall: any): Array<any> {
         let collision = false;
-        let dx = Math.abs(this.position.x - (wall.position.x + wall.width / 2));
-        let dy = Math.abs(this.position.y - (wall.position.y + wall.height / 2));
+        let distanceAntWallX = Math.abs(this.position.x - (wall.position.x + wall.width / 2));
+        let distanceAntWallY = Math.abs(this.position.y - (wall.position.y + wall.height / 2));
       
-        if (dx > wall.width / 2 + this.size) {
+        if (distanceAntWallX > wall.width / 2 + this.size) {
           return [false];
         }
-        if (dy > wall.height / 2 + this.size) {
+        if (distanceAntWallY > wall.height / 2 + this.size) {
           return [false];
         }
       
-        let cornerDistanceSq = Math.pow(dx - wall.width / 2, 2) + Math.pow(dy - wall.height / 2, 2);
+        let cornerDistanceSq = Math.pow(distanceAntWallX - wall.width / 2, 2) + Math.pow(distanceAntWallY - wall.height / 2, 2);
+        // квадрат расстояния до угла стены <= квадрату радиуса муравья
         if (cornerDistanceSq <= (this.size * this.size)) {
           collision = true;
         }
       
-        if (dx <= (wall.width / 2)) {
+        if (distanceAntWallX <= (wall.width / 2)) {
           collision = true;
         }
-        if (dy <= (wall.height / 2)) {
+        if (distanceAntWallY <= (wall.height / 2)) {
           collision = true;
         }
  
@@ -358,7 +359,7 @@ export default class Ant {
         }
     }
       
-
+    // когда у муравья нет цели( 
     private randomWalk() {
         let randomWalkAmount = 0.02;
         let randomWalk =  (Math.random() <= 0.5 ? randomWalkAmount : -1 * randomWalkAmount); 
@@ -371,7 +372,7 @@ export default class Ant {
         let foodDropped = 0;
 
         if (this.foodCarried.length === 0) { 
-            if (this.frame != 0 && this.frame % 60 == 0) {
+            if (this.frame != 0 && this.frame % 55 == 0) {
                 homePheromones.push(new Pheromone(this.position.x, this.position.y, true, this.species));
             }
 
@@ -401,7 +402,7 @@ export default class Ant {
         } else {
             this.updateFoodCarriedPosition();
 
-            if (this.frame != 0 && this.frame % 60 == 0) {
+            if (this.frame != 0 && this.frame % 55 == 0) {
                 foodPheromones.push(new Pheromone(this.position.x, this.position.y, false, this.species));
             }
 

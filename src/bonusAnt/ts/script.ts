@@ -2,11 +2,11 @@ import Colony from "./colony.js";
 import Wall from "./wall.js";
 import Food from "./food.js";
 import { Point } from "./types/point.js";
-import { maze } from "./generator.js";
+import { maze, generateMap } from "./map";
+
 
 export let canvas: HTMLCanvasElement = document.getElementById("canvasBonusAnt") as HTMLCanvasElement;
 let context: CanvasRenderingContext2D = canvas.getContext("2d") as CanvasRenderingContext2D;
-let container: HTMLElement = document.getElementById('container-canvas') as HTMLElement;
 canvas.width = window.innerWidth * 0.6;
 canvas.height = window.innerHeight * 0.7;
 
@@ -27,6 +27,7 @@ generateLabyrinth()
 
 
 function generateLabyrinth() {
+    generateMap();
     walls = [];
     wallSize = 3;
     for (let i = 0; i < maze.length; i++) {
@@ -36,12 +37,10 @@ function generateLabyrinth() {
             }   
         }
     }
-    console.log(1)
     drawWalls();
     wallSize = 25;
 }
 
-wallSize = 25;
 
 
 const mouse = {
@@ -197,21 +196,18 @@ document.getElementById('Build')!.addEventListener('click', setup);
 const countSendDiapason = document.getElementById("countSendDiapason") as HTMLInputElement;
 countSendDiapason.addEventListener("input", () => {
   isValidCount(countSendDiapason.valueAsNumber);
-  console.log(countSendDiapason.valueAsNumber, countAnts)
 });
 
 
 const numFoodDiapason = document.getElementById("numFoodDiapason") as HTMLInputElement;
 numFoodDiapason.addEventListener("input", () => {
     isValidnumFood(numFoodDiapason.valueAsNumber);
-    console.log(numFoodDiapason.valueAsNumber, countClickedFood)
 });
 
 
 const foodSpawnDiapason = document.getElementById("foodSpawnDiapason") as HTMLInputElement;
 foodSpawnDiapason.addEventListener("input", () => {
     isValidfoodSpawnRange(foodSpawnDiapason.valueAsNumber);
-    console.log(foodSpawnDiapason.valueAsNumber, foodSpawnRange)
 });
     
 drawWalls();

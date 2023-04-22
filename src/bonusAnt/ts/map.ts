@@ -1,7 +1,7 @@
-import { Point } from "./types/point.js";
+import { Point } from "./types/point";
 
 let size = 50;
-export const maze: number[][] = [];
+export let maze: number[][];
 
 function removeWallFromMap(point: Point): void {
   maze[point.y][point.x] = 0;
@@ -16,7 +16,9 @@ function isAvailableCell(point: Point): boolean {
 }
 
 
-function generateMap(): void {
+export function generateMap(): void {
+  maze = [];
+  
   for (let i = 0; i < size; i++) {
     maze[i] = [];
       for (let q = 0; q < size; q++) {
