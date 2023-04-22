@@ -1,13 +1,12 @@
 {
   "compilerOptions": {
-    "watch": true,
     "sourceMap": true,
     "strict": true,
-    "outDir": "./src/build/js",
-    "rootDir": "./src",
     "esModuleInterop": true,
     "target": "es2017",
-    "watch": true
+    "outDir": "./src/build/js",
+    "rootDir": "./src",
+    "lib": ["es6", "dom"]
   },
 
   "include": [
