@@ -2,7 +2,6 @@ $var1: black;
 $background-color: rgb(45, 22, 65);
 $input-color: rgb(71, 19, 116);
 
-
 @import "_variables";
 @import "../../common/scss/_variables.scss";
 @import "../../common/scss/app-styles.scss";
@@ -34,9 +33,6 @@ body {
 	color: #fff;
   }
 
-header {
-	@include content-header(42%)
-}
 .content{
 	display: flex;
 	justify-content: center;
@@ -95,10 +91,39 @@ header {
 	}
 	&__symbol-selector {
 		margin-top: 1.5vh;
+		select {
+			appearance: none;
+			border: none;
+			outline: none;
+			text-align: center;
+			font: inherit;
+			width: 15em;
+			height: 3em;
+			background: 
+				no-repeat right 0.8em center / 1.4em,
+			  linear-gradient(to left, #1c1f1e 3em, #1c1f1e 3em);
+			color: white;
+			border-radius: 10px;
+			box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.2);
+			cursor: pointer;
+			option {
+			  color: inherit;
+			  background-color:  #440f9b;
+			}
+			&:focus {
+			  outline: none;
+			}
+			&::-ms-expand {
+			  display: none;
+			}
+
+		  }
+		  
 	}
 	&__label-separator{
 		display: flex;
-		color: white;
+		justify-content: center;
+		margin-bottom: .5vh
 	}
 	&__separator{
 	}

@@ -3,9 +3,8 @@
 */
 $border-color: #000000;
 $fiolet-color: rgb(89, 48, 167);
-$ff-color: rgb(28, 148, 196);
 $red-color: rgb(202, 69, 87);
-$green-color: rgb(44, 182, 62);
+$blue-color: rgba(4, 252, 219, 0.623);
 
 
 
@@ -16,14 +15,14 @@ $green-color: rgb(44, 182, 62);
 	position: relative;
 	margin: 0 0 1em;
 	text-align: center;
-	color: $red-color;//*можно переделать
+	color: $red-color;
 	
 	li a:hover {
-		background: $green-color;
-		color: $fiolet-color; 
+		background: $blue-color;
+		color: $yellow-color; 
 	}
 	li a:hover+ul li a{
-		background: $green-color;
+		background: $blue-color;
 		color: $fiolet-color; 
 	}
 	ul {
@@ -35,7 +34,7 @@ $green-color: rgb(44, 182, 62);
 	  width: 100%;
   
 	  &:before {
-		outline: solid 1px $fiolet-color; //*можно переделать
+		outline: solid 1px $fiolet-color; 
 		content: "";
 		height: .5em;
 		left: 50%;
@@ -54,7 +53,7 @@ $green-color: rgb(44, 182, 62);
 	  vertical-align: top;
   
 	  &:before {
-		outline: solid 1px $fiolet-color; //*можно переделать
+		outline: solid 1px $fiolet-color; 
 		content: "";
 		left: 0;
 		position: absolute;
@@ -76,15 +75,14 @@ $green-color: rgb(44, 182, 62);
 	}
   
 	code {
-	  border: solid .1em $border-color; //*можно переделать
-	//   border-radius: .2em; //*можно переделать
+	  border: solid .1em $border-color; 
 	  display: inline-block;
 	  margin: 0 .2em .5em;
 	  padding: .2em .5em;
 	  position: relative;
   
 	  &:before {
-		outline: solid 1px $fiolet-color; //*можно переделать
+		outline: solid 1px $fiolet-color; 
 		content: "";
 		height: .5em;
 		left: 50%;
@@ -94,15 +92,14 @@ $green-color: rgb(44, 182, 62);
 	}
   
 	a {
-	  border: solid .1em $fiolet-color;  //*можно переделать
-	//   border-radius: .2em;  //*можно переделать
+	  border: solid .1em $fiolet-color;  
 	  display: inline-block;
 	  margin: 0 .2em .5em;
 	  padding: .2em .5em;
 	  position: relative;
   
 	  &:before {
-		outline: solid 1px $fiolet-color; //*можно переделать
+		outline: solid 1px $fiolet-color; 
 		content: "";
 		height: .5em;
 		left: 50%;
