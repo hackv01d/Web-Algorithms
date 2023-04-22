@@ -1,0 +1,108 @@
+$var1: black;
+
+@import "../../common/scss/_variables.scss";
+@import "../../common/scss/app-styles.scss";
+
+@font-face {
+	font-family: "Roboto Mono";
+	src: url("/src/assets/fonts/RobotoMono-VariableFont_wght.ttf");
+}
+
+* {
+	@extend %universal
+}
+
+
+body {
+	font-family: $app-font;
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	height: 100vh;
+  	width: 100vw;
+  }
+
+
+.container{
+	display: flex;
+	height: 100vh;
+	width: 100vw;
+	justify-content: center;
+	align-items: center;
+	.cluster {
+		display: flex;
+		
+		justify-content: center;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		font-size: 1.3vw;
+		font-family: $app-font;
+		color: #fff;
+		padding: 1.2vw;
+		&__slider {
+			form {
+				@extend %form-range;
+				margin-top: 1.2vh;
+			}
+			margin-top: 6vh;
+		}
+		&__metrics{
+			background-color: #2a1575b6;
+			line-height: 5vh;
+			margin-top: 4vh;
+			padding: 1.3vw;
+			border-radius: 1.5vw;
+			input {
+				margin-left: 1vw;
+				border: px solid #999;
+				transition: 0.2s all linear;
+				position: relative;
+			  }
+			  
+			  input:checked {
+				border: 2px solid black;
+				margin-right: 0.5vw;
+			  }
+			
+		}
+		&__metric{
+			text-align: center;
+		}
+		&__lincage, &__algorithm{
+			margin-top: 4vh;
+			text-align: center;
+		}
+		
+	}
+
+	.radio {
+		display: inline;
+	}
+	.canvas {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		margin-left: 8vw;
+		margin-right: 11vw;
+		&__field{
+			background-color: #42406e94;
+			display: flex;
+			box-shadow: 0 0 15px #853aff, 5px 5px 15px #2ecc71;
+			margin-bottom: 1.5vw;
+		}
+		&__button{
+			@extend %command-button;
+			
+		}
+		&__clear{
+			@extend %command-button;
+			margin-left: 1.3vw;
+		}
+		.buttons_block{
+			margin-top: 1.3vh;
+		}
+	}
+}
+

@@ -173,3 +173,7 @@ TEST-results.xml
 *v8.log
 lib/
 /src/build/
+<<<<<<< HEAD
+/src/build/
+=======
+>>>>>>> origin/dev
