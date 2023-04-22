@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GeneticAlgorithm</title>
+    <link rel="stylesheet" href="../build/css/genetic-style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="containFirst">
+                <canvas id="canvasGenetic">Ваш браузер не поддерживает canvas</canvas>
+                <div class="preferences">
+                    <div class="buttons-container">
+                        <button id="Build" class="buttons"><span>Build</span></button>
+                        <button id="Clear" class="buttons"><span>Delete</span></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="userInputs">
+                <div id="generationSize">
+                    <p>Количество поколений</p>
+                    <form oninput="result.value=generationSizeDiapason.value">
+                        <input type="range" id="generationSizeDiapason" name="generationSizeDiapason" min="1" max="30000" value="400" step="400">
+                        <output name="result" for="generationSizeDiapason">400</output>
+                    </form>
+                </div>
+                <div id="populationSize">
+                    <p>Размер популяции</p>
+                    <form oninput="result.value=populationSizeDiapason.value">
+                        <input type="range" id="populationSizeDiapason" name="populationSizeDiapason" min="1" max="1000" value="400">
+                        <output name="result" for="populationSizeDiapason">400</output>
+                    </form>
+                </div>
+
+                <div id="mutationPercent">
+                    <p>Шанс мутации</p>
+                    <form oninput="result.value=`${mutationPercentDiapason.value}%`">
+                        <input type="range" id="mutationPercentDiapason" name="mutationPercentDiapason" min="1" max="100" value="25">
+                        <output name="result" for="mutationPercentDiapason">25%</output>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+<script type="module" src="../build/js/genetic/ts/main.js" defer></script>
+</body>
+</html>
