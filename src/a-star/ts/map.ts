@@ -43,8 +43,11 @@ export class Map {
     }
 
     updateSize(newSize: number): void {
-        this.size = newSize
         graph.updateSize(newSize)
+        graph.setDefaultStartAndGoal()
+
+        this.size = newSize
+        this.setup()
     }
 
     updateEditMapMode(mode: EditCellMode): void {
@@ -61,10 +64,6 @@ export class Map {
     }
 
     generateMap(): void {
-        graph.updateMatrix()
-        graph.setDefaultStartAndGoal()
-        this.setup()
-
         for (let i = 0; i < this.size; i++) {
             for (let q = 0; q < this.size; q++) {
                 const cell = this.elementMap.rows[i].cells[q]
@@ -78,8 +77,8 @@ export class Map {
         let y: number = 1;
 
         while (x % 2 != 0 || y % 2 != 0) {
-            x = this.getRandomNum(this.size)
-            y = this.getRandomNum(this.size)
+            if (x % 2 != 0) x = this.getRandomNum(this.size)
+            if (y % 2 != 0) y = this.getRandomNum(this.size)
         }
 
         const point: Point = {x: x, y: y}
@@ -93,7 +92,7 @@ export class Map {
         if (point.x + 2 < this.size) walls.push({ x: point.x + 2, y: point.y })
 
         while (walls.length > 0) {
-            const index = this.getRandomNum(walls.length)
+            const index: number = this.getRandomNum(walls.length)
 
             const cell: Point = walls[index]
             const x: number = cell.x

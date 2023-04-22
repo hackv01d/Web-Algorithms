@@ -1,4 +1,5 @@
 import { map } from "../main.js";
+import { Point } from "../types/point";
 import { Graph } from "./graph.js";
 import { Vertex } from "./vertex.js";
 import { SearchCellType } from "../enums/searchCellType.js";
@@ -13,7 +14,7 @@ export class AStar {
     async search(): Promise<void> {
         this.graph.build()
 
-        const [start, goal] = this.initialConfig()
+        const [start, goal]: [Vertex, Vertex] = this.initialConfig()
         const openSet: Vertex[] = [start]
         const closedSet: Vertex[] = []
         let isPathFound: boolean = false
@@ -21,8 +22,8 @@ export class AStar {
         while (openSet.length !== 0) {
             openSet.sort((a, b) => a.fScore - b.fScore)
 
-            const curVertex = openSet[0]
-            const point = curVertex.point
+            const curVertex: Vertex = openSet[0]
+            const point: Point = curVertex.point
 
             if (closedSet.includes(curVertex)) continue
             await map.updateCellAppearance(point, SearchCellType.chosenCell)
@@ -40,8 +41,8 @@ export class AStar {
             for (const neighbor of curVertex.neighbors) {
                 if (neighbor === null || closedSet.includes(neighbor)) continue;
 
-                const point = neighbor.point
-                const tempScore = curVertex.gScore + 1
+                const point: Point = neighbor.point
+                const tempScore: number = curVertex.gScore + 1
 
                 if (!openSet.includes(neighbor)) {
                     openSet.push(neighbor)
@@ -66,8 +67,8 @@ export class AStar {
     }
 
     private initialConfig(): [Vertex, Vertex] {
-        const start = this.graph.startVertex
-        const goal = this.graph.goalVertex
+        const start: Vertex = this.graph.startVertex
+        const goal: Vertex = this.graph.goalVertex
 
         start.gScore = 0
         start.heuristicScore = this.heuristic(start, goal)

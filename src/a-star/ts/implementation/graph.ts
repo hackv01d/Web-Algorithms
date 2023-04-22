@@ -51,6 +51,7 @@ export class Graph {
 
     updateSize(newSize: number): void {
         this.size = newSize
+        this.updateMatrix()
     }
 
     setDefaultStartAndGoal(): void {
