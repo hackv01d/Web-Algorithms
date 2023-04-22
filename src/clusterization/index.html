@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1.0, user-scaleble=0">
-    <title>Document</title>
+    <title>Кластеризация</title>
     <link rel="stylesheet" href="../build/css/cluster-style.css">
 </head>
 
@@ -15,6 +15,28 @@
     </header>
     <div class="container">
         <div class="cluster">
+
+            <div class="cluster__metrics">
+                <div class="cluster__metric">
+                    <p>Выберите метрику измерения:</p>
+                    <input checked type="radio" class="radio" name="metric" value="euclidean">euclidean
+                    <input type="radio" class="radio" name="metric" value="chebyshev">chebyshev    
+                    <input type="radio" class="radio" name="metric" value="manhattan">manhattan
+                </div>
+            
+                <div class="cluster__lincage">
+                    <p>Выберите метрику связи:</p>
+                    <input checked type="radio" class="radio" name="lincage" value="single">single
+                    <input type="radio" class="radio" name="lincage" value="average">average
+                    <input type="radio" class="radio" name="lincage" value="complete">complete
+                </div>
+                <div class="cluster__algorithm">
+                    <p>Выберите алгоритм:</p>
+                    <input checked type="radio" class="radio" name="algorithm" value="kmeans">kmeans
+                    <input type="radio" class="radio" name="algorithm" value="hierarchical">hierarchical
+                    <input type="radio" class="radio" name="algorithm" value="both">сравнить
+                </div>
+            </div>
             <div class="cluster__slider">
                 <p>Выберите число кластеров:<br/></p>
                 <form oninput="result.value=size.value">
@@ -23,26 +45,6 @@
                 </form>
             </div>
         
-            <div class="cluster__metric">
-                <p>Выберите метрику измерения:</p>
-                <input checked type="radio" class="radio" name="metric" value="euclidean">euclidean
-                <input type="radio" class="radio" name="metric" value="chebyshev">chebyshev    
-                <input type="radio" class="radio" name="metric" value="manhattan">manhattan
-            </div>
-        
-            <div class="cluster__lincage">
-                <p>Выберите метрику связи:</p>
-                <input checked type="radio" class="radio" name="lincage" value="single">single
-                <input type="radio" class="radio" name="lincage" value="average">average
-                <input type="radio" class="radio" name="lincage" value="complete">complete
-            </div>
-            <div class="cluster__algorithm">
-                <p>Выберите алгоритм:</p>
-                <input checked type="radio" class="radio" name="algorithm" value="kmeans">kmeans
-                <input type="radio" class="radio" name="algorithm" value="hierarchical">hierarchical
-                <input type="radio" class="radio" name="algorithm" value="both">сравнить
-
-            </div>
         </div >
         <div class="canvas">
             <canvas id="canv" class="canvas__field">

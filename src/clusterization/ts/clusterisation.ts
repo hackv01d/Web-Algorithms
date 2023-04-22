@@ -9,6 +9,7 @@ export class clusterisation {
     private algorithm: string;
     public clust: Point[][];
 
+    
     constructor(k: number, metric: string, lincage: string, algorithm: string, points?: Point[]) {
         this.k = k;
         this.points = points || [];
@@ -22,9 +23,6 @@ export class clusterisation {
     private initializeCentroids(): Point[] {
         const result: Point[] = [];
         const length = this.points.length;
-        if (length === 0 || this.k > length) {
-            throw new Error('Invalid arguments');
-        }
 
         while (result.length < this.k) {
             const randomIndex = Math.floor(Math.random() * length);
@@ -143,6 +141,7 @@ export class clusterisation {
             return this.singleLinkage(first_c, second_c);
         }
     }
+
     private kmeans(): Point[][] {
         let oldCentroids: Point[] = [{ x: 0, y: 0 }];
 
@@ -158,7 +157,7 @@ export class clusterisation {
                 }
             }
 
-            oldCentroids = JSON.parse(JSON.stringify(this.centroids));
+           oldCentroids = [...this.centroids];
             for (let i = 0; i < clusters.length; i++) {
                 this.centroids[i] = this.calculateCentroid(clusters[i]);
             }
@@ -190,8 +189,8 @@ export class clusterisation {
                 }
             }
             const newCluster = clusters[idClosestClusters[0]].concat(
-                clusters[idClosestClusters[1]]);
-            clusters.splice(idClosestClusters[1], 1);
+                clusters[idClosestClusters[1]]); // сливаем 1 и 2 кластер
+            clusters.splice(idClosestClusters[1], 1); // удаляем первый элемент
             clusters[idClosestClusters[0]] = newCluster;
         }
 

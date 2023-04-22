@@ -23,7 +23,7 @@ body {
   }
 
 header {
-	@include content-header(45%)
+	@include content-header(41%)
 }
 
 
@@ -35,37 +35,51 @@ header {
 	align-items: center;
 	.cluster {
 		display: flex;
-		background-color: #3e2596d5;
+		
 		justify-content: center;
 		flex-direction: column;
 		align-items: center;
-		line-height: 6vh;
 		text-align: center;
 		font-size: 1.3vw;
 		font-family: $app-font;
 		color: #fff;
+		padding: 1.2vw;
 		&__slider {
 			form {
 				@extend %form-range;
 				margin-top: 1.2vh;
 			}
+			margin-top: 6vh;
 		}
-		&__metric, &__lincage, &__algorithm{
+		&__metrics{
+			background-color: #2a1575b6;
+			line-height: 5vh;
 			margin-top: 4vh;
-			line-height: 3vh;
+			padding: 1.3vw;
+			border-radius: 1.5vw;
+			input {
+				margin-left: 1vw;
+				border: px solid #999;
+				transition: 0.2s all linear;
+				position: relative;
+			  }
+			  
+			  input:checked {
+				border: 2px solid black;
+				margin-right: 0.5vw;
+			  }
+			
+		}
+		&__metric{
 			text-align: center;
 		}
-	}
+		&__lincage, &__algorithm{
+			margin-top: 4vh;
+			text-align: center;
+		}
 		
-	
-	.number {
-		display: block;
-		position: relative;
-		border-radius: 8px;
 	}
-	.show {
-		border: 1px black solid;
-	}
+
 	.radio {
 		display: inline;
 	}
@@ -74,11 +88,11 @@ header {
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		margin-left: 11vw;
+		margin-left: 8vw;
 		margin-right: 11vw;
 		margin-top: 11vh;
 		&__field{
-			background-color: #42406e6c;
+			background-color: #42406e94;
 			display: flex;
 			box-shadow: 0 0 15px #853aff, 5px 5px 15px #2ecc71;
 			margin-bottom: 1.5vw;
@@ -91,9 +105,9 @@ header {
 			@extend %command-button;
 			margin-left: 1.3vw;
 		}
+		.buttons_block{
+			margin-top: 1.3vh;
+		}
 	}
 }
 
-.buttons_block{
-	margin-top: 10px;
-}
