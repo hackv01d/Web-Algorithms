@@ -31,10 +31,8 @@
 *.tsx             text
 *.xml             text
 *.xhtml           text diff=html
-
 # Docker
 Dockerfile        text
-
 # Documentation
 *.ipynb           text
 *.markdown        text
@@ -60,7 +58,6 @@ NEWS              text
 readme            text
 *README*          text
 TODO              text
-
 # Templates
 *.dot             text
 *.ejs             text
@@ -77,7 +74,6 @@ TODO              text
 *.tpl             text
 *.twig            text
 *.vue             text
-
 # Configs
 *.cnf             text
 *.conf            text
@@ -95,10 +91,8 @@ package-lock.json text -diff
 browserslist      text
 Makefile          text
 makefile          text
-
 # Heroku
 Procfile          text
-
 # Graphics
 *.ai              binary
 *.bmp             binary
@@ -126,7 +120,6 @@ Procfile          text
 *.tiff            binary
 *.wbmp            binary
 *.webp            binary
-
 # Audio
 *.kar             binary
 *.m4a             binary
@@ -135,7 +128,6 @@ Procfile          text
 *.mp3             binary
 *.ogg             binary
 *.ra              binary
-
 # Video
 *.3gpp            binary
 *.3gp             binary
@@ -154,7 +146,6 @@ Procfile          text
 *.swc             binary
 *.swf             binary
 *.webm            binary
-
 # Archives
 *.7z              binary
 *.gz              binary
@@ -162,22 +153,17 @@ Procfile          text
 *.rar             binary
 *.tar             binary
 *.zip             binary
-
 # Fonts
 *.ttf             binary
 *.eot             binary
 *.otf             binary
 *.woff            binary
 *.woff2           binary
-
 # Executables
 *.exe             binary
 *.pyc             binary
-
 # RC files (like .babelrc or .eslintrc)
 *.*rc             text
-
 # Ignore files (like .npmignore or .gitignore)
 *.*ignore         text
-# Ignore files (like .npmignore or .gitignore)
-*.*ignore         text
+*.csv filter=lfs diff=lfs merge=lfs -text
