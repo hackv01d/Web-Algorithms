@@ -1,16 +1,3 @@
-Name;Email;Phone
-John;john@example.com;555-1234
-Jane;jane@example.com;555-5678
-Bob;bob@example.com;555-9012
-Alice;alice@example.com;555-3456
-Charlie;charlie@example.com;555-7890
-David;david@example.com;555-2345
-Eve;eve@example.com;555-6789
-Frank;frank@example.com;555-1234
-Grace;grace@example.com;555-5678
-Helen;helen@example.com;555-9012
-Ivan;ivan@example.com;555-3456
-Jane;jane@example.com;555-7890
-Kelly;kelly@example.com;555-2345
-Lucas;lucas@example.com;555-6789
-Mary;mary@example.com;555-1234
+version https://git-lfs.github.com/spec/v1
+oid sha256:dd5117cfe48a73769b4c3c9348258d11449bef659cb723f460a4ab1fd0095afd
+size 497
