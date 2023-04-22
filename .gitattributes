@@ -1,7 +1,3 @@
-*.html linguist-language=HTML
-*.scss linguist-language=SCSS
-*.ts linguist-language=TypeScript
-
 *.bash            text eol=lf
 *.bat             text eol=crlf
 *.cmd             text eol=crlf
@@ -181,5 +177,7 @@ Procfile          text
 # RC files (like .babelrc or .eslintrc)
 *.*rc             text
 
+# Ignore files (like .npmignore or .gitignore)
+*.*ignore         text
 # Ignore files (like .npmignore or .gitignore)
 *.*ignore         text

@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>A-Star</title>
+    <link rel="stylesheet" href="../build/css/a-star-style.css">
+</head>
+
+<body>
+  <div class="container">
+
+      <div class="content">
+
+          <div class="config-field">
+
+              <div class="options-button">
+                  <button class="opt-btn setup-btn select-start-btn">Изменить начало пути</button>
+                  <button class="opt-btn setup-btn select-goal-btn">Изменить конец пути</button>
+                  <button class="opt-btn setup-btn add-wall-btn">Добавить/Убрать стену</button>
+                  <button class="opt-btn setup-btn reset-map-btn">Очистить карту</button>
+              </div>
+
+              <div class="ranges-field">
+                  <div class="edit-size-field">
+                      <p>Размер карты</p>
+                      <form oninput="result.value=size.value">
+                          <input id="size" type="range" value="19" min="11" max="25" step="2">
+                          <output name="result" for="range-size">19</output>
+                      </form>
+                  </div>
+
+                  <div class="edit-speed-field">
+                      <p>Скорость анимации</p>
+                      <form>
+                          <input id="speed" type="range" value="20" min="20" max="100" step="40">
+                          <label id="speed-label" for="speed">low</label>
+                      </form>
+                  </div>
+              </div>
+
+          </div>
+
+          <div class="general-field">
+              <table class="matrix"></table>
+              <div class="command-buttons">
+                  <button class="cmd-btn run-btn setup-btn"><span>Запустить алгоритм</span></button>
+                  <button class="cmd-btn generate-map-btn setup-btn"><span>Сгенерировать карту</span></button>
+              </div>
+          </div>
+
+      </div>
+
+  </div>
+
+<script defer type="module" src="../build/js/a-star/ts/main.js"></script>
+
+</body>
+</html>

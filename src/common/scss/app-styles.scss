@@ -16,14 +16,6 @@
   margin: 0;
 }
 
-@mixin content-header($leftPercent) {
-  top: 3%;
-  left: $leftPercent;
-  position: absolute;
-  color: white;
-  font-family: $app-font;
-}
-
 %option-button {
   color: #fff;
   border: 1vw none;

@@ -6,8 +6,6 @@
   @extend %universal
 }
 
-
-
 body {
   background-color: $background-app;
   overflow: hidden;
@@ -86,7 +84,8 @@ iframe {
       border-color: transparent;
     }
   }
-  .nav-start {
+
+.nav-start {
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -168,6 +167,7 @@ iframe {
       min-width: 100vw;
       height: 100vh;
       header {
+        font-size: 1.1vw;
         margin-top: 3vh;
         color: white;
       }
