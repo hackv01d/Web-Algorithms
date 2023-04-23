@@ -1,0 +1,121 @@
+@font-face {
+  font-family: "Comfortaa";
+  src: url("/src/assets/fonts/Comfortaa-VariableFont_wght.ttf");
+}
+@font-face {
+  font-family: "Roboto Mono";
+  src: url("/src/assets/fonts/RobotoMono-VariableFont_wght.ttf");
+}
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+.action-field .command-buttons > button {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  font-size: 0.9vw;
+  border: none;
+  border-radius: 1.1vw;
+  font-family: "Roboto Mono", sans-serif;
+  box-shadow: 0.1px 0.2px 4px #f5f5f5;
+  background-color: #9e9bf4;
+}
+.action-field .command-buttons > button:hover::before {
+  width: 0;
+}
+.action-field .command-buttons > button::before, .action-field .command-buttons > button::after {
+  position: absolute;
+  content: "";
+}
+.action-field .command-buttons > button::before {
+  background-color: #25252a;
+  transition: 0.3s ease-out;
+  border-radius: 1vw;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+}
+.action-field .command-buttons > button > span {
+  border-radius: 1vw;
+  position: relative;
+  display: inline-block;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 1vw;
+  transition: 0.2s 0.1s;
+  color: #fff;
+}
+.action-field .command-buttons > button > span:hover {
+  color: #1c1f1e;
+  transition: 0.2s 0.1s;
+  background-color: #9e9bf4;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.action-field {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.action-field #canvas {
+  background-color: black;
+  border: 4px solid #5f13da;
+}
+.action-field .command-buttons {
+  width: 22vw;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  align-self: center;
+  margin-top: 3vh;
+}
+.digits-field {
+  height: 33vw;
+  margin-right: 5vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.digits-field > div {
+  width: 2.5vw;
+  height: 2.5vw;
+  border-radius: 2vw;
+  line-height: 2.5vw;
+  text-align: center;
+}
+.digits-field .digit {
+  background-color: #d7d4d4;
+  color: #000;
+  font-size: 1.1vw;
+}
+.digits-field .recognized-digit-first {
+  background-color: #058240;
+  color: #fff;
+}
+.digits-field .recognized-digit-second {
+  background-color: #F3C301;
+  color: #fff;
+}
+.digits-field .recognized-digit-third {
+  background-color: #D71232;
+  color: #fff;
+}
+
+/*# sourceMappingURL=neural-network-style.css.map */

@@ -1,0 +1,204 @@
+@font-face {
+  font-family: "Comfortaa";
+  src: url("/src/assets/fonts/Comfortaa-VariableFont_wght.ttf");
+}
+@font-face {
+  font-family: "Roboto Mono";
+  src: url("/src/assets/fonts/RobotoMono-VariableFont_wght.ttf");
+}
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+.container__button button {
+  color: #fff;
+  border: 1vw none;
+  border-radius: 1vw;
+  padding: 1vw;
+  box-shadow: 0.3px 0.3px 6px #f5f5f5;
+  background-color: #282828;
+  font-size: 0.9vw;
+  font-family: "Roboto Mono", sans-serif;
+  cursor: pointer;
+}
+.container__button button:hover {
+  opacity: 0.7;
+}
+
+.content .buttons button {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  font-size: 0.9vw;
+  border: none;
+  border-radius: 1.1vw;
+  font-family: "Roboto Mono", sans-serif;
+  box-shadow: 0.1px 0.2px 4px #f5f5f5;
+  background-color: #9e9bf4;
+}
+.content .buttons button:hover::before {
+  width: 0;
+}
+.content .buttons button::before, .content .buttons button::after {
+  position: absolute;
+  content: "";
+}
+.content .buttons button::before {
+  background-color: #25252a;
+  transition: 0.3s ease-out;
+  border-radius: 1vw;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+}
+.content .buttons button > span {
+  border-radius: 1vw;
+  position: relative;
+  display: inline-block;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 1vw;
+  transition: 0.2s 0.1s;
+  color: #fff;
+}
+.content .buttons button > span:hover {
+  color: #1c1f1e;
+  transition: 0.2s 0.1s;
+  background-color: #9e9bf4;
+}
+
+@font-face {
+  font-family: "Roboto Mono";
+  src: url("/src/assets/fonts/RobotoMono-VariableFont_wght.ttf");
+}
+html {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  font-family: "Comfortaa", sans-serif;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+  height: 100vh;
+  width: 100vw;
+  margin-top: 2vh;
+  color: #fff;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: auto;
+  height: 100vh;
+  width: 100vw;
+}
+.content .buttons {
+  display: flex;
+  justify-content: space-around;
+}
+.content .buttons button {
+  margin-top: 0.7vh;
+}
+.content .buttons button span {
+  padding: 0.55vw;
+  font-size: 0.8vw;
+}
+
+.container {
+  display: flex;
+  justify-self: center;
+  align-items: center;
+  flex-direction: column;
+  margin-right: 15vh;
+}
+.container__area {
+  background-color: #111111;
+  color: white;
+  padding: 0.6vw;
+  border: 1px solid #5f13da;
+  width: 15vw;
+  height: 25vh;
+  max-width: 15vw;
+  max-height: 25vh;
+  min-width: 15vw;
+  min-height: 25vh;
+  margin: 1vh;
+}
+.container__create-tree {
+  display: flex;
+  flex-direction: column;
+}
+.container__sepator-clear {
+  display: flex;
+  justify-content: space-around;
+}
+.container__find-way {
+  display: flex;
+  flex-direction: column;
+}
+.container__symbol-selector {
+  margin-top: 1.5vh;
+  font-size: 1vh;
+}
+.container__symbol-selector select {
+  appearance: none;
+  border: none;
+  outline: none;
+  text-align: center;
+  font: inherit;
+  width: 15em;
+  height: 3em;
+  background: no-repeat right 0.8em center/1.4em, linear-gradient(to left, #1c1f1e 3em, #1c1f1e 3em);
+  color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+.container__symbol-selector select option {
+  color: inherit;
+  background-color: #440f9b;
+}
+.container__symbol-selector select:focus {
+  outline: none;
+}
+.container__symbol-selector select::-ms-expand {
+  display: none;
+}
+.container__label-separator {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.5vh;
+}
+.container__button {
+  margin-bottom: 0.5vh;
+}
+.tree {
+  font-size: 0.8vw;
+  height: 55vh;
+  width: 40vw;
+  box-shadow: 0 0 15px #a06df3, 5px 5px 15px #2ecc71;
+  overflow: auto;
+  display: flex;
+  align-items: center;
+}
+
+.display__Tree {
+  display: block;
+  overflow-x: scroll;
+  max-height: 500px;
+  max-width: 1500px;
+}
+
+/*# sourceMappingURL=page-style.css.map */

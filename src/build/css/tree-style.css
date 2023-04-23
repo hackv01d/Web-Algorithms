@@ -1,0 +1,101 @@
+.tree {
+  list-style: none;
+  padding: 0;
+  position: relative;
+  margin: 0 0 1em;
+  text-align: center;
+  color: rgb(202, 69, 87);
+}
+.tree li a:hover {
+  background: rgba(4, 252, 219, 0.623);
+  color: rgb(89, 48, 167);
+}
+.tree li a:hover + ul li a {
+  background: rgba(4, 252, 219, 0.623);
+  color: rgb(89, 48, 167);
+}
+.tree ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  display: table;
+  width: 100%;
+}
+.tree ul:before {
+  outline: solid 1px rgb(89, 48, 167);
+  content: "";
+  height: 0.5em;
+  left: 50%;
+  position: absolute;
+  top: -0.5em;
+}
+.tree li {
+  list-style: none;
+  margin: 0;
+  position: relative;
+  display: table-cell;
+  padding: 0.5em 0;
+  vertical-align: top;
+}
+.tree li:before {
+  outline: solid 1px rgb(89, 48, 167);
+  content: "";
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.tree li:first-child:before {
+  left: 50%;
+}
+.tree li:last-child:before {
+  right: 50%;
+}
+.tree code {
+  border: solid 0.1em #000000;
+  display: inline-block;
+  margin: 0 0.2em 0.5em;
+  padding: 0.2em 0.5em;
+  position: relative;
+}
+.tree code:before {
+  outline: solid 1px rgb(89, 48, 167);
+  content: "";
+  height: 0.5em;
+  left: 50%;
+  position: absolute;
+  top: -0.55em;
+}
+.tree a {
+  border: solid 0.1em rgb(89, 48, 167);
+  display: inline-block;
+  margin: 0 0.2em 0.5em;
+  padding: 0.2em 0.5em;
+  position: relative;
+}
+.tree a:before {
+  outline: solid 1px rgb(89, 48, 167);
+  content: "";
+  height: 0.5em;
+  left: 50%;
+  position: absolute;
+  top: -0.55em;
+}
+.tree > li {
+  margin-top: 0;
+}
+.tree > li:before {
+  outline: none;
+}
+.tree > li:after {
+  outline: none;
+}
+.tree > li > code:before {
+  outline: none;
+}
+.tree > li > a:before {
+  outline: none;
+}
+
+/*# sourceMappingURL=tree-style.css.map */

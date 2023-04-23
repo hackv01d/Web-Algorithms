@@ -1,0 +1,248 @@
+@font-face {
+  font-family: "Comfortaa";
+  src: url("/src/assets/fonts/Comfortaa-VariableFont_wght.ttf");
+}
+@font-face {
+  font-family: "Roboto Mono";
+  src: url("/src/assets/fonts/RobotoMono-VariableFont_wght.ttf");
+}
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+.config-field .options-button .opt-btn {
+  color: #fff;
+  border: 1vw none;
+  border-radius: 1vw;
+  padding: 1vw;
+  box-shadow: 0.3px 0.3px 6px #f5f5f5;
+  background-color: #282828;
+  font-size: 0.9vw;
+  font-family: "Roboto Mono", sans-serif;
+  cursor: pointer;
+}
+.config-field .options-button .opt-btn:hover {
+  opacity: 0.7;
+}
+
+.general-field .command-buttons .cmd-btn {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  font-size: 0.9vw;
+  border: none;
+  border-radius: 1.1vw;
+  font-family: "Roboto Mono", sans-serif;
+  box-shadow: 0.1px 0.2px 4px #f5f5f5;
+  background-color: #9e9bf4;
+}
+.general-field .command-buttons .cmd-btn:hover::before {
+  width: 0;
+}
+.general-field .command-buttons .cmd-btn::before, .general-field .command-buttons .cmd-btn::after {
+  position: absolute;
+  content: "";
+}
+.general-field .command-buttons .cmd-btn::before {
+  background-color: #25252a;
+  transition: 0.3s ease-out;
+  border-radius: 1vw;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+}
+.general-field .command-buttons .cmd-btn > span {
+  border-radius: 1vw;
+  position: relative;
+  display: inline-block;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 1vw;
+  transition: 0.2s 0.1s;
+  color: #fff;
+}
+.general-field .command-buttons .cmd-btn > span:hover {
+  color: #1c1f1e;
+  transition: 0.2s 0.1s;
+  background-color: #9e9bf4;
+}
+
+.config-field .ranges-field form {
+  display: flex;
+  justify-content: space-around;
+}
+.config-field .ranges-field form input {
+  width: 8vw;
+  background-color: transparent;
+  margin-right: 1vw;
+  cursor: e-resize;
+  -webkit-appearance: none;
+}
+.config-field .ranges-field form input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 1.5vw;
+  width: 1.5vw;
+  border-radius: 50%;
+  background: white;
+  cursor: ew-resize;
+  box-shadow: 0 0 2px 0 #555;
+  transition: background 0.3s ease-in-out;
+}
+.config-field .ranges-field form input[type=range]::-moz-range-thumb {
+  -webkit-appearance: none;
+  height: 1.5vw;
+  width: 1.5vw;
+  border-radius: 50%;
+  background: #fff;
+  cursor: ew-resize;
+  box-shadow: 0 0 2px 0 #555;
+  transition: background 0.3s ease-in-out;
+}
+.config-field .ranges-field form input[type=range]::-ms-thumb {
+  -webkit-appearance: none;
+  height: 1.5vw;
+  width: 1.5vw;
+  border-radius: 50%;
+  background: #5f13da;
+  cursor: ew-resize;
+  box-shadow: 0 0 2px 0 #555;
+  transition: background 0.3s ease-in-out;
+}
+.config-field .ranges-field form input[type=range]::-webkit-slider-thumb:hover {
+  background: #9f9e9e;
+}
+.config-field .ranges-field form input[type=range]::-moz-range-thumb:hover {
+  background: #575555;
+}
+.config-field .ranges-field form input[type=range]::-ms-thumb:hover {
+  background: #575555;
+}
+.config-field .ranges-field form input[type=range]::-webkit-slider-runnable-track {
+  -webkit-appearance: none;
+  box-shadow: none;
+  border: none;
+  background: #5f13da;
+}
+.config-field .ranges-field form input[type=range]::-moz-range-track {
+  -webkit-appearance: none;
+  box-shadow: none;
+  border: none;
+  background: #5f13da;
+}
+.config-field .ranges-field form input[type=range]::-ms-track {
+  -webkit-appearance: none;
+  box-shadow: none;
+  border: none;
+  background: white;
+}
+.config-field .ranges-field form output, .config-field .ranges-field form label {
+  width: 9vw;
+  height: 4vh;
+  background-color: #4A4658;
+  border-radius: 3px;
+  color: #fff;
+  text-align: center;
+  line-height: 4vh;
+  font-size: 1.3vw;
+  font-family: "Comfortaa", sans-serif;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+.content {
+  display: flex;
+  justify-self: center;
+  align-items: center;
+}
+
+.config-field {
+  height: 34vw;
+  width: 15vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-right: 7vw;
+}
+.config-field .options-button {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.config-field .options-button .opt-btn {
+  margin-top: 2vw;
+}
+.config-field .options-button .selected-btn {
+  background-color: rgba(28, 27, 27, 0.4392156863);
+}
+.config-field .ranges-field p {
+  margin-top: 2vh;
+  text-align: center;
+  font-size: 1.3vw;
+  font-family: "Comfortaa", sans-serif;
+  color: #fff;
+}
+.config-field .ranges-field form {
+  margin-top: 1.2vh;
+}
+
+.general-field .command-buttons {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.matrix {
+  box-shadow: 0 0 15px #853aff, 5px 5px 15px #2ecc71;
+  min-width: 30vw;
+  min-height: 30vw;
+  margin-bottom: 3vh;
+  border: 5px solid black;
+  background-color: #b4afaf;
+}
+.matrix tr td {
+  width: 1vw;
+  height: 1vw;
+  border: 1px solid black;
+}
+.matrix tr .clear-cell {
+  width: 1vw;
+  height: 1vw;
+  border: 1px solid black;
+}
+.matrix tr .wall-cell {
+  background-color: #212020;
+}
+.matrix tr .start-cell {
+  background-color: #f1f163;
+}
+.matrix tr .goal-cell {
+  background-color: palegreen;
+}
+.matrix tr .path {
+  background-color: rgba(141, 245, 14, 0.8980392157);
+}
+.matrix tr .chosen {
+  background-color: #3acc7b;
+}
+.matrix tr .explored {
+  background-color: #9a68fa;
+}
+.matrix tr .regarded {
+  background-color: rgba(99, 217, 252, 0.8980392157);
+}
+
+/*# sourceMappingURL=a-star-style.css.map */
