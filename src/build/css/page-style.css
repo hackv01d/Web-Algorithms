@@ -94,6 +94,7 @@ body {
   width: 100vw;
   margin-top: 2vh;
   color: #fff;
+  overflow: hidden;
 }
 
 .content {
@@ -150,7 +151,7 @@ body {
 }
 .container__symbol-selector {
   margin-top: 1.5vh;
-  font-size: 1vh;
+  font-size: 1.45vh;
 }
 .container__symbol-selector select {
   appearance: none;
