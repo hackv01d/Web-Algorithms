@@ -30,6 +30,7 @@ body {
   	width: 100vw;
 	margin-top: 2vh;
 	color: #fff;
+	overflow: hidden;
   }
 
 .content{
@@ -90,7 +91,7 @@ body {
 	}
 	&__symbol-selector {
 		margin-top: 1.5vh;
-		font-size: 1vh;
+		font-size: 1.45vh;
 		select {
 			appearance: none;
 			border: none;
