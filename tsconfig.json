@@ -6,7 +6,8 @@
     "target": "es2017",
     "outDir": "./src/build/js",
     "rootDir": "./src",
-    "lib": ["es6", "dom"]
+    "lib": ["es6", "dom"],
+    "watch": true
   },
 
   "include": [

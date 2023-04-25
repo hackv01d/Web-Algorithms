@@ -30,6 +30,7 @@ body {
   	width: 100vw;
 	margin-top: 2vh;
 	color: #fff;
+	overflow: hidden;
   }
 
 .content{
@@ -86,11 +87,9 @@ body {
 		display: flex;
 		flex-direction: column;
 	}
-	&__data {
-	}
 	&__symbol-selector {
 		margin-top: 1.5vh;
-		font-size: 1vh;
+		font-size: 1.45vh;
 		select {
 			appearance: none;
 			border: none;
@@ -125,18 +124,14 @@ body {
 		justify-content: center;
 		margin-bottom: .5vh
 	}
-	&__separator{
-	}
-	&__answer {
-	}
+
 
 	&__button{
 		button{
 			@extend %option-button;
 		}
 		margin-bottom: 0.5vh;
-		
-		
+
 	}
 
 	
@@ -152,14 +147,6 @@ body {
 	display: flex;
 	align-items: center;
 }
-.data{
-	&__tree{
-
-	}
-	&__find-way{
-
-	}
-}	
 .display__Tree{
 	display: block;
 	overflow-x: scroll;
